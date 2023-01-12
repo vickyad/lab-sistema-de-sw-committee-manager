@@ -13,7 +13,7 @@ const Main: React.FC = () => {
   const navIcon: NavItem[] = [
     { icon: 'comittee', href: '/' },
     { icon: 'members', href: '/members' },
-    { icon: 'configuration', href: '/configurations' },
+    { icon: 'configurations', href: '/configurations' },
   ]
   return (
     <div>

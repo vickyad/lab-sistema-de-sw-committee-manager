@@ -11,7 +11,7 @@ const Icon = ({ type }: IIcon) => {
         return <ComitteeIcon />
       case 'members':
         return <MembersIcon />
-      case 'configuration':
+      case 'configurations':
         return <ConfigurationsIcon />
       case 'search':
         return <SearchIcon />

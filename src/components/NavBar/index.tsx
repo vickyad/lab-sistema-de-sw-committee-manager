@@ -1,19 +1,25 @@
 import Icon from '../Icon'
 import { INavBar } from './types'
-import { Container, Link } from './styles'
-import { useState } from 'react'
+import { Container, Link, LinkContainer } from './styles'
+import { useState, useEffect } from 'react'
 
 const NavBar = ({ data }: INavBar) => {
-  const [selected, setSelected] = useState(data[0].icon)
+  const [tabSelected, setTabSelected] = useState('')
+
+  useEffect(() => {
+    let path = window.location.pathname
+    const currentTab = path === '/' ? 'comittee' : path.slice(1)
+    setTabSelected(currentTab)
+  }, [])
   return (
     <Container>
-      <nav>
+      <LinkContainer>
         {data.map((item) => (
-          <Link href={item.href} selected={selected === item.icon}>
+          <Link href={item.href} selected={tabSelected === item.icon} key={`${item.icon}-link`}>
             <Icon type={item.icon} />
           </Link>
         ))}
-      </nav>
+      </LinkContainer>
     </Container>
   )
 }
