@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Button from '../../components/Button'
 import SearchBar from '../../components/SearchBar'
+import Table from '../../components/Table'
 import Title from '../../components/Title'
 
 const ComitteesView = () => {
@@ -41,6 +42,8 @@ const ComitteesView = () => {
         searchText={searchtext}
         handleOnChange={(input) => setSearchText(input)}
       />
+
+      <Table />
     </div>
   )
 }
