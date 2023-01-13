@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Button from '../../components/Button'
+import Popup from '../../components/Popup'
 import SearchBar from '../../components/SearchBar'
 import Table from '../../components/Table'
 import Title from '../../components/Title'
@@ -48,6 +49,34 @@ const ComitteesView = () => {
 
       <Table type={'comittee'} content={comittee_mock} />
       <Table type={'members'} content={member_mock} />
+
+      <Popup
+        title={'Header'}
+        action={'Ação'}
+        actionType="save"
+        handleActionClick={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+        handleCancelClick={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+      >
+        Descrição descrição
+      </Popup>
+
+      <Popup
+        title={'Header'}
+        action={'Ação'}
+        actionType="important"
+        handleActionClick={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+        handleCancelClick={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+      >
+        Descrição Descrição
+      </Popup>
     </div>
   )
 }
