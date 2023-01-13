@@ -1,10 +1,15 @@
+import ChevronIcon from './ChevronIcon'
 import ComitteeIcon from './ComitteeIcon'
 import ConfigurationsIcon from './ConfigurationsIcon'
+import DisableIcon from './DisableIcon'
+import EditIcon from './EditIcon'
+import HistoryIcon from './HistoryIcon'
 import MembersIcon from './MembersIcon'
+import OptionsIcon from './OptionsIcon'
 import SearchIcon from './SearchIcon'
 import { IIcon } from './types'
 
-const Icon = ({ type }: IIcon) => {
+const Icon = ({ type, position = 'down' }: IIcon) => {
   const icon = () => {
     switch (type) {
       case 'comittee':
@@ -15,6 +20,16 @@ const Icon = ({ type }: IIcon) => {
         return <ConfigurationsIcon />
       case 'search':
         return <SearchIcon />
+      case 'chevron':
+        return <ChevronIcon position={position} />
+      case 'options':
+        return <OptionsIcon />
+      case 'history':
+        return <HistoryIcon />
+      case 'edit':
+        return <EditIcon />
+      case 'disable':
+        return <DisableIcon />
       default:
         return null
     }

@@ -1,3 +1,7 @@
+body {
+  background-color: #fafafa;
+}
+
 body,
 button {
   font-family: 'Poppins', sans-serif;

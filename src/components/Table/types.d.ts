@@ -1,3 +1,4 @@
 export interface ITable {
-    tableContente: any,
+  type: 'comittee' | 'members'
+  content: any
 }

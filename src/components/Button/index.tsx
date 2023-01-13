@@ -8,7 +8,7 @@ import {
 } from './styles'
 import { IButton } from './types'
 
-const Button = ({ children, handleClick, type }: IButton) => {
+const Button = ({ children, handleClick, type, color = 'black' }: IButton) => {
   const getButton = () => {
     switch (type) {
       case 'save':
@@ -22,7 +22,7 @@ const Button = ({ children, handleClick, type }: IButton) => {
         return <CardButton onClick={handleClick}>{children}</CardButton>
       case 'transparent':
         return (
-          <TransparentButton onClick={handleClick}>
+          <TransparentButton onClick={handleClick} color={color}>
             {children}
           </TransparentButton>
         )

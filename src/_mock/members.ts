@@ -1,8 +1,9 @@
 export const member_mock = [
-  ['Alberto Egon Schaeffer Filho', 2],
-  ['Alberto Egon Schaeffer Filho', 2],
-  ['Alberto Egon Schaeffer Filho', 2],
-  ['Alberto Egon Schaeffer Filho', 2],
-  ['Alberto Egon Schaeffer Filho', 2],
-  ['Alberto Egon Schaeffer Filho', 2],
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
+  { id: 1, content: ['Alberto Egon Schaeffer Filho', 2] },
 ]

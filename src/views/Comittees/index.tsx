@@ -35,6 +35,7 @@ const ComitteesView = () => {
       <Button
         handleClick={() => console.log('botão transparente')}
         type="transparent"
+        color="blue"
       >
         Botão transparente
       </Button>
