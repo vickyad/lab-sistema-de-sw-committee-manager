@@ -3,6 +3,8 @@ import Button from '../../components/Button'
 import SearchBar from '../../components/SearchBar'
 import Table from '../../components/Table'
 import Title from '../../components/Title'
+import { comittee_mock } from '../../_mock/comittee'
+import { member_mock } from '../../_mock/members'
 
 const ComitteesView = () => {
   const [searchtext, setSearchText] = useState('')
@@ -43,7 +45,8 @@ const ComitteesView = () => {
         handleOnChange={(input) => setSearchText(input)}
       />
 
-      <Table />
+      <Table type={'comittee'} content={comittee_mock} />
+      <Table type={'members'} content={member_mock} />
     </div>
   )
 }
