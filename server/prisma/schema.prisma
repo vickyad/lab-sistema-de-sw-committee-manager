@@ -1,6 +1,12 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+
+// https://docs.nestjs.com/recipes/prisma
+//Note that during installation, Prisma automatically invokes the prisma generate command for you. In the future, you need to run this command after every change to your Prisma models to update your generated Prisma Client.
+
+//Note The prisma generate command reads your Prisma schema and updates the generated Prisma Client library inside node_modules/@prisma/client. 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +19,6 @@ datasource db {
 model Member {
   id    Int     @default(autoincrement()) @id
   name  String
-  email String  @unique
   is_active Boolean
   committees MembersOnCommittees[]
 }
