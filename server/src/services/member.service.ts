@@ -1,6 +1,6 @@
 
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../database/prisma.service';
 import { Member, Prisma } from '@prisma/client';
 
 @Injectable()
@@ -32,13 +32,13 @@ export class MemberService {
     });
   }
 
-  async createMember(data: Prisma.MemberCreateInput): Promise<Member> {
+  async create(data: Prisma.MemberCreateInput): Promise<Member> {
     return this.prisma.member.create({
       data,
     });
   }
 
-  async updateMember(params: {
+  async update(params: {
     where: Prisma.MemberWhereUniqueInput;
     data: Prisma.MemberUpdateInput;
   }): Promise<Member> {
@@ -49,7 +49,7 @@ export class MemberService {
     });
   }
 
-  async deleteMember(where: Prisma.MemberWhereUniqueInput): Promise<Member> {
+  async delete(where: Prisma.MemberWhereUniqueInput): Promise<Member> {
     return this.prisma.member.delete({
       where,
     });
