@@ -20,7 +20,7 @@ model Member {
   id    Int     @default(autoincrement()) @id
   name  String
   is_active Boolean
-  committees MembersOnCommittees[]
+  committees MemberOnCommittee[]
 }
 
 model Committee {
@@ -32,10 +32,10 @@ model Committee {
   ordinance String?
   observations String?
   is_active Boolean
-  members MembersOnCommittees[]
+  members MemberOnCommittee[]
 }
 
-model MembersOnCommittees {
+model MemberOnCommittee {
   member Member @relation(fields: [member_id], references: [id])
   member_id Int // relation scalar field (used in the `@relation` attribute above)
   committee Committee @relation(fields: [committee_id], references: [id])
@@ -47,4 +47,5 @@ model MembersOnCommittees {
   observations String?
 
   @@id([member_id, committee_id])
+	@@map("MembersOnCommittees")
 }
