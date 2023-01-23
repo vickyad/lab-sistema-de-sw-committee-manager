@@ -1,4 +1,3 @@
-import useComponentVisible from '../../hooks/useComponentVisible'
 import Icon from '../Icon'
 import { Container, ImportantButton, TransparentButton } from './styles'
 import { IOptionsBox } from './types'

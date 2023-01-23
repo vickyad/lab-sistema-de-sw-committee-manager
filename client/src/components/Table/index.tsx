@@ -1,35 +1,35 @@
-import { useEffect, useState } from 'react'
-import { ComitteeTable } from '../../data/comitteeTable'
-import { MemberTable } from '../../data/membersTable'
+import { useState } from 'react'
 import TableHeader from './TableHeader'
-import { ITableHeader } from './TableHeader/type'
 import TableRow from './TableRow'
+import TableRowExpandable from './TableRowExpandable'
 import { ITable } from './types'
 
-const Table = ({ type, content }: ITable) => {
+const Table = ({ type, content, headerInfo }: ITable) => {
   const [showDetails, setShowDetails] = useState(-1)
-  const [tableInfo, setTableInfo] = useState<ITableHeader | undefined>(
-    undefined
-  )
-  useEffect(() => {
-    let info = type === 'comittee' ? ComitteeTable : MemberTable
-    setTableInfo(info)
-  }, [])
+
   return (
     <div>
-      {tableInfo && (
+      {headerInfo && (
         <>
-          <TableHeader {...tableInfo} />
-          {content.map((item: any, index: number) => (
-            <TableRow
-              type={type}
-              data={item}
-              sizes={tableInfo.sizes}
-              detailsToShow={showDetails}
-              handleRowClick={(id: number) => setShowDetails(id)}
-              key={`table-row-${index}`}
-            />
-          ))}
+          <TableHeader {...headerInfo} />
+          {type === 'details'
+            ? content.map((item: any, index: number) => (
+                <TableRow
+                  data={item}
+                  sizes={headerInfo.sizes}
+                  key={`table-row-${index}`}
+                />
+              ))
+            : content.map((item: any, index: number) => (
+                <TableRowExpandable
+                  type={type}
+                  data={item}
+                  sizes={headerInfo.sizes}
+                  detailsToShow={showDetails}
+                  handleRowClick={(id: number) => setShowDetails(id)}
+                  key={`table-row-${index}`}
+                />
+              ))}
         </>
       )}
     </div>

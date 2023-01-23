@@ -4,5 +4,4 @@ class Path {
   MEMBERS = '/members'
   CONFIGURATIONS = '/configurations'
 }
-
 export default new Path()

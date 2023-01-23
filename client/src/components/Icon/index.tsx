@@ -2,6 +2,7 @@ import ChevronIcon from './ChevronIcon'
 import ComitteeIcon from './ComitteeIcon'
 import ConfigurationsIcon from './ConfigurationsIcon'
 import DisableIcon from './DisableIcon'
+import DownloadIcon from './DownloadIcon'
 import EditIcon from './EditIcon'
 import HistoryIcon from './HistoryIcon'
 import MembersIcon from './MembersIcon'
@@ -30,6 +31,8 @@ const Icon = ({ type, position = 'down' }: IIcon) => {
         return <EditIcon />
       case 'disable':
         return <DisableIcon />
+      case 'download':
+        return <DownloadIcon />
       default:
         return null
     }

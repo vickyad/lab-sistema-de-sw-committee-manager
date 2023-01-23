@@ -5,14 +5,20 @@ export const DefaultButton = styled.button`
   border-radius: 0.5rem;
   border: 1px solid #00000026;
   font-weight: 500;
-  padding: 0.625rem;
+  padding: 0.3rem 0.625rem;
   font-size: 0.875rem;
   cursor: pointer;
   background-color: #8fc1e3;
   text-align: center;
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: #9dbce6;
+  }
+
+  & svg {
+    margin-right: 0.5rem;
   }
 `
 

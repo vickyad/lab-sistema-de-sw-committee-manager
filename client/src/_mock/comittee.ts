@@ -12,7 +12,7 @@ export const comittee_mock = [
   {
     id: 2,
     content: [
-      'DIREÇÃO/CONIN',
+      'DEP. INA',
       'UFRGS',
       '009/2022 – INF',
       '20/12/2020 a 19/12/2024',
@@ -22,7 +22,7 @@ export const comittee_mock = [
   {
     id: 3,
     content: [
-      'DIREÇÃO/CONIN',
+      'DEP. INT',
       'UFRGS',
       '009/2022 – INF',
       '20/12/2020 a 19/12/2024',
@@ -32,7 +32,7 @@ export const comittee_mock = [
   {
     id: 4,
     content: [
-      'DIREÇÃO/CONIN',
+      'COMGRAD CIC',
       'UFRGS',
       '009/2022 – INF',
       '20/12/2020 a 19/12/2024',
@@ -42,7 +42,7 @@ export const comittee_mock = [
   {
     id: 5,
     content: [
-      'DIREÇÃO/CONIN',
+      'COMGRAD ECP',
       'UFRGS',
       '009/2022 – INF',
       '20/12/2020 a 19/12/2024',
@@ -52,11 +52,41 @@ export const comittee_mock = [
   {
     id: 6,
     content: [
-      'DIREÇÃO/CONIN',
+      'PPGC',
       'UFRGS',
       '009/2022 – INF',
       '20/12/2020 a 19/12/2024',
       '1°',
     ],
+  },
+]
+
+export const details_mock = [
+  {
+    content: ['Diretor(a)', 'Carla Maria Dal Sasso Freitas', '-', '1°', '-'],
+  },
+  {
+    content: [
+      'Vice-diretor(a)',
+      'Luciano Paschoal Granville',
+      '-',
+      '1°',
+      'alguma nota',
+    ],
+  },
+  {
+    content: [
+      'Bibliotecário(a) Chefe',
+      'Alexsander Borges Ribeiro',
+      '05/05/2022',
+      '1°',
+      '-',
+    ],
+  },
+  {
+    content: ['Representante Discente PG', 'Cauã Roca Antunes', '-', '1°', '-'],
+  },
+  {
+    content: ['Representante TAs', 'Claudia de Quadro Rocha', '-', '1°', '-'],
   },
 ]
