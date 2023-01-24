@@ -33,15 +33,14 @@ model Committee {
   observations String?
   is_active Boolean
   members MemberOnCommittee[]
-}
 
+}
 model MemberOnCommittee {
   member Member @relation(fields: [member_id], references: [id])
   member_id Int // relation scalar field (used in the `@relation` attribute above)
   committee Committee @relation(fields: [committee_id], references: [id])
   committee_id Int // relation scalar field (used in the `@relation` attribute above)
   role  String? @default("Membro")
-  assigned_at DateTime? @default(now())
   begin_date DateTime? @default(now())
   term Int?
   observations String?

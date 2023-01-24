@@ -1,5 +1,8 @@
 
 https://www.prisma.io/docs/concepts/components/prisma-migrate
+```bash
+npx prisma migrate dev --name <name of migration>
+```
 
 ## Description
 
