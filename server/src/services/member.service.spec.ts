@@ -53,16 +53,6 @@ describe("MemberService", () => {
         });
     });
 
-    // describe("findByNameOrCreate", () => {
-    //     it("should call prismaService.upsert", async () => {
-    //         jest.spyOn(prismaService.member, "upsert").mockImplementationOnce((): any => undefined);
-
-    //         await memberService.findByNameOrCreate(factory.newMockMember().name);
-
-    //         expect(prismaService.member.upsert).toBeCalled();
-    //     });
-    // });
-
     describe("delete", () => {
         it("should call prismaService.delete", async () => {
             jest.spyOn(prismaService.member, "delete").mockImplementationOnce((): any => undefined);

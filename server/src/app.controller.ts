@@ -80,6 +80,6 @@ export class AppController {
 
   @Delete('committee/:id')
   async deleteCommittee(@Param('id') id: string): Promise<CommitteeModel> {
-    return this.committeeService.deleteCommittee({ id: Number(id) });
+    return this.committeeService.delete({ id: Number(id) });
   }
 }

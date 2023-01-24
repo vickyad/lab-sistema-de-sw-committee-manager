@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Committee, Member, MembersOnCommittees, Prisma } from "@prisma/client"
+import { Committee, Member, MemberOnCommittee, Prisma } from "@prisma/client"
 
 export class DataFactory {
     constructor() {}
@@ -38,6 +38,6 @@ export class DataFactory {
         begin_date: faker.date.past(),
         term: +faker.random.numeric(),
         observations: faker.lorem.sentence()
-      } as MembersOnCommittees
+      } as MemberOnCommittee
     }
 }

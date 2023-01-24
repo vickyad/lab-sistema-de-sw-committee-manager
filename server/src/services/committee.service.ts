@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Committee, Prisma } from '@prisma/client';
+import { CreateCommitteeDTO } from 'src/DTOs/DTOs'
 
 @Injectable()
 export class CommitteeService {
@@ -32,13 +33,13 @@ export class CommitteeService {
     });
   }
 
-  async createCommittee(data: Prisma.CommitteeCreateInput): Promise<Committee> {
+  async create(data: CreateCommitteeDTO): Promise<Committee> {
     return this.prisma.committee.create({
       data,
     });
   }
 
-  async updateCommittee(params: {
+  async update(params: {
     where: Prisma.CommitteeWhereUniqueInput;
     data: Prisma.CommitteeUpdateInput;
   }): Promise<Committee> {
@@ -49,7 +50,7 @@ export class CommitteeService {
     });
   }
 
-  async deleteCommittee(where: Prisma.CommitteeWhereUniqueInput): Promise<Committee> {
+  async delete(where: Prisma.CommitteeWhereUniqueInput): Promise<Committee> {
     return this.prisma.committee.delete({
       where,
     });
