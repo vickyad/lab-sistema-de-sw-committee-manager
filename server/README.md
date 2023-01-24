@@ -112,9 +112,17 @@ In this schema, you configure three things:
 
 ---
 
+### Scripts you should know about
 https://www.prisma.io/docs/concepts/components/prisma-migrate
+
+For updating your SQL DB (run this when you make a structural change)
 ```bash
 npx prisma migrate dev --name <name of migration>
+```
+
+This one opens a GUI of your BD data, try it
+```bash
+npx prisma studio
 ```
 
 ### The Prisma data model
