@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Header from '../../../components/Header'
+import HeaderPrimary from '../../../components/Header/HeaderPrimary'
 import Table from '../../../components/Table'
 import { ComitteeTable } from '../../../data/comitteeTable'
 import { NoContentMessage } from '../../../styles/commonStyles'
@@ -7,7 +7,7 @@ import { comittee_mock } from '../../../_mock/comittee'
 import { Container } from '../styles'
 import { IVisualization } from './types'
 
-const Visualization = ({blurBg, handleSeeHistory, handleEdit, handleDisable}: IVisualization) => {
+const Visualization = ({ blurBg }: IVisualization) => {
   const [searchtext, setSearchText] = useState('')
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...comittee_mock,
@@ -37,25 +37,25 @@ const Visualization = ({blurBg, handleSeeHistory, handleEdit, handleDisable}: IV
   }, [searchtext, comitteeContent])
 
   return (
-    <Container displayingPopup = {blurBg}>
-        <Header
-            headerTitle="Comissões"
-            searchPlaceholder="Pesquise por órgão..."
-            searchText={searchtext}
-            setSearchText={(input) => setSearchText(input)}
+    <Container displayingPopup={blurBg}>
+      <HeaderPrimary
+        headerTitle="Comissões"
+        searchPlaceholder="Pesquise por órgão..."
+        searchText={searchtext}
+        setSearchText={(input) => setSearchText(input)}
+        handleClick={() => {
+          /* TODO */
+        }}
+      />
+      {displayedContent.length > 0 ? (
+        <Table
+          type={'comittee'}
+          content={displayedContent}
+          headerInfo={ComitteeTable}
         />
-        {displayedContent.length > 0 ? (
-            <Table
-            type={'comittee'}
-            content={displayedContent}
-            headerInfo={ComitteeTable}
-            handleSeeHistory={handleSeeHistory}
-            handleEdit={handleEdit}
-            handleDisable={handleDisable}
-            />
-        ) : (
-            <NoContentMessage>Não há comissões ativas no momento</NoContentMessage>
-        )}
+      ) : (
+        <NoContentMessage>Não há comissões ativas no momento</NoContentMessage>
+      )}
     </Container>
   )
 }

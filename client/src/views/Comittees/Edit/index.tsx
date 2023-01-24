@@ -4,19 +4,18 @@ import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Icon from '../../../components/Icon'
 import Table from '../../../components/Table'
 import { CommitteeContext } from '../../../context/CommitteeContext'
-import { ComitteeTable } from '../../../data/comitteeTable'
-import { NoContentMessage } from '../../../styles/commonStyles'
-import { comittee_mock } from '../../../_mock/comittee'
+import { ComitteeDetailsTable } from '../../../data/comitteeDetailsHeader'
+import { details_mock } from '../../../_mock/comittee'
 
-const History = () => {
+const Edit = () => {
   const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...comittee_mock,
+    ...details_mock,
   ])
   const { setAction, currentCommittee } = useContext(CommitteeContext)
 
   useEffect(() => {
     console.log()
-    let content = [...comittee_mock]
+    let content = [...details_mock]
     setComitteeContent(content)
   }, [])
 
@@ -26,24 +25,22 @@ const History = () => {
         <Icon type="arrow-left" /> voltar ao home
       </Button>
       <HeaderSecondary
-        headerTitle={`HISTÓRICO - ${currentCommittee.name}`}
-        buttonType={'export'}
+        headerTitle={`EDIÇÃO - ${currentCommittee.name}`}
+        buttonType={'save'}
         handleClick={() => {
           /* TODO */
         }}
       />
-      {comitteeContent.length > 0 ? (
+      {comitteeContent.length > 0 && (
         <Table
-          type={'comittee'}
+          type={'details'}
+          editMode={true}
           content={comitteeContent}
-          headerInfo={ComitteeTable}
+          headerInfo={ComitteeDetailsTable}
+          updateTable={(content) => setComitteeContent(content)}
         />
-      ) : (
-        <NoContentMessage>
-          Não há histórico da comissão selecionada no momento
-        </NoContentMessage>
       )}
     </>
   )
 }
-export default History
+export default Edit

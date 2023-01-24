@@ -8,6 +8,7 @@ import ConfigurationsView from './Configurations'
 import NavBar from '../components/NavBar'
 import { Content } from './styles'
 import { NavItem } from '../components/NavBar/types'
+import { CommitteeProvider } from '../context/CommitteeContext'
 
 const Main: React.FC = () => {
   const navIcon: NavItem[] = [
@@ -18,19 +19,21 @@ const Main: React.FC = () => {
   return (
     <div>
       <NavBar data={navIcon} />
-      <Content>
-        <Router>
-          <Routes>
-            <Route path={Paths.COMITTEE} element={<ComitteesView />} />
-            <Route path={Paths.MEMBERS} element={<MembersView />} />
-            <Route
-              path={Paths.CONFIGURATIONS}
-              element={<ConfigurationsView />}
-            />
-            <Route path={'*'} element={<NotFoundView />} />
-          </Routes>
-        </Router>
-      </Content>
+      <CommitteeProvider>
+        <Content>
+          <Router>
+            <Routes>
+              <Route path={Paths.COMITTEE} element={<ComitteesView />} />
+              <Route path={Paths.MEMBERS} element={<MembersView />} />
+              <Route
+                path={Paths.CONFIGURATIONS}
+                element={<ConfigurationsView />}
+              />
+              <Route path={'*'} element={<NotFoundView />} />
+            </Routes>
+          </Router>
+        </Content>
+      </CommitteeProvider>
     </div>
   )
 }

@@ -4,8 +4,27 @@ import TableRow from './TableRow'
 import TableRowExpandable from './TableRowExpandable'
 import { ITable } from './types'
 
-const Table = ({ type, content, headerInfo, handleSeeHistory, handleEdit, handleDisable }: ITable) => {
+const Table = ({
+  type,
+  content,
+  editMode = false,
+  headerInfo,
+  updateTable,
+}: ITable) => {
   const [showDetails, setShowDetails] = useState(-1)
+
+  const handleChange = (updatedInfo: any, index: number, id: number) => {
+    let newTable = [...content]
+    newTable = newTable.map((item) => {
+      if (item.id === id) {
+        let content = [...item.content]
+        content[index] = updatedInfo
+        return { id: item.id, content: [...content] }
+      }
+      return item
+    })
+    updateTable && updateTable(newTable)
+  }
 
   return (
     <div>
@@ -15,6 +34,11 @@ const Table = ({ type, content, headerInfo, handleSeeHistory, handleEdit, handle
           {type === 'details'
             ? content.map((item: any, index: number) => (
                 <TableRow
+                  id={item.id}
+                  editMode={editMode}
+                  onChange={(updatedInfo, index, id) =>
+                    handleChange(updatedInfo, index, id)
+                  }
                   data={item}
                   sizes={headerInfo.sizes}
                   key={`table-row-${index}`}
@@ -22,13 +46,13 @@ const Table = ({ type, content, headerInfo, handleSeeHistory, handleEdit, handle
               ))
             : content.map((item: any, index: number) => (
                 <TableRowExpandable
-                type={type}
-                data={item}
-                sizes={headerInfo.sizes}
-                detailsToShow={showDetails}
-                handleRowClick={(id: number) => setShowDetails(id)}
-                key={`table-row-${index}`} 
-                handleSeeHistory={handleSeeHistory ? handleSeeHistory : () => console.log('not implemented')} handleEdit={handleEdit ? handleEdit : () => console.log('not implemented')} handleDisable={handleDisable ? handleDisable : () => console.log('not implemented')} />
+                  type={type}
+                  data={item}
+                  sizes={headerInfo.sizes}
+                  detailsToShow={showDetails}
+                  handleRowClick={(id: number) => setShowDetails(id)}
+                  key={`table-row-${index}`}
+                />
               ))}
         </>
       )}

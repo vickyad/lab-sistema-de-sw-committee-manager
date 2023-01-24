@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Header from '../../components/Header'
+import HeaderPrimary from '../../components/Header/HeaderPrimary'
 import Table from '../../components/Table'
 import { MemberTable } from '../../data/membersTable'
 import { member_mock } from '../../_mock/members'
@@ -9,11 +9,14 @@ const MembersView = () => {
 
   return (
     <div>
-      <Header
+      <HeaderPrimary
         headerTitle="Comissões por pessoa"
         searchPlaceholder="Pesquise pelo nome do funcionário..."
         searchText={searchtext}
         setSearchText={(input) => setSearchText(input)}
+        handleClick={() => {
+          /* TODO */
+        }}
       />
       <Table type={'members'} content={member_mock} headerInfo={MemberTable} />
     </div>

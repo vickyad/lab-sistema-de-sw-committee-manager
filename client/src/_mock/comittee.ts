@@ -63,9 +63,11 @@ export const comittee_mock = [
 
 export const details_mock = [
   {
+    id: 1,
     content: ['Diretor(a)', 'Carla Maria Dal Sasso Freitas', '-', '1°', '-'],
   },
   {
+    id: 2,
     content: [
       'Vice-diretor(a)',
       'Luciano Paschoal Granville',
@@ -75,6 +77,7 @@ export const details_mock = [
     ],
   },
   {
+    id: 3,
     content: [
       'Bibliotecário(a) Chefe',
       'Alexsander Borges Ribeiro',
@@ -84,9 +87,11 @@ export const details_mock = [
     ],
   },
   {
+    id: 4,
     content: ['Representante Discente PG', 'Cauã Roca Antunes', '-', '1°', '-'],
   },
   {
+    id: 5,
     content: ['Representante TAs', 'Claudia de Quadro Rocha', '-', '1°', '-'],
   },
 ]

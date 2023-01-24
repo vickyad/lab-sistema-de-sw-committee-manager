@@ -1,15 +1,16 @@
-import Button from '../Button'
-import Icon from '../Icon'
-import SearchBar from '../SearchBar'
-import Title from '../Title'
+import Button from '../../Button'
+import Icon from '../../Icon'
+import SearchBar from '../../SearchBar'
+import Title from '../../Title'
 import { FlexWrapper, HeaderContainer } from './styles'
 import { IHeader } from './types'
 
-const Header = ({
+const HeaderPrimary = ({
   headerTitle,
   searchPlaceholder,
   searchText,
   setSearchText,
+  handleClick,
 }: IHeader) => {
   return (
     <HeaderContainer>
@@ -20,7 +21,7 @@ const Header = ({
           searchText={searchText}
           handleOnChange={(input) => setSearchText(input)}
         />
-        <Button handleClick={() => console.log('TO DO')}>
+        <Button handleClick={handleClick}>
           <Icon type={'download'} />
           Exportar dados
         </Button>
@@ -28,4 +29,4 @@ const Header = ({
     </HeaderContainer>
   )
 }
-export default Header
+export default HeaderPrimary

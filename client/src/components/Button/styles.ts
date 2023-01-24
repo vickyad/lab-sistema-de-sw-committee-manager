@@ -53,6 +53,8 @@ export const CardButton = styled(DefaultButton)`
 `
 
 export const TransparentButton = styled.button`
+  display: flex;
+  align-items: center;
   background-color: transparent;
   color: #5085a5;
   border: none;
@@ -60,6 +62,7 @@ export const TransparentButton = styled.button`
   cursor: pointer;
 
   & svg {
+    margin-right: 0.5rem;
     fill: #5085a5;
   }
 

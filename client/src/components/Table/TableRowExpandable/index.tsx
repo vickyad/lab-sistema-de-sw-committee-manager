@@ -14,6 +14,8 @@ import {
 import Table from '..'
 import { details_mock } from '../../../_mock/comittee'
 import { ComitteeDetailsTable } from '../../../data/comitteeDetailsHeader'
+import { useContext } from 'react'
+import { CommitteeContext } from '../../../context/CommitteeContext'
 
 const TableRowExpandable = ({
   type,
@@ -21,12 +23,11 @@ const TableRowExpandable = ({
   sizes,
   detailsToShow,
   handleRowClick,
-  handleSeeHistory,
-  handleEdit,
-  handleDisable
 }: ITableRow) => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false)
+  const { setAction, setCurrentCommittee } = useContext(CommitteeContext)
+
   return (
     <Container>
       <RowContainer>
@@ -65,9 +66,18 @@ const TableRowExpandable = ({
         <div ref={ref}>
           <OptionsBox
             type={type}
-            handleSeeHistory={() => handleSeeHistory(data.id)}
-            handleEdit={() => handleEdit(data.id)}
-            handleDisable={() => handleDisable(data.id)}
+            handleSeeHistory={() => {
+              setCurrentCommittee({ id: data.id, name: data.content[0] })
+              setAction('history')
+            }}
+            handleEdit={() => {
+              setCurrentCommittee({ id: data.id, name: data.content[0] })
+              setAction('edit')
+            }}
+            handleDisable={() => {
+              setCurrentCommittee({ id: data.id, name: data.content[0] })
+              setAction('deactivate')
+            }}
           />
         </div>
       )}
