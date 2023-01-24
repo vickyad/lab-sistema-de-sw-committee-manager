@@ -1,6 +1,6 @@
 export type CreateMemberDTO = {
   name: string
-  is_active: boolean
+  is_active?: boolean
   //committees?: CommitteeDTO
 }
 
