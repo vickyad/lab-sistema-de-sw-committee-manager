@@ -21,6 +21,9 @@ const TableRowExpandable = ({
   sizes,
   detailsToShow,
   handleRowClick,
+  handleSeeHistory,
+  handleEdit,
+  handleDisable
 }: ITableRow) => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false)
@@ -62,9 +65,9 @@ const TableRowExpandable = ({
         <div ref={ref}>
           <OptionsBox
             type={type}
-            handleSeeHistory={() => console.log('hora de ver o historico')}
-            handleEdit={() => console.log('hora de editar')}
-            handleDisable={() => console.log('hora de desabilitar')}
+            handleSeeHistory={() => handleSeeHistory(data.id)}
+            handleEdit={() => handleEdit(data.id)}
+            handleDisable={() => handleDisable(data.id)}
           />
         </div>
       )}

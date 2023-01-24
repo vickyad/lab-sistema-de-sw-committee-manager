@@ -1,57 +1,38 @@
-import { useEffect, useState } from 'react'
-import Header from '../../components/Header'
-import Table from '../../components/Table'
-import { ComitteeTable } from '../../data/comitteeTable'
-import { NoContentMessage } from '../../styles/commonStyles'
-import { comittee_mock } from '../../_mock/comittee'
+import { useState } from 'react'
+import Popup from '../../components/Popup'
+import History from './History'
+import Visualization from './Visualization'
 
 const ComitteesView = () => {
-  const [searchtext, setSearchText] = useState('')
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...comittee_mock,
-  ])
-  const [displayedContent, setDisplayedContent] = useState<any[]>([
-    ...comittee_mock,
-  ])
+  const [displayPopup, setDisplayPopup] = useState(false)
+  const [status, setStatus] = useState('view')
+  const [currentId, setCurrentId] = useState(-1)
 
-  useEffect(() => {
-    let content = [...comittee_mock]
-    setComitteeContent(content)
-    setDisplayedContent(content)
-  }, [])
+  const handleDeactivateCommittee = () => {
+    // TO-DO: desativar órgão
+    console.log('Desativar órgão')
+  }
 
-  useEffect(() => {
-    if (searchtext.length > 0) {
-      let searchTextLowerCase = searchtext.toLowerCase()
-      let newComittee = [...comitteeContent]
-      newComittee = newComittee.filter((item) => {
-        let comitteeNameLowerCase = item.content[0].toLowerCase()
-        return comitteeNameLowerCase.includes(searchTextLowerCase)
-      })
-      setDisplayedContent(newComittee)
-    } else {
-      setDisplayedContent(comitteeContent)
-    }
-  }, [searchtext])
+  const handleOpenPopUp = (id: number) => {
+    setCurrentId(id)
+    setDisplayPopup(true)
+  }
 
   return (
-    <div>
-      <Header
-        headerTitle="Comissões"
-        searchPlaceholder="Pesquise por órgão..."
-        searchText={searchtext}
-        setSearchText={(input) => setSearchText(input)}
-      />
-      {displayedContent.length > 0 ? (
-        <Table
-          type={'comittee'}
-          content={displayedContent}
-          headerInfo={ComitteeTable}
-        />
-      ) : (
-        <NoContentMessage>Não há comissões ativas no momento</NoContentMessage>
-      )}
-    </div>
+    <>
+      {displayPopup &&
+        <Popup title={'Desativar Órgão'} action={'Desativar Órgão'} actionType={'important'} handleActionClick={handleDeactivateCommittee} handleCancelClick={() => setDisplayPopup(false)}>
+          Você tem certeza que deseja desativar esse órgão? Essa ação não pode ser revertida
+        </Popup> 
+      }
+      {
+        status === 'edit' ? 
+          <>Editar</> 
+        : status === 'history' ? 
+          <History id={currentId} /> 
+        : <Visualization blurBg={displayPopup} handleSeeHistory={() => setStatus('history')} handleEdit={() => setStatus('edit')} handleDisable={handleOpenPopUp} />
+      }
+    </>
   )
 }
 export default ComitteesView

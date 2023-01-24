@@ -4,6 +4,12 @@ export const Container = styled.div`
   background-color: #f7f9fb;
   text-align: center;
   max-width: 31.25rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `
 
 export const Header = styled.div`
