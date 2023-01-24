@@ -1,3 +1,4 @@
+import ArrowLeftIcon from './ArrowLeftIcon'
 import ChevronIcon from './ChevronIcon'
 import ComitteeIcon from './ComitteeIcon'
 import ConfigurationsIcon from './ConfigurationsIcon'
@@ -7,6 +8,7 @@ import EditIcon from './EditIcon'
 import HistoryIcon from './HistoryIcon'
 import MembersIcon from './MembersIcon'
 import OptionsIcon from './OptionsIcon'
+import SaveIcon from './SaveIcon'
 import SearchIcon from './SearchIcon'
 import { IIcon } from './types'
 
@@ -33,6 +35,10 @@ const Icon = ({ type, position = 'down' }: IIcon) => {
         return <DisableIcon />
       case 'download':
         return <DownloadIcon />
+      case 'arrow-left':
+        return <ArrowLeftIcon />
+      case 'save':
+        return <SaveIcon />
       default:
         return null
     }

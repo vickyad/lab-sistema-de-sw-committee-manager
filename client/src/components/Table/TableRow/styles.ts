@@ -24,3 +24,10 @@ export const Item = styled.p<{ size: number }>`
       grid-column: span ${size} / span ${size};
     `}
 `
+
+export const Input = styled.input<{ size: number }>`
+  ${({ size }) =>
+    css`
+      grid-column: span ${size} / span ${size};
+    `}
+`

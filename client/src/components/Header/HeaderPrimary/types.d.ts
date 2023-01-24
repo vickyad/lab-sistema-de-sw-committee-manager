@@ -3,4 +3,5 @@ export interface IHeader {
   searchPlaceholder: string
   searchText: string
   setSearchText: (input: string) => void
+  handleClick: () => void
 }
