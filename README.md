@@ -1,4 +1,4 @@
-# Comittee Manager lab-sistema-de-sw-committee-manager
+# Comittee Manager
 ### Course: Laboratória de Sistemas de Software
 #### Professor: Marcelo Pimenta
 #### Semester: 2022/2
