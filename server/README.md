@@ -115,7 +115,7 @@ In this schema, you configure three things:
 ### Scripts you should know about
 https://www.prisma.io/docs/concepts/components/prisma-migrate
 
-For updating your SQL DB (run this when you make a structural change)
+For updating your SQL DB (run this when you make a structural change in the prisma model)
 ```bash
 npx prisma migrate dev --name <name of migration>
 ```
