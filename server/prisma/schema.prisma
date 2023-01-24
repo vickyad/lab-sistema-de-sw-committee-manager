@@ -25,11 +25,12 @@ model Member {
 
 model Committee {
   id    Int     @default(autoincrement()) @id
-  bond  String
+  bond  String //Vínculo 
+  name  String //Órgão
   begin_date DateTime?
   end_date DateTime?
-  term Int?
-  ordinance String?
+  term Int? //Ordem do mandato
+  ordinance String? //Portaria 
   observations String?
   is_active Boolean
   members MemberOnCommittee[]
@@ -40,9 +41,9 @@ model MemberOnCommittee {
   member_id Int // relation scalar field (used in the `@relation` attribute above)
   committee Committee @relation(fields: [committee_id], references: [id])
   committee_id Int // relation scalar field (used in the `@relation` attribute above)
-  role  String? @default("Membro")
+  role  String? @default("Membro") //Cargo
   begin_date DateTime? @default(now())
-  term Int?
+  term Int? //Ordem do mandato
   observations String?
 
   @@id([member_id, committee_id])

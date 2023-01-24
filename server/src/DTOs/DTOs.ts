@@ -6,6 +6,7 @@ export type CreateMemberDTO = {
 
 export type CreateCommitteeDTO = {
   bond: string
+  name: string
   begin_date: Date | null
   end_date: Date | null
   term: number | null
