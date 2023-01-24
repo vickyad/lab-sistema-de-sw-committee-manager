@@ -4,5 +4,6 @@ export interface ITable {
   editMode?: boolean
   content: any
   headerInfo: ITableHeader
+  showOptions?: boolean
   updateTable?: (content: any) => void
 }

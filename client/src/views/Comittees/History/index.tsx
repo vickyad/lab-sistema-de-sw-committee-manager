@@ -12,22 +12,19 @@ const History = () => {
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...comittee_mock,
   ])
-  const { setAction, currentCommittee } = useContext(CommitteeContext)
+  const { currentCommittee } = useContext(CommitteeContext)
 
   useEffect(() => {
-    console.log()
     let content = [...comittee_mock]
     setComitteeContent(content)
   }, [])
 
   return (
     <>
-      <Button handleClick={() => setAction(null)} type="transparent">
-        <Icon type="arrow-left" /> voltar ao home
-      </Button>
       <HeaderSecondary
         headerTitle={`HISTÓRICO - ${currentCommittee.name}`}
-        buttonType={'export'}
+        buttonType="export"
+        backButtonMsg="voltar às comissões"
         handleClick={() => {
           /* TODO */
         }}
@@ -37,6 +34,7 @@ const History = () => {
           type={'comittee'}
           content={comitteeContent}
           headerInfo={ComitteeTable}
+          showOptions={false}
         />
       ) : (
         <NoContentMessage>

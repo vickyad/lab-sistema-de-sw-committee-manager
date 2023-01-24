@@ -11,7 +11,7 @@ const Edit = () => {
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...details_mock,
   ])
-  const { setAction, currentCommittee } = useContext(CommitteeContext)
+  const { currentCommittee } = useContext(CommitteeContext)
 
   useEffect(() => {
     console.log()
@@ -21,12 +21,10 @@ const Edit = () => {
 
   return (
     <>
-      <Button handleClick={() => setAction(null)} type="transparent">
-        <Icon type="arrow-left" /> voltar ao home
-      </Button>
       <HeaderSecondary
         headerTitle={`EDIÇÃO - ${currentCommittee.name}`}
-        buttonType={'save'}
+        buttonType="save"
+        backButtonMsg="voltar às comissões"
         handleClick={() => {
           /* TODO */
         }}

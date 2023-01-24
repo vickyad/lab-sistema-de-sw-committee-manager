@@ -9,6 +9,7 @@ const Table = ({
   content,
   editMode = false,
   headerInfo,
+  showOptions = true,
   updateTable,
 }: ITable) => {
   const [showDetails, setShowDetails] = useState(-1)
@@ -51,6 +52,7 @@ const Table = ({
                   sizes={headerInfo.sizes}
                   detailsToShow={showDetails}
                   handleRowClick={(id: number) => setShowDetails(id)}
+                  showOptions={showOptions}
                   key={`table-row-${index}`}
                 />
               ))}

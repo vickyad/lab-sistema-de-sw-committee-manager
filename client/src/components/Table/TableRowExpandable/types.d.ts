@@ -3,5 +3,6 @@ export interface ITableRow {
   data: { id: number; content: any[] }
   sizes: number[]
   detailsToShow: number
+  showOptions: boolean
   handleRowClick: (id: number) => void
 }

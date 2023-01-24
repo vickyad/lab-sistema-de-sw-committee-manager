@@ -22,6 +22,7 @@ const TableRowExpandable = ({
   data,
   sizes,
   detailsToShow,
+  showOptions,
   handleRowClick,
 }: ITableRow) => {
   const { ref, isComponentVisible, setIsComponentVisible } =
@@ -37,10 +38,14 @@ const TableRowExpandable = ({
           </Item>
         ))}
         <ActionsWrapper>
-          <TransparentButton onClick={() => setIsComponentVisible(true)}>
-            <Icon type="options" />
-          </TransparentButton>
-          <VerticalLine />
+          {showOptions && (
+            <>
+              <TransparentButton onClick={() => setIsComponentVisible(true)}>
+                <Icon type="options" />
+              </TransparentButton>
+              <VerticalLine />
+            </>
+          )}
           <TransparentButton
             onClick={() =>
               handleRowClick(detailsToShow === data.id ? -1 : data.id)
