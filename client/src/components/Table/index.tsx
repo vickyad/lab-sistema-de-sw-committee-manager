@@ -1,63 +1,57 @@
-import { useState } from 'react'
+import { CommitteeDetailsHeader } from '../../data/committeeDetailsHeader'
+import { CommitteeTableHeader } from '../../data/committeeHeader'
+import { MemberDetailsHeader } from '../../data/membersDetailsHeader'
+import { MemberTableHeader } from '../../data/membersHeader'
+import DetailsTable from './DetailsTable'
+import MainTable from './MainTable'
 import TableHeader from './TableHeader'
-import TableRow from './TableRow'
-import TableRowExpandable from './TableRowExpandable'
 import { ITable } from './types'
 
 const Table = ({
   type,
   content,
   editMode = false,
-  headerInfo,
   showOptions = true,
   updateTable,
 }: ITable) => {
-  const [showDetails, setShowDetails] = useState(-1)
+  const getTableHeader = () => {
+    switch (type) {
+      case 'committee-details':
+        return CommitteeDetailsHeader
+      case 'members-details':
+        return MemberDetailsHeader
+      case 'members':
+        return MemberTableHeader
+      case 'committee':
+      default:
+        return CommitteeTableHeader
+    }
+  }
 
-  const handleChange = (updatedInfo: any, index: number, id: number) => {
-    let newTable = [...content]
-    newTable = newTable.map((item) => {
-      if (item.id === id) {
-        let content = [...item.content]
-        content[index] = updatedInfo
-        return { id: item.id, content: [...content] }
-      }
-      return item
-    })
-    updateTable && updateTable(newTable)
+  const getTableSizes = () => {
+    return getTableHeader().sizes
   }
 
   return (
     <div>
-      {headerInfo && (
-        <>
-          <TableHeader {...headerInfo} />
-          {type === 'details'
-            ? content.map((item: any, index: number) => (
-                <TableRow
-                  id={item.id}
-                  editMode={editMode}
-                  onChange={(updatedInfo, index, id) =>
-                    handleChange(updatedInfo, index, id)
-                  }
-                  data={item}
-                  sizes={headerInfo.sizes}
-                  key={`table-row-${index}`}
-                />
-              ))
-            : content.map((item: any, index: number) => (
-                <TableRowExpandable
-                  type={type}
-                  data={item}
-                  sizes={headerInfo.sizes}
-                  detailsToShow={showDetails}
-                  handleRowClick={(id: number) => setShowDetails(id)}
-                  showOptions={showOptions}
-                  key={`table-row-${index}`}
-                />
-              ))}
-        </>
-      )}
+      <>
+        <TableHeader {...getTableHeader()} />
+        {type === 'committee-details' || type === 'members-details' ? (
+          <DetailsTable
+            sizes={getTableSizes()}
+            content={content}
+            editMode={editMode}
+            updateTable={updateTable}
+          />
+        ) : (
+          <MainTable
+            type={type}
+            sizes={getTableSizes()}
+            content={content}
+            showOptions={showOptions}
+          />
+        )}
+      </>
     </div>
   )
 }

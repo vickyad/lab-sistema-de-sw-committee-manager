@@ -7,7 +7,9 @@ import DownloadIcon from './DownloadIcon'
 import EditIcon from './EditIcon'
 import HistoryIcon from './HistoryIcon'
 import MembersIcon from './MembersIcon'
+import MinusIcon from './MinusIcon'
 import OptionsIcon from './OptionsIcon'
+import PlusIcon from './PlusIcon'
 import SaveIcon from './SaveIcon'
 import SearchIcon from './SearchIcon'
 import { IIcon } from './types'
@@ -39,6 +41,10 @@ const Icon = ({ type, position = 'down' }: IIcon) => {
         return <ArrowLeftIcon />
       case 'save':
         return <SaveIcon />
+      case 'minus':
+        return <MinusIcon />
+      case 'plus':
+        return <PlusIcon />
       default:
         return null
     }

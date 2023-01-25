@@ -1,32 +1,33 @@
 import React, { useState, createContext } from 'react'
 
-interface ICommitteeContext {
-  currentCommittee: { id: number; name: string }
-  setCurrentCommittee: (currentCommittee: { id: number; name: string }) => void
+interface IEntityContext {
+  currentEntity: { id: number; name: string }
+  setCurrentEntity: (currentEntity: { id: number; name: string }) => void
   action: null | string
   setAction: (action: string | null) => void
 }
 
-export const CommitteeContext = createContext<ICommitteeContext>({
-  currentCommittee: { id: -1, name: '' },
-  setCurrentCommittee: () => {},
+export const EntityContext = createContext<IEntityContext>({
+  currentEntity: { id: -1, name: '' },
+  setCurrentEntity: () => {},
   action: null,
   setAction: () => {},
 })
 
-export const CommitteeProvider = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
-  const [currentCommittee, setCurrentCommittee] = useState({ id: -1, name: '' })
+export const EntityProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currentEntity, setCurrentEntity] = useState({ id: -1, name: '' })
   const [action, setAction] = useState<string | null>(null)
 
   return (
-    <CommitteeContext.Provider
-      value={{ currentCommittee, setCurrentCommittee, action, setAction }}
+    <EntityContext.Provider
+      value={{
+        currentEntity,
+        setCurrentEntity,
+        action,
+        setAction,
+      }}
     >
       {children}
-    </CommitteeContext.Provider>
+    </EntityContext.Provider>
   )
 }

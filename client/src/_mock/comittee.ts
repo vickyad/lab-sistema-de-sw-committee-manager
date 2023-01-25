@@ -61,7 +61,7 @@ export const comittee_mock = [
   },
 ]
 
-export const details_mock = [
+export const committee_details_mock = [
   {
     id: 1,
     content: ['Diretor(a)', 'Carla Maria Dal Sasso Freitas', '-', '1°', '-'],

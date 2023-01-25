@@ -1,6 +1,6 @@
 import { ITableHeader } from '../components/Table/TableHeader/type'
 
-export const ComitteeDetailsTable: ITableHeader = {
+export const CommitteeDetailsHeader: ITableHeader = {
   headers: [
     'cargo',
     'membro corrente',

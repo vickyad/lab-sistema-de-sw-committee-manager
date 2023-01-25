@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { CommitteeContext } from '../../../context/CommitteeContext'
+import { EntityContext } from '../../../context/CommitteeContext'
 import Button from '../../Button'
 import Icon from '../../Icon'
 import Title from '../../Title'
@@ -9,10 +9,10 @@ import { IHeader } from './types'
 const HeaderSecondary = ({
   headerTitle,
   buttonType,
-  handleClick,
+  handleExportOrSave,
   backButtonMsg,
 }: IHeader) => {
-  const { setAction } = useContext(CommitteeContext)
+  const { setAction } = useContext(EntityContext)
 
   return (
     <>
@@ -22,7 +22,7 @@ const HeaderSecondary = ({
       <HeaderContainer>
         <Title type="secondary">{headerTitle}</Title>
         <Button
-          handleClick={handleClick}
+          handleClick={handleExportOrSave}
           type={buttonType === 'export' ? 'primary' : 'save'}
         >
           {buttonType === 'export' ? (
