@@ -22,7 +22,7 @@ describe("MemberOnCommitteeService", () => {
         it("should call prismaService.create", async () => {
             jest.spyOn(prismaService.memberOnCommittee, "create").mockImplementationOnce((): any => undefined);
 
-            const memberOnCommittee = factory.newMockMemberOnCommittee();
+            const memberOnCommittee = factory.newMockMemberOnCommitteeWithId();
 
             await memberOnCommitteeService.create({
                 ...memberOnCommittee,
@@ -41,7 +41,7 @@ describe("MemberOnCommitteeService", () => {
                 (): any => undefined,
             );
 
-            const memberOnCommittee = factory.newMockMemberOnCommittee();
+            const memberOnCommittee = factory.newMockMemberOnCommitteeWithId();
 
             await memberOnCommitteeService.memberOnCommittee(
               memberOnCommittee.member_id,
@@ -56,7 +56,7 @@ describe("MemberOnCommitteeService", () => {
         it("should call prismaService.update", async () => {
             jest.spyOn(prismaService.memberOnCommittee, "update").mockImplementationOnce((): any => undefined);
             
-            const memberOnCommittee = factory.newMockMemberOnCommittee();
+            const memberOnCommittee = factory.newMockMemberOnCommitteeWithId();
 
             await memberOnCommitteeService.update({ 
               where: { 
@@ -76,7 +76,7 @@ describe("MemberOnCommitteeService", () => {
         it("should call prismaService.delete", async () => {
             jest.spyOn(prismaService.memberOnCommittee, "delete").mockImplementationOnce((): any => undefined);
             
-            const memberOnCommittee = factory.newMockMemberOnCommittee();
+            const memberOnCommittee = factory.newMockMemberOnCommitteeWithId();
 
             await memberOnCommitteeService.delete({
                 member_id_committee_id: {

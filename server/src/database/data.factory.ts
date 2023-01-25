@@ -1,20 +1,25 @@
 import { faker } from "@faker-js/faker";
 import { Committee, Member, MemberOnCommittee, Prisma } from "@prisma/client"
+import { CreateCommitteeDTO, CreateMemberDTO } from "src/DTOs/DTOs"
 
 export class DataFactory {
     constructor() {}
 
     newMockMember() {
         return {
-          id: +faker.random.numeric(3),
           name: faker.name.fullName(),
           is_active: faker.datatype.boolean(),
-        } as Member
+        } as CreateMemberDTO
+    }
+
+    newMockMemberWithId() {
+      const mock = this.newMockMember() as Member
+      mock.id = +faker.random.numeric(3)
+      return mock
     }
 
     newMockCommittee() {
         return {
-          id: +faker.random.numeric(3),
           bond: faker.commerce.department(),
           begin_date: faker.date.past(), //TODO fazer variações com valores nulos pra testar default()
           end_date: faker.date.future(),
@@ -22,13 +27,19 @@ export class DataFactory {
           ordinance: "Portaria " + faker.random.alphaNumeric(5),
           observations: faker.lorem.sentence(),
           is_active: true,          
-        } as Committee
+        } as CreateCommitteeDTO
     }
 
-    newMockMemberOnCommittee(mockMember?: Member, mockCommittee?: Committee) {
+    newMockCommitteeWithId() {
+        const mock = this.newMockCommittee() as Committee
+        mock.id = +faker.random.numeric(3)
+        return mock
+    }
 
-      if(!mockMember) mockMember = this.newMockMember()
-      if(!mockCommittee) mockCommittee = this.newMockCommittee()
+    newMockMemberOnCommitteeWithId(mockMember?: Member, mockCommittee?: Committee) {
+
+      if(!mockMember) mockMember = this.newMockMemberWithId()
+      if(!mockCommittee) mockCommittee = this.newMockCommitteeWithId()
 
       return {    
         member_id: mockMember.id,

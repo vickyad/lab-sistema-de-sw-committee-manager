@@ -22,7 +22,7 @@ describe("CommitteeService", () => {
         it("should call prismaService.create", async () => {
             jest.spyOn(prismaService.committee, "create").mockImplementationOnce((): any => undefined);
 
-            await committeeService.create(factory.newMockCommittee());
+            await committeeService.create(factory.newMockCommitteeWithId());
 
             expect(prismaService.committee.create).toBeCalled();
         });
@@ -34,7 +34,7 @@ describe("CommitteeService", () => {
                 (): any => undefined,
             );
 
-            await committeeService.committee({id: factory.newMockCommittee().id});
+            await committeeService.committee({id: factory.newMockCommitteeWithId().id});
 
             expect(prismaService.committee.findUnique).toBeCalled();
         });
@@ -47,7 +47,7 @@ describe("CommitteeService", () => {
             jest.spyOn(prismaService.committee, "update").mockImplementationOnce((): any => undefined);
 
             await committeeService.update({ 
-              where: { id: factory.newMockCommittee().id }, 
+              where: { id: factory.newMockCommitteeWithId().id }, 
               data: { bond: "Updated bond" }}
             );
 
@@ -59,7 +59,7 @@ describe("CommitteeService", () => {
         it("should call prismaService.delete", async () => {
             jest.spyOn(prismaService.committee, "delete").mockImplementationOnce((): any => undefined);
 
-            await committeeService.delete({ id: factory.newMockCommittee().id });
+            await committeeService.delete({ id: factory.newMockCommitteeWithId().id });
 
             expect(prismaService.committee.delete).toBeCalled();
         });
