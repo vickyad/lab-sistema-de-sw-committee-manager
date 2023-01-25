@@ -19,7 +19,7 @@ datasource db {
 model Member {
   id    Int     @default(autoincrement()) @id
   name  String
-  is_active Boolean
+  is_active Boolean @default(true)
   committees MemberOnCommittee[]
 }
 
@@ -32,7 +32,7 @@ model Committee {
   term Int? //Ordem do mandato
   ordinance String? //Portaria 
   observations String?
-  is_active Boolean
+  is_active Boolean @default(true)
   members MemberOnCommittee[]
 
 }
