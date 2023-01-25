@@ -19,31 +19,31 @@ datasource db {
 model Member {
   id    Int     @default(autoincrement()) @id
   name  String
-  is_active Boolean
+  is_active Boolean @default(true)
   committees MemberOnCommittee[]
 }
 
 model Committee {
   id    Int     @default(autoincrement()) @id
-  bond  String
+  bond  String //Vínculo 
+  name  String //Órgão
   begin_date DateTime?
   end_date DateTime?
-  term Int?
-  ordinance String?
+  term Int? //Ordem do mandato
+  ordinance String? //Portaria 
   observations String?
-  is_active Boolean
+  is_active Boolean @default(true)
   members MemberOnCommittee[]
-}
 
+}
 model MemberOnCommittee {
   member Member @relation(fields: [member_id], references: [id])
   member_id Int // relation scalar field (used in the `@relation` attribute above)
   committee Committee @relation(fields: [committee_id], references: [id])
   committee_id Int // relation scalar field (used in the `@relation` attribute above)
-  role  String? @default("Membro")
-  assigned_at DateTime? @default(now())
+  role  String? @default("Membro") //Cargo
   begin_date DateTime? @default(now())
-  term Int?
+  term Int? //Ordem do mandato
   observations String?
 
   @@id([member_id, committee_id])

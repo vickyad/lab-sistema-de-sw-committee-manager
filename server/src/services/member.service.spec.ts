@@ -22,9 +22,27 @@ describe("MemberService", () => {
         it("should call prismaService.create", async () => {
             jest.spyOn(prismaService.member, "create").mockImplementationOnce((): any => undefined);
 
-            await memberService.create(factory.newMockMember());
+            await memberService.create(factory.newMockMemberWithId());
 
             expect(prismaService.member.create).toBeCalled();
+        });
+        
+        it("should create and return member", async () => {
+            //jest.spyOn(prismaService.member, "create").mockImplementationOnce((): any => undefined);
+
+            const member = await memberService.create(factory.newMockMemberWithId());
+
+            expect(member).toBeDefined();
+        });
+
+        it("should create and return member with is_Active default value", async () => {
+
+            const mock = factory.newMockMember()
+            mock.is_active = undefined
+
+            const member = await memberService.create(mock);
+
+            expect(member.is_active).toBe(true);
         });
     });
 
@@ -34,7 +52,7 @@ describe("MemberService", () => {
                 (): any => undefined,
             );
 
-            await memberService.member({id: factory.newMockMember().id});
+            await memberService.member({id: factory.newMockMemberWithId().id});
 
             expect(prismaService.member.findUnique).toBeCalled();
         });
@@ -45,7 +63,7 @@ describe("MemberService", () => {
             jest.spyOn(prismaService.member, "update").mockImplementationOnce((): any => undefined);
 
             await memberService.update({ 
-              where: { id: factory.newMockMember().id }, 
+              where: { id: factory.newMockMemberWithId().id }, 
               data: { name: "Updated Name" }}
             );
 
@@ -53,21 +71,11 @@ describe("MemberService", () => {
         });
     });
 
-    // describe("findByNameOrCreate", () => {
-    //     it("should call prismaService.upsert", async () => {
-    //         jest.spyOn(prismaService.member, "upsert").mockImplementationOnce((): any => undefined);
-
-    //         await memberService.findByNameOrCreate(factory.newMockMember().name);
-
-    //         expect(prismaService.member.upsert).toBeCalled();
-    //     });
-    // });
-
     describe("delete", () => {
         it("should call prismaService.delete", async () => {
             jest.spyOn(prismaService.member, "delete").mockImplementationOnce((): any => undefined);
 
-            await memberService.delete({ id: factory.newMockMember().id });
+            await memberService.delete({ id: factory.newMockMemberWithId().id });
 
             expect(prismaService.member.delete).toBeCalled();
         });
