@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Member, Prisma } from '@prisma/client';
+import { CreateMemberDTO } from 'src/DTOs/DTOs'
 
 @Injectable()
 export class MemberService {
@@ -16,26 +17,24 @@ export class MemberService {
   }
 
   async members(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.MemberWhereUniqueInput;
+    //skip?: number; take?: number; cursor?: Prisma.MemberWhereUniqueInput;
     where?: Prisma.MemberWhereInput;
     orderBy?: Prisma.MemberOrderByWithRelationInput;
   }): Promise<Member[]> {
-    const { skip, take, cursor, where, orderBy } = params;
+    const { 
+      //skip, take, cursor, 
+      where, orderBy } = params;
     return this.prisma.member.findMany({
-      skip,
-      take,
-      cursor,
+      //skip, take, cursor,
       where,
       orderBy,
     });
   }
 
-  async create(data: Prisma.MemberCreateInput): Promise<Member> {
+  async create(dto: CreateMemberDTO): Promise<Member> {
     return this.prisma.member.create({
-      data,
-    });
+      data: dto,
+    }); 
   }
 
   async update(params: {
@@ -44,8 +43,8 @@ export class MemberService {
   }): Promise<Member> {
     const { where, data } = params;
     return this.prisma.member.update({
-      data,
       where,
+      data,
     });
   }
 
