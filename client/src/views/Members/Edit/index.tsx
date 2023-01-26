@@ -8,7 +8,7 @@ const Edit = () => {
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...committee_details_mock,
   ])
-  const { currentEntity: currentCommittee } = useContext(EntityContext)
+  const { currentEntity } = useContext(EntityContext)
 
   useEffect(() => {
     let content = [...committee_details_mock]
@@ -18,16 +18,16 @@ const Edit = () => {
   return (
     <>
       <HeaderSecondary
-        headerTitle={`EDIÇÃO - ${currentCommittee.name}`}
+        headerTitle={`EDIÇÃO - ${currentEntity.name}`}
         buttonType="save"
-        backButtonMsg="voltar às comissões"
+        backButtonMsg="voltar a membros em comissões"
         handleExportOrSave={() => {
           /* TODO */
         }}
       />
       {comitteeContent.length > 0 && (
         <Table
-          type={'committee-details'}
+          type={'members-details'}
           editMode={true}
           content={comitteeContent}
           updateTable={(content) => setComitteeContent(content)}

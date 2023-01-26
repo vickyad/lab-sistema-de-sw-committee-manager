@@ -1,8 +1,8 @@
-import { ITableHeader } from './TableHeader/type'
+import { TableTypesExtended } from './../../types/tableTypes'
 export interface ITable {
-  type: 'comittee' | 'members' | 'details'
+  type: TableTypesExtended
   editMode?: boolean
   content: any
-  headerInfo: ITableHeader
+  showOptions?: boolean
   updateTable?: (content: any) => void
 }

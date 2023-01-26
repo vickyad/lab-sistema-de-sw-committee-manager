@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
-import Button from '../../../components/Button'
 import HeaderSecondary from '../../../components/Header/HeaderSecondary'
-import Icon from '../../../components/Icon'
 import Table from '../../../components/Table'
-import { CommitteeContext } from '../../../context/CommitteeContext'
-import { ComitteeTable } from '../../../data/comitteeTable'
+import { EntityContext } from '../../../context/CommitteeContext'
 import { NoContentMessage } from '../../../styles/commonStyles'
 import { comittee_mock } from '../../../_mock/comittee'
 
@@ -12,31 +9,28 @@ const History = () => {
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...comittee_mock,
   ])
-  const { setAction, currentCommittee } = useContext(CommitteeContext)
+  const { currentEntity: currentCommittee } = useContext(EntityContext)
 
   useEffect(() => {
-    console.log()
     let content = [...comittee_mock]
     setComitteeContent(content)
   }, [])
 
   return (
     <>
-      <Button handleClick={() => setAction(null)} type="transparent">
-        <Icon type="arrow-left" /> voltar ao home
-      </Button>
       <HeaderSecondary
         headerTitle={`HISTÓRICO - ${currentCommittee.name}`}
-        buttonType={'export'}
-        handleClick={() => {
+        buttonType="export"
+        backButtonMsg="voltar às comissões"
+        handleExportOrSave={() => {
           /* TODO */
         }}
       />
       {comitteeContent.length > 0 ? (
         <Table
-          type={'comittee'}
+          type={'committee'}
           content={comitteeContent}
-          headerInfo={ComitteeTable}
+          showOptions={false}
         />
       ) : (
         <NoContentMessage>

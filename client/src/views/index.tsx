@@ -8,7 +8,7 @@ import ConfigurationsView from './Configurations'
 import NavBar from '../components/NavBar'
 import { Content } from './styles'
 import { NavItem } from '../components/NavBar/types'
-import { CommitteeProvider } from '../context/CommitteeContext'
+import { EntityProvider } from '../context/CommitteeContext'
 
 const Main: React.FC = () => {
   const navIcon: NavItem[] = [
@@ -19,7 +19,7 @@ const Main: React.FC = () => {
   return (
     <div>
       <NavBar data={navIcon} />
-      <CommitteeProvider>
+      <EntityProvider>
         <Content>
           <Router>
             <Routes>
@@ -33,7 +33,7 @@ const Main: React.FC = () => {
             </Routes>
           </Router>
         </Content>
-      </CommitteeProvider>
+      </EntityProvider>
     </div>
   )
 }

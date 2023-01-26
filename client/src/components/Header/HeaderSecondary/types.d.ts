@@ -1,5 +1,6 @@
 export interface IHeader {
   headerTitle: string
   buttonType: 'export' | 'save'
-  handleClick: () => void
+  handleExportOrSave: () => void
+  backButtonMsg: string
 }

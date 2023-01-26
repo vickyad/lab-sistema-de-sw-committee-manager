@@ -26,9 +26,9 @@ export const Item = styled.p<{ size: number }>`
 `
 
 export const ActionsWrapper = styled.div`
-  grid-column-start: -2;
+  grid-column-end: 16;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
 `
 

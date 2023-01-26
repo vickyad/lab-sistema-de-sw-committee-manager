@@ -10,17 +10,17 @@ const OptionsBox = ({
 }: IOptionsBox) => {
   return (
     <Container>
-      {type === 'comittee' && (
+      {type === 'committee' && (
         <TransparentButton onClick={handleSeeHistory}>
           <Icon type="history" /> Ver histórico
         </TransparentButton>
       )}
       <TransparentButton onClick={handleEdit}>
-        <Icon type="edit" /> Editar {type === 'comittee' ? 'Órgão' : 'Membro'}
+        <Icon type="edit" /> Editar {type === 'committee' ? 'Órgão' : 'Membro'}
       </TransparentButton>
       <ImportantButton onClick={handleDisable}>
         <Icon type="disable" /> Desativar{' '}
-        {type === 'comittee' ? 'Órgão' : 'Membro'}
+        {type === 'committee' ? 'Órgão' : 'Membro'}
       </ImportantButton>
     </Container>
   )
