@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { Committee, Member, MemberOnCommittee, Prisma } from "@prisma/client"
-import { CreateCommitteeDTO, CreateMemberDTO } from "src/DTOs/DTOs"
+import { CreateCommitteeDTO, CreateMemberDTO } from "src/DTOs"
 
 export class DataFactory {
     constructor() {}
