@@ -2,50 +2,35 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Member, Prisma } from '@prisma/client';
-import { CreateMemberDTO } from 'src/DTOs/DTOs'
+import { CreateMemberDTO } from 'src/DTOs'
 
 @Injectable()
 export class MemberService {
   constructor(private prisma: PrismaService) {}
 
   async member(
-    memberWhereUniqueInput: Prisma.MemberWhereUniqueInput,
+    params: Prisma.MemberFindUniqueArgs
   ): Promise<Member | null> {
-    return this.prisma.member.findUnique({
-      where: memberWhereUniqueInput,
-    });
+    return this.prisma.member.findUnique(params);
   }
 
-  async members(params: {
-    //skip?: number; take?: number; cursor?: Prisma.MemberWhereUniqueInput;
-    where?: Prisma.MemberWhereInput;
-    orderBy?: Prisma.MemberOrderByWithRelationInput;
-  }): Promise<Member[]> {
-    const { 
-      //skip, take, cursor, 
-      where, orderBy } = params;
-    return this.prisma.member.findMany({
-      //skip, take, cursor,
-      where,
-      orderBy,
-    });
+  async members(
+    params: Prisma.MemberFindManyArgs
+  ): Promise<Member[]> {
+    return this.prisma.member.findMany(params);
   }
 
-  async create(dto: CreateMemberDTO): Promise<Member> {
-    return this.prisma.member.create({
-      data: dto,
-    }); 
+  async create(
+    data: CreateMemberDTO
+  ): Promise<Member> {
+    return this.prisma.member.create({ data }); 
   }
 
   async update(params: {
     where: Prisma.MemberWhereUniqueInput;
     data: Prisma.MemberUpdateInput;
   }): Promise<Member> {
-    const { where, data } = params;
-    return this.prisma.member.update({
-      where,
-      data,
-    });
+    return this.prisma.member.update(params);
   }
 
   async delete(where: Prisma.MemberWhereUniqueInput): Promise<Member> {
