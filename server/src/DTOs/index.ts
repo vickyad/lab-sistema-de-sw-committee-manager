@@ -1,28 +1,26 @@
-import { Type } from "class-transformer"
-import { IsInt, IsNotEmpty, IsOptional } from "class-validator"
+import { Type } from 'class-transformer';
+import { IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateMemberDTO {
-  
-  @IsNotEmpty()
-  name: string;
+   @IsNotEmpty()
+   name: string;
 
-  is_active?: boolean;
-  //committees?: CommitteeDTO
+   is_active?: boolean;
+   //committees?: CommitteeDTO
 }
 export class CreateCommitteeDTO {
-  
-  @IsNotEmpty()
-  bond: string
-  
-  @IsNotEmpty()
-  name: string
+   @IsNotEmpty()
+   bond: string;
 
-  begin_date: Date | null
-  end_date: Date | null
-  term: number | null
-  ordinance: string | null
-  observations: string | null
-  is_active: boolean
+   @IsNotEmpty()
+   name: string;
+
+   begin_date: Date | null;
+   end_date: Date | null;
+   term: number | null;
+   ordinance: string | null;
+   observations: string | null;
+   is_active: boolean;
 }
 
 // export class OptionalNumberDTO {

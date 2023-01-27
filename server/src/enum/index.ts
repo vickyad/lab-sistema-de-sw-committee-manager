@@ -1,3 +1,3 @@
-export enum pagination {
-  PAGE_SIZE = 20
+export enum pageEnum {
+   PAGE_SIZE = 20,
 }
