@@ -15,12 +15,33 @@ export class CreateCommitteeDTO {
    @IsNotEmpty()
    name: string;
 
-   begin_date: Date | null;
-   end_date: Date | null;
-   term: number | null;
-   ordinance: string | null;
-   observations: string | null;
-   is_active: boolean;
+   is_active?: boolean;
+   begin_date?: Date;
+   end_date?: Date;
+   term?: number;
+   ordinance?: string;
+   observations?: string;
+}
+export class CreateMemberOnCommitteeBaseDTO {
+   role?: string;
+   begin_date?: Date;
+   term?: number;
+   observations?: string;
+
+   constructor(obj) {
+      this.role = obj.role;
+      this.begin_date = obj.begin_date;
+      this.term = obj.term;
+      this.observations = obj.observations;
+   }
+}
+
+export class CreateMemberOnCommitteeDTO extends CreateMemberOnCommitteeBaseDTO {
+   @IsNotEmpty()
+   member_id: number;
+
+   @IsNotEmpty()
+   committee_id: number;
 }
 
 // export class OptionalNumberDTO {

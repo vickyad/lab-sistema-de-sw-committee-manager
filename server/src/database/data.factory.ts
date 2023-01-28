@@ -1,6 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { Committee, Member, MemberOnCommittee, Prisma } from '@prisma/client';
-import { CreateCommitteeDTO, CreateMemberDTO } from 'src/DTOs';
+import {
+   CreateCommitteeDTO,
+   CreateMemberDTO,
+   CreateMemberOnCommitteeBaseDTO,
+   CreateMemberOnCommitteeDTO,
+} from 'src/DTOs';
 
 export class DataFactory {
    constructor() {}
@@ -20,7 +25,8 @@ export class DataFactory {
 
    newMockCommittee() {
       return {
-         bond: faker.commerce.department(),
+         name: 'Órgão ' + faker.name.fullName(),
+         bond: 'Vínculo ' + faker.commerce.department(),
          begin_date: faker.date.past(), //TODO fazer variações com valores nulos pra testar default()
          end_date: faker.date.future(),
          term: +faker.random.numeric(),
@@ -36,7 +42,7 @@ export class DataFactory {
       return mock;
    }
 
-   newMockMemberOnCommitteeWithId(mockMember?: Member, mockCommittee?: Committee) {
+   newMockMemberOnCommittee(mockMember?: Member, mockCommittee?: Committee) {
       if (!mockMember) mockMember = this.newMockMemberWithId();
       if (!mockCommittee) mockCommittee = this.newMockCommitteeWithId();
 
@@ -44,10 +50,9 @@ export class DataFactory {
          member_id: mockMember.id,
          committee_id: mockCommittee.id,
          role: faker.name.jobType(),
-         assigned_at: faker.date.past(),
          begin_date: faker.date.past(),
          term: +faker.random.numeric(),
          observations: faker.lorem.sentence(),
-      } as MemberOnCommittee;
+      } as CreateMemberOnCommitteeDTO;
    }
 }

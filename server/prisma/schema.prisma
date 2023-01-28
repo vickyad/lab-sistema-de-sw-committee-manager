@@ -29,7 +29,7 @@ model Committee {
   name  String //Órgão
   begin_date DateTime?
   end_date DateTime?
-  term Int? //Ordem do mandato
+  term Int? @default(1)//Ordem do mandato
   ordinance String? //Portaria 
   observations String?
   is_active Boolean @default(true)
@@ -43,7 +43,7 @@ model MemberOnCommittee {
   committee_id Int // relation scalar field (used in the `@relation` attribute above)
   role  String? @default("Membro") //Cargo
   begin_date DateTime? @default(now())
-  term Int? //Ordem do mandato
+  term Int? @default(1) //Ordem do mandato
   observations String?
 
   @@id([member_id, committee_id])
