@@ -1,4 +1,5 @@
 import ArrowLeftIcon from './ArrowLeftIcon'
+import CancelIcon from './CancelIcon'
 import ChevronIcon from './ChevronIcon'
 import ComitteeIcon from './ComitteeIcon'
 import ConfigurationsIcon from './ConfigurationsIcon'
@@ -45,6 +46,8 @@ const Icon = ({ type, position = 'down' }: IIcon) => {
         return <MinusIcon />
       case 'plus':
         return <PlusIcon />
+      case 'cancel':
+        return <CancelIcon />
       default:
         return null
     }

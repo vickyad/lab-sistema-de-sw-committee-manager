@@ -1,8 +1,12 @@
 import React, { useState, createContext } from 'react'
 
 interface IEntityContext {
-  currentEntity: { id: number; name: string }
-  setCurrentEntity: (currentEntity: { id: number; name: string }) => void
+  currentEntity: { id: number; name: string; content?: any }
+  setCurrentEntity: (currentEntity: {
+    id: number
+    name: string
+    content?: any
+  }) => void
   action: null | string
   setAction: (action: string | null) => void
 }
@@ -15,7 +19,10 @@ export const EntityContext = createContext<IEntityContext>({
 })
 
 export const EntityProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentEntity, setCurrentEntity] = useState({ id: -1, name: '' })
+  const [currentEntity, setCurrentEntity] = useState({
+    id: -1,
+    name: '',
+  })
   const [action, setAction] = useState<string | null>(null)
 
   return (

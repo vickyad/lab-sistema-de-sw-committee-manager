@@ -7,4 +7,11 @@ export interface ITableRowExpandable {
   detailsToShowId: number
   showOptions: boolean
   handleRowClick: (id: number) => void
+  handleOptionBoxSelection: (
+    selected: string,
+    data: {
+      id: number
+      content: any[]
+    }
+  ) => void
 }

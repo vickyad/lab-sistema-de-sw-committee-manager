@@ -1,16 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import HeaderPrimary from '../../../components/Header/HeaderPrimary'
+import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
-import { MainContainer } from '../../../styles/commonStyles'
+import { EntityContext } from '../../../context/CommitteeContext'
+import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { member_mock } from '../../../_mock/members'
-import { IVisualization } from '../../Comittees/Visualization/types'
 
-const Visualization = ({ blurBg }: IVisualization) => {
+const Visualization = () => {
+  const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
   const [memberContent, setMemberContent] = useState<any[]>([...member_mock])
   const [displayedContent, setDisplayedContent] = useState<any[]>([
     ...member_mock,
   ])
+
+  const {
+    action,
+    setAction,
+    currentEntity: currentMember,
+    setCurrentEntity: setCurrentMember,
+  } = useContext(EntityContext)
+
+  const closePopUp = () => {
+    setDisplayPopup(false)
+    setAction(null)
+    setCurrentMember({ id: -1, name: '', content: undefined })
+  }
+
+  const handleDeactivateCommittee = () => {
+    // TODO: desativar membro
+    closePopUp()
+  }
+
+  useEffect(() => {
+    if (action === 'deactivate') {
+      setDisplayPopup(true)
+    }
+  }, [action])
 
   useEffect(() => {
     let content = [...member_mock]
@@ -33,18 +59,33 @@ const Visualization = ({ blurBg }: IVisualization) => {
   }, [searchtext, memberContent])
 
   return (
-    <MainContainer displayingPopup={blurBg}>
-      <HeaderPrimary
-        headerTitle="Comissões por pessoa"
-        searchPlaceholder="Pesquise pelo nome do funcionário..."
-        searchText={searchtext}
-        setSearchText={(input) => setSearchText(input)}
-        handleClick={() => {
-          /* TODO */
-        }}
-      />
-      <Table type={'members'} content={displayedContent} />
-    </MainContainer>
+    <>
+      {displayPopup && (
+        <Popup
+          title={'Desativar Membro'}
+          action={'Desativar Membro'}
+          actionType={'important'}
+          handleActionClick={handleDeactivateCommittee}
+          handleCancelClick={closePopUp}
+        >
+          Você tem certeza que deseja desativar{' '}
+          <FontBold>{currentMember.name}</FontBold>? Essa ação não pode ser
+          revertida
+        </Popup>
+      )}
+      <MainContainer displayingPopup={displayPopup}>
+        <HeaderPrimary
+          headerTitle="Comissões por pessoa"
+          searchPlaceholder="Pesquise pelo nome do funcionário..."
+          searchText={searchtext}
+          setSearchText={(input) => setSearchText(input)}
+          handleClick={() => {
+            /* TODO */
+          }}
+        />
+        <Table type={'members'} content={displayedContent} />
+      </MainContainer>
+    </>
   )
 }
 export default Visualization

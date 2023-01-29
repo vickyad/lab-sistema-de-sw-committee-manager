@@ -11,8 +11,6 @@ import {
   Container,
   InnerTableWrapper,
 } from './styles'
-import { useContext } from 'react'
-import { EntityContext } from '../../../../context/CommitteeContext'
 
 const TableRow = ({
   children,
@@ -22,15 +20,10 @@ const TableRow = ({
   detailsToShowId,
   showOptions,
   handleRowClick,
+  handleOptionBoxSelection,
 }: ITableRowExpandable) => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false)
-  const { setAction, setCurrentEntity } = useContext(EntityContext)
-
-  const handleOptionBoxSelection = (selected: string) => {
-    setCurrentEntity({ id: data.id, name: data.content[0] })
-    setAction(selected)
-  }
 
   return (
     <Container>
@@ -68,9 +61,9 @@ const TableRow = ({
         <div ref={ref}>
           <OptionsBox
             type={type}
-            handleSeeHistory={() => handleOptionBoxSelection('history')}
-            handleEdit={() => handleOptionBoxSelection('edit')}
-            handleDisable={() => handleOptionBoxSelection('deactivate')}
+            handleSeeHistory={() => handleOptionBoxSelection('history', data)}
+            handleEdit={() => handleOptionBoxSelection('edit', data)}
+            handleDisable={() => handleOptionBoxSelection('deactivate', data)}
           />
         </div>
       )}

@@ -1,38 +1,55 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import HeaderSecondary from '../../../components/Header/HeaderSecondary'
+import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
-import { committee_details_mock } from '../../../_mock/comittee'
+import { FontBold, MainContainer } from '../../../styles/commonStyles'
 
 const Edit = () => {
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...committee_details_mock,
-  ])
   const { currentEntity } = useContext(EntityContext)
+  const [displayPopup, setDisplayPopup] = useState(false)
+  const [memberContent, setMemberContent] = useState<any[]>([
+    ...currentEntity.content,
+  ])
 
-  useEffect(() => {
-    let content = [...committee_details_mock]
-    setComitteeContent(content)
-  }, [])
+  const handleCancelChanges = () => {
+    setMemberContent(currentEntity.content)
+    setDisplayPopup(false)
+  }
 
   return (
     <>
-      <HeaderSecondary
-        headerTitle={`EDIÇÃO - ${currentEntity.name}`}
-        buttonType="save"
-        backButtonMsg="voltar a membros em comissões"
-        handleExportOrSave={() => {
-          /* TODO */
-        }}
-      />
-      {comitteeContent.length > 0 && (
-        <Table
-          type={'members-details'}
-          editMode={true}
-          content={comitteeContent}
-          updateTable={(content) => setComitteeContent(content)}
-        />
+      {displayPopup && (
+        <Popup
+          title={'Cancelar alterações'}
+          action={'Continuar'}
+          actionType={'important'}
+          handleActionClick={handleCancelChanges}
+          handleCancelClick={() => setDisplayPopup(false)}
+        >
+          Você tem certeza que deseja{' '}
+          <FontBold>cancelar suas alterações</FontBold>? Essa ação não pode ser
+          revertida
+        </Popup>
       )}
+      <MainContainer displayingPopup={displayPopup}>
+        <HeaderSecondary
+          headerTitle={`EDIÇÃO - ${currentEntity.name}`}
+          buttonType="save"
+          backButtonMsg="voltar a membros em comissões"
+          handleExportOrSave={() => {
+            /* TODO */
+          }}
+        />
+        {memberContent.length > 0 && (
+          <Table
+            type={'members-details'}
+            editMode={true}
+            content={memberContent}
+            updateTable={(content) => setMemberContent(content)}
+          />
+        )}
+      </MainContainer>
     </>
   )
 }
