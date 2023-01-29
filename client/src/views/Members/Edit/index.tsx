@@ -2,17 +2,17 @@ import { useContext, useEffect, useState } from 'react'
 import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
-import { committee_details_mock } from '../../../_mock/comittee'
+import { member_details_mock } from '../../../_mock/members'
 
 const Edit = () => {
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...committee_details_mock,
+  const [memberContent, setMemberContent] = useState<any[]>([
+    ...member_details_mock.active_participations,
   ])
   const { currentEntity } = useContext(EntityContext)
 
   useEffect(() => {
-    let content = [...committee_details_mock]
-    setComitteeContent(content)
+    let content = [...member_details_mock.active_participations]
+    setMemberContent(content)
   }, [])
 
   return (
@@ -25,12 +25,12 @@ const Edit = () => {
           /* TODO */
         }}
       />
-      {comitteeContent.length > 0 && (
+      {memberContent.length > 0 && (
         <Table
           type={'members-details'}
           editMode={true}
-          content={comitteeContent}
-          updateTable={(content) => setComitteeContent(content)}
+          content={memberContent}
+          updateTable={(content) => setMemberContent(content)}
         />
       )}
     </>
