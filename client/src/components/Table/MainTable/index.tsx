@@ -22,7 +22,10 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
       setCurrentEntity({
         id: data.id,
         name: data.content[0],
-        content: committee_details_mock,
+        content:
+          type === 'committee'
+            ? committee_details_mock
+            : member_details_mock.active_participations,
       })
     } else {
       setCurrentEntity({ id: data.id, name: data.content[0] })
