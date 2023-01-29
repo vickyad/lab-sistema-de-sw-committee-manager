@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Table from '..'
+import { EntityContext } from '../../../context/CommitteeContext'
 import { committee_details_mock } from '../../../_mock/comittee'
 import { member_details_mock } from '../../../_mock/members'
 import MemberParticipations from '../../MemberParticipations'
@@ -8,6 +9,27 @@ import { IMainTable } from './types'
 
 const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
   const [showDetails, setShowDetails] = useState(-1)
+  const { setAction, setCurrentEntity } = useContext(EntityContext)
+
+  const handleOptionBoxSelection = (
+    selected: string,
+    data: {
+      id: number
+      content: any[]
+    }
+  ) => {
+    if (selected === 'edit') {
+      setCurrentEntity({
+        id: data.id,
+        name: data.content[0],
+        content: committee_details_mock,
+      })
+    } else {
+      setCurrentEntity({ id: data.id, name: data.content[0] })
+    }
+    setAction(selected)
+  }
+
   return (
     <>
       {content.map((item: any, index: number) => (
@@ -19,6 +41,7 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
           handleRowClick={(id: number) => setShowDetails(id)}
           showOptions={showOptions}
           key={`table-row-${index}`}
+          handleOptionBoxSelection={handleOptionBoxSelection}
         >
           {type === 'committee' ? (
             <Table

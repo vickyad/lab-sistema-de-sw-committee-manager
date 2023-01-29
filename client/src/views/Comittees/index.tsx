@@ -19,7 +19,7 @@ const ComitteesView = () => {
   const closePopUp = () => {
     setDisplayPopup(false)
     setAction(null)
-    setCurrentCommittee({ id: -1, name: '' })
+    setCurrentCommittee({ id: -1, name: '', content: undefined })
   }
 
   const handleDeactivateCommittee = () => {

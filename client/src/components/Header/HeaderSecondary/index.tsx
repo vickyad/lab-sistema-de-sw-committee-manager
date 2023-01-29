@@ -3,14 +3,15 @@ import { EntityContext } from '../../../context/CommitteeContext'
 import Button from '../../Button'
 import Icon from '../../Icon'
 import Title from '../../Title'
-import { HeaderContainer } from './styles'
+import { FlexBox, HeaderContainer } from './styles'
 import { IHeader } from './types'
 
 const HeaderSecondary = ({
   headerTitle,
   buttonType,
-  handleExportOrSave,
   backButtonMsg,
+  handleExportOrSave,
+  handleCancel,
 }: IHeader) => {
   const { setAction } = useContext(EntityContext)
 
@@ -21,22 +22,25 @@ const HeaderSecondary = ({
       </Button>
       <HeaderContainer>
         <Title type="secondary">{headerTitle}</Title>
-        <Button
-          handleClick={handleExportOrSave}
-          type={buttonType === 'export' ? 'primary' : 'save'}
-        >
-          {buttonType === 'export' ? (
-            <>
-              <Icon type={'download'} />
-              Exportar dados
-            </>
-          ) : (
-            <>
+        {buttonType === 'save' ? (
+          <FlexBox>
+            {handleCancel && (
+              <Button handleClick={handleCancel} type="attention">
+                <Icon type="disable" />
+                Cancelar alterações
+              </Button>
+            )}
+            <Button handleClick={handleExportOrSave} type={'save'}>
               <Icon type={'save'} />
               Salvar alterações
-            </>
-          )}
-        </Button>
+            </Button>
+          </FlexBox>
+        ) : (
+          <Button handleClick={handleExportOrSave} type="primary">
+            <Icon type={'download'} />
+            Exportar dados
+          </Button>
+        )}
       </HeaderContainer>
     </>
   )

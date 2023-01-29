@@ -2,18 +2,12 @@ import { useContext, useEffect, useState } from 'react'
 import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
-import { committee_details_mock } from '../../../_mock/comittee'
 
 const Edit = () => {
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...committee_details_mock,
-  ])
   const { currentEntity: currentCommittee } = useContext(EntityContext)
-
-  useEffect(() => {
-    let content = [...committee_details_mock]
-    setComitteeContent(content)
-  }, [])
+  const [comitteeContent, setComitteeContent] = useState<any[]>([
+    ...currentCommittee.content,
+  ])
 
   return (
     <>
@@ -24,6 +18,7 @@ const Edit = () => {
         handleExportOrSave={() => {
           /* TODO */
         }}
+        handleCancel={() => setComitteeContent(currentCommittee.content)}
       />
       {comitteeContent.length > 0 && (
         <Table

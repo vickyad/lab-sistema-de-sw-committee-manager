@@ -19,7 +19,7 @@ const MembersView = () => {
     console.log('nhoi')
     setDisplayPopup(false)
     setAction(null)
-    setCurrentMember({ id: -1, name: '' })
+    setCurrentMember({ id: -1, name: '', content: undefined })
   }
 
   const handleDeactivateCommittee = () => {
