@@ -5,7 +5,7 @@ import { EntityContext } from '../../../context/CommitteeContext'
 import { NoContentMessage } from '../../../styles/commonStyles'
 import { comittee_mock } from '../../../_mock/comittee'
 
-const History = () => {
+const CommitteeHistory = () => {
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...comittee_mock,
   ])
@@ -40,4 +40,4 @@ const History = () => {
     </>
   )
 }
-export default History
+export default CommitteeHistory

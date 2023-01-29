@@ -3,8 +3,9 @@ import Popup from '../../components/Popup'
 import { EntityContext } from '../../context/CommitteeContext'
 import { FontBold } from '../../styles/commonStyles'
 import Edit from './Edit'
-import History from './History'
+import CommitteeHistory from './CommitteeHistory'
 import Visualization from './Visualization'
+import FunctionHistory from './FunctionHistory'
 
 const ComitteesView = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -16,8 +17,6 @@ const ComitteesView = () => {
   } = useContext(EntityContext)
 
   const closePopUp = () => {
-    // TODO: desativar membro
-    console.log('nhoi')
     setDisplayPopup(false)
     setAction(null)
     setCurrentCommittee({ id: -1, name: '' })
@@ -52,7 +51,9 @@ const ComitteesView = () => {
       {action === 'edit' ? (
         <Edit />
       ) : action === 'history' ? (
-        <History />
+        <CommitteeHistory />
+      ) : action === 'function-history' ? (
+        <FunctionHistory />
       ) : (
         <Visualization blurBg={displayPopup} />
       )}
