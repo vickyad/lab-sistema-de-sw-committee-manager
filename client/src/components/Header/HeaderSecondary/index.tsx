@@ -26,7 +26,7 @@ const HeaderSecondary = ({
           <FlexBox>
             {handleCancel && (
               <Button handleClick={handleCancel} type="attention">
-                <Icon type="disable" />
+                <Icon type="cancel" />
                 Cancelar alterações
               </Button>
             )}
