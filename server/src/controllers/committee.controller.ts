@@ -11,15 +11,15 @@ import {
 } from '@nestjs/common';
 import { CommitteeService } from '../services/committee.service';
 import { Committee, Prisma } from '@prisma/client';
-import { CreateCommitteeDTO } from '../DTOs';
 import { pageEnum } from 'src/enum';
+import { CommitteeDTO } from 'src/DTOs/committee.dto'
 
 @Controller('committee')
 export class CommiteeController {
    constructor(private readonly committeeService: CommitteeService) {}
 
    @Get()
-   async getById(
+   async getOne(
       @Query('id', ParseIntPipe) id: number,
       @Body('include') include?: Prisma.CommitteeInclude,
    ): Promise<Committee> {
@@ -47,14 +47,14 @@ export class CommiteeController {
    }
 
    @Post()
-   async create(@Body() data: CreateCommitteeDTO): Promise<Committee> {
+   async create(@Body('data') data: CommitteeDTO): Promise<Committee> {
       return this.committeeService.create(data);
    }
 
    @Patch()
    async update(
       @Query('id', ParseIntPipe) id: number,
-      @Body() data: Prisma.CommitteeUpdateInput,
+      @Body('data') data: Prisma.CommitteeUpdateInput,
    ): Promise<Committee> {
       return this.committeeService.update({
          where: { id },

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Committee, Prisma } from '@prisma/client';
-import { CreateCommitteeDTO } from 'src/DTOs';
 
 @Injectable()
 export class CommitteeService {
@@ -15,7 +14,7 @@ export class CommitteeService {
       return this.prisma.committee.findMany(params);
    }
 
-   async create(data: CreateCommitteeDTO): Promise<Committee> {
+   async create(data: Prisma.CommitteeCreateInput): Promise<Committee> {
       return this.prisma.committee.create({
          data,
       });

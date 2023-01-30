@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MemberService } from './member.service';
 import { PrismaService } from '../database/prisma.service';
 import { DataFactory } from '../database/data.factory';
-import { CreateMemberDTO } from 'src/DTOs';
+import { MemberDTO } from 'src/DTOs/member.dto';
 
 describe('MemberService', () => {
    let memberService: MemberService;
@@ -10,7 +10,7 @@ describe('MemberService', () => {
 
    const factory = new DataFactory();
 
-   const mockMember: CreateMemberDTO = {
+   const mockMember: MemberDTO = {
       name: 'Test Name',
       is_active: false,
    };

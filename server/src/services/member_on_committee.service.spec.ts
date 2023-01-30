@@ -4,7 +4,7 @@ import { DataFactory } from '../database/data.factory';
 import { MemberOnCommitteeService } from './member_on_committee.service';
 import { CommitteeService } from './committee.service';
 import { MemberService } from './member.service';
-import { CreateMemberOnCommitteeBaseDTO } from '../DTOs';
+import { MemberOnCommitteeInfoDTO } from 'src/DTOs/member_on_committee.dto'
 
 describe('MemberOnCommitteeService', () => {
    let memberService: MemberService;
@@ -31,30 +31,30 @@ describe('MemberOnCommitteeService', () => {
             .spyOn(prismaService.memberOnCommittee, 'create')
             .mockImplementationOnce((): any => undefined);
 
-         const memberOnCommittee = factory.newMockMemberOnCommittee();
+         const mock = factory.newMockMemberOnCommittee();
 
          await memberOnCommitteeService.create({
-            ...memberOnCommittee,
-            member: { connect: { id: memberOnCommittee.member_id } },
-            committee: { connect: { id: memberOnCommittee.committee_id } },
+            ...mock.data,
+            member: { connect: { id: mock.where.member_id } },
+            committee: { connect: { id: mock.where.committee_id } },
          });
 
          expect(prismaService.memberOnCommittee.create).toBeCalled();
       });
 
-      fit('should create', async () => {
+      it('should create', async () => {
          const member = await memberService.create(factory.newMockMember());
          const com = await committeeService.create(factory.newMockCommittee());
 
          const mock = factory.newMockMemberOnCommittee(member, com);
 
          const response = await memberOnCommitteeService.create({
-            ...new CreateMemberOnCommitteeBaseDTO(mock),
-            member: { connect: { id: mock.member_id } },
-            committee: { connect: { id: mock.committee_id } },
+            ...mock.data,
+            member: { connect: { id: mock.where.member_id } },
+            committee: { connect: { id: mock.where.committee_id } },
          });
 
-         expect(response).toBeDefined();
+         expect(response).toBeDefined();         
       });
    });
 
@@ -64,13 +64,13 @@ describe('MemberOnCommitteeService', () => {
             .spyOn(prismaService.memberOnCommittee, 'findUnique')
             .mockImplementationOnce((): any => undefined);
 
-         const memberOnCommittee = factory.newMockMemberOnCommittee();
+         const mock = factory.newMockMemberOnCommittee();
 
          await memberOnCommitteeService.memberOnCommittee({
             where: {
                member_id_committee_id: {
-                  member_id: memberOnCommittee.member_id,
-                  committee_id: memberOnCommittee.committee_id,
+                  member_id: mock.where.member_id,
+                  committee_id: mock.where.committee_id,
                },
             },
          });
@@ -85,13 +85,13 @@ describe('MemberOnCommitteeService', () => {
             .spyOn(prismaService.memberOnCommittee, 'update')
             .mockImplementationOnce((): any => undefined);
 
-         const memberOnCommittee = factory.newMockMemberOnCommittee();
+         const mock = factory.newMockMemberOnCommittee();
 
          await memberOnCommitteeService.update({
             where: {
                member_id_committee_id: {
-                  member_id: memberOnCommittee.member_id,
-                  committee_id: memberOnCommittee.committee_id,
+                  member_id: mock.where.member_id,
+                  committee_id: mock.where.committee_id,
                },
             },
             data: { observations: 'Updated observations' },
@@ -107,12 +107,12 @@ describe('MemberOnCommitteeService', () => {
             .spyOn(prismaService.memberOnCommittee, 'delete')
             .mockImplementationOnce((): any => undefined);
 
-         const memberOnCommittee = factory.newMockMemberOnCommittee();
+         const mock = factory.newMockMemberOnCommittee();
 
          await memberOnCommitteeService.delete({
             member_id_committee_id: {
-               member_id: memberOnCommittee.member_id,
-               committee_id: memberOnCommittee.committee_id,
+               member_id: mock.where.member_id,
+               committee_id: mock.where.committee_id,
             },
          });
 

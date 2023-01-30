@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { MemberService } from '../services/member.service';
 import { Member, Prisma } from '@prisma/client';
-import { CreateMemberDTO } from '../DTOs';
+import { MemberDTO } from '../DTOs/member.dto';
 import { pageEnum } from 'src/enum';
 
 @Controller('member')
@@ -20,8 +20,8 @@ export class MemberController {
 
    // /member?id=1
    @Get()
-   async getById(
-      @Query('id', ParseIntPipe) id: number,
+   async getOne(
+      @Query('id') id: number, //@Body('where') where: Prisma.MemberWhereUniqueInput,
       @Body('include') include?: Prisma.MemberInclude,
    ): Promise<Member> {
       return this.memberService.member({
@@ -52,7 +52,7 @@ export class MemberController {
 
    // /member
    @Post()
-   async create(@Body() data: CreateMemberDTO): Promise<Member> {
+   async create(@Body('data') data: MemberDTO): Promise<Member> {
       return this.memberService.create(data);
    }
 
@@ -60,7 +60,7 @@ export class MemberController {
    @Patch()
    async update(
       @Query('id', ParseIntPipe) id: number,
-      @Body() data: Prisma.MemberUpdateInput,
+      @Body('data') data: Prisma.MemberUpdateInput,
    ): Promise<Member> {
       return this.memberService.update({
          where: { id },

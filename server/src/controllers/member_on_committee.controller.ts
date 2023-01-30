@@ -12,32 +12,46 @@ import {
 import { MemberOnCommitteeService } from '../services/member_on_committee.service';
 import { MemberOnCommittee as MemberOnCommitteeModel, Prisma } from '@prisma/client';
 import { pageEnum } from 'src/enum';
+import { MemberOnCommitteeInfoDTO, MemberOnCommitteeUniqueDTO } from 'src/DTOs/member_on_committee.dto'
 
 @Controller('member_on_committee')
 export class MemberOnCommitteeController {
    constructor(private readonly memberOnCommitteeService: MemberOnCommitteeService) {}
 
    @Get()
-   async getById(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number,
+   async getOne(
+      @Body('where') where: MemberOnCommitteeUniqueDTO,
       @Body('include') include?: Prisma.MemberOnCommitteeInclude,
    ): Promise<MemberOnCommitteeModel> {
       return this.memberOnCommitteeService.memberOnCommittee({
-         where: { member_id_committee_id: { member_id, committee_id } },
+         where: { member_id_committee_id: { member_id: where.member_id, committee_id: where.committee_id } },
          include,
       });
    }
 
    @Get('/all')
    async getAll(
-      @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip?: number,
-      @Query('take', new DefaultValuePipe(pageEnum.PAGE_SIZE), ParseIntPipe)
-      take?: number,
-      @Body('where') where?: Prisma.MemberOnCommitteeWhereInput,
+      @Body('where') where?: Prisma.MemberOnCommitteeWhereInput, //TODO validar
       @Body('orderBy')
-      orderBy?: Prisma.MemberOnCommitteeOrderByWithRelationInput,
-      @Body('include') include?: Prisma.MemberOnCommitteeInclude,
+      orderBy?: Prisma.MemberOnCommitteeOrderByWithRelationInput, //TODO validar
+      @Body('include') include?: Prisma.MemberOnCommitteeInclude, //TODO validar
+   ): Promise<MemberOnCommitteeModel[]> {
+      return this.memberOnCommitteeService.memberOnCommittees({
+         where,
+         orderBy,
+         include,
+      });
+   }
+
+   @Get('/page')
+   async getPage(
+      @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
+      @Query('take', new DefaultValuePipe(pageEnum.PAGE_SIZE), ParseIntPipe)
+      take: number,
+      @Body('where') where?: Prisma.MemberOnCommitteeWhereInput, //TODO validar
+      @Body('orderBy')
+      orderBy?: Prisma.MemberOnCommitteeOrderByWithRelationInput, //TODO validar
+      @Body('include') include?: Prisma.MemberOnCommitteeInclude, //TODO validar
    ): Promise<MemberOnCommitteeModel[]> {
       return this.memberOnCommitteeService.memberOnCommittees({
          skip,
@@ -50,30 +64,33 @@ export class MemberOnCommitteeController {
 
    @Post()
    async create(
-      @Body('data') data: Prisma.MemberOnCommitteeCreateInput,
+      @Body('data') data: MemberOnCommitteeInfoDTO,
+      @Body('where') where: MemberOnCommitteeUniqueDTO,
    ): Promise<MemberOnCommitteeModel> {
-      return this.memberOnCommitteeService.create(data);
+      return this.memberOnCommitteeService.create({
+         ...data as MemberOnCommitteeInfoDTO,
+         member: { connect: { id: where.member_id } },
+         committee: { connect: { id: where.committee_id } },
+      });
    }
 
    @Patch()
    async update(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number,
-      @Body() data: Prisma.MemberOnCommitteeUpdateInput,
+      @Body('data') data: MemberOnCommitteeInfoDTO,
+      @Body('where') where: MemberOnCommitteeUniqueDTO,
    ): Promise<MemberOnCommitteeModel> {
       return this.memberOnCommitteeService.update({
-         where: { member_id_committee_id: { member_id, committee_id } },
-         data,
+         where: { member_id_committee_id: { member_id: where.member_id, committee_id: where.committee_id } },
+         data
       });
    }
 
    @Delete()
    async delete(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number,
+      @Body('where') where: MemberOnCommitteeUniqueDTO,
    ): Promise<MemberOnCommitteeModel> {
       return this.memberOnCommitteeService.delete({
-         member_id_committee_id: { member_id, committee_id },
+         member_id_committee_id: { member_id: where.member_id, committee_id: where.committee_id },
       });
    }
 }
