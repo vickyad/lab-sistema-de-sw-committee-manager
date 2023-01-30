@@ -3,4 +3,5 @@ export interface IButton {
   handleClick: () => void
   type?: 'primary' | 'secondary' | 'save' | 'attention' | 'card' | 'transparent'
   color?: 'blue' | 'black'
+  fontSize?: 'default' | 'large'
 }

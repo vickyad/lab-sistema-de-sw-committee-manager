@@ -1,4 +1,5 @@
 import { ActionButton, Button, Container, Description, Header } from './styles'
+import { IPopup } from './types'
 
 const Popup = ({
   children,
@@ -7,14 +8,7 @@ const Popup = ({
   actionType,
   handleActionClick,
   handleCancelClick,
-}: {
-  title: string
-  children: React.ReactNode
-  action: string
-  actionType: 'save' | 'important'
-  handleActionClick: () => void
-  handleCancelClick: () => void
-}) => {
+}: IPopup) => {
   return (
     <Container>
       <Header>{title}</Header>
