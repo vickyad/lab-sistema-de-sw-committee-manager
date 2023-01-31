@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { Committee, Member, MemberOnCommittee, Prisma } from '@prisma/client';
-import { CommitteeDTO } from 'src/DTOs/committee.dto'
-import { MemberDTO } from 'src/DTOs/member.dto'
-import { MemberOnCommitteeInfoDTO, MemberOnCommitteeUniqueDTO } from 'src/DTOs/member_on_committee.dto'
+import { Committee, Member } from '@prisma/client';
+import { CommitteeCreateDTO } from 'src/DTOs/committee.dto'
+import { MemberCreateDTO } from 'src/DTOs/member.dto'
+import { MemberOnCommitteeCreateDTO, MemberOnCommitteeUniqueDTO } from 'src/DTOs/member_on_committee.dto'
 
 export class DataFactory {
    constructor() {}
@@ -11,7 +11,7 @@ export class DataFactory {
       return {
          name: faker.name.fullName(),
          is_active: faker.datatype.boolean(),
-      } as MemberDTO;
+      } as MemberCreateDTO;
    }
 
    newMockMemberWithId() {
@@ -24,13 +24,13 @@ export class DataFactory {
       return {
          name: 'Órgão ' + faker.name.fullName(),
          bond: 'Vínculo ' + faker.commerce.department(),
-         begin_date: faker.date.past(), //TODO fazer variações com valores nulos pra testar default()
+         begin_date: faker.date.past(),
          end_date: faker.date.future(),
          term: +faker.random.numeric(),
          ordinance: 'Portaria ' + faker.random.alphaNumeric(5),
          observations: faker.lorem.sentence(),
          is_active: true,
-      } as CommitteeDTO;
+      } as CommitteeCreateDTO;
    }
 
    newMockCommitteeWithId() {
@@ -53,7 +53,7 @@ export class DataFactory {
             begin_date: faker.date.past(),
             term: +faker.random.numeric(),
             observations: faker.lorem.sentence(),
-         } as MemberOnCommitteeInfoDTO
+         } as MemberOnCommitteeCreateDTO
       }
    }
 }

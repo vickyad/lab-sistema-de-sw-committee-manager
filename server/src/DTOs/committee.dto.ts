@@ -1,7 +1,7 @@
 import { Type } from "class-transformer"
 import { IsNotEmpty, IsString, IsBoolean, IsOptional, Min, Max, IsInt, IsDate } from "class-validator"
 
-export class CommitteeDTO {
+export class CommitteeCreateDTO {
   @IsNotEmpty()
   @IsString()
   bond: string;

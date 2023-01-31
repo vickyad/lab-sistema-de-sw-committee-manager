@@ -4,7 +4,7 @@ import { DataFactory } from '../database/data.factory';
 import { MemberOnCommitteeService } from './member_on_committee.service';
 import { CommitteeService } from './committee.service';
 import { MemberService } from './member.service';
-import { MemberOnCommitteeInfoDTO } from 'src/DTOs/member_on_committee.dto'
+import { MemberOnCommitteeCreateDTO } from 'src/DTOs/member_on_committee.dto'
 
 describe('MemberOnCommitteeService', () => {
    let memberService: MemberService;

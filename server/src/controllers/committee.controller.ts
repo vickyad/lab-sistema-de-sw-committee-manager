@@ -12,7 +12,7 @@ import {
 import { CommitteeService } from '../services/committee.service';
 import { Committee, Prisma } from '@prisma/client';
 import { pageEnum } from 'src/enum';
-import { CommitteeDTO } from 'src/DTOs/committee.dto'
+import { CommitteeCreateDTO } from 'src/DTOs/committee.dto'
 
 @Controller('committee')
 export class CommiteeController {
@@ -20,34 +20,57 @@ export class CommiteeController {
 
    @Get()
    async getOne(
-      @Query('id', ParseIntPipe) id: number,
-      @Body('include') include?: Prisma.CommitteeInclude,
+      @Query() id: number,
+      //@Body('include') include?: Prisma.CommitteeInclude,
    ): Promise<Committee> {
       return this.committeeService.committee({
          where: { id },
-         include,
+         //include,
       });
    }
 
-   @Get('/all')
-   async getAll(
+   /*
+   @Get('/page')
+   async getPage(
       @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip?: number,
       @Query('take', new DefaultValuePipe(pageEnum.PAGE_SIZE), ParseIntPipe) take?: number,
-      @Body('where') where?: Prisma.CommitteeWhereInput,
-      @Body('orderBy') orderBy?: Prisma.CommitteeOrderByWithRelationInput,
-      @Body('include') include?: Prisma.CommitteeInclude,
+      // @Body('where') where?: Prisma.CommitteeWhereInput,
+      // @Body('orderBy') orderBy?: Prisma.CommitteeOrderByWithRelationInput,
+      // @Body('include') include?: Prisma.CommitteeInclude,
    ): Promise<Committee[]> {
       return this.committeeService.committees({
          skip,
          take,
-         where,
-         orderBy,
-         include,
+         // where,
+         // orderBy,
+         // include,
+      });
+   }
+   */
+
+   @Get('/all')
+   async getAll(
+      // @Body('where') where?: Prisma.CommitteeWhereInput,
+      // @Body('orderBy') orderBy?: Prisma.CommitteeOrderByWithRelationInput,
+      // @Body('include') include?: Prisma.CommitteeInclude,
+   ): Promise<Committee[]> {
+      return this.committeeService.committees({
+         where: { is_active: true },
+         orderBy: { name: "asc" },
+         include: { members: {
+            select: {
+               role: true,
+               begin_date: true,
+               term: true,
+               observations: true,
+               member: true
+            },
+          } },
       });
    }
 
    @Post()
-   async create(@Body('data') data: CommitteeDTO): Promise<Committee> {
+   async create(@Body('data') data: CommitteeCreateDTO): Promise<Committee> {
       return this.committeeService.create(data);
    }
 

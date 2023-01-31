@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { MemberService } from '../services/member.service';
 import { Member, Prisma } from '@prisma/client';
-import { MemberDTO } from '../DTOs/member.dto';
+import { MemberCreateDTO } from '../DTOs/member.dto';
 import { pageEnum } from 'src/enum';
 
 @Controller('member')
@@ -21,22 +21,23 @@ export class MemberController {
    // /member?id=1
    @Get()
    async getOne(
-      @Query('id') id: number, //@Body('where') where: Prisma.MemberWhereUniqueInput,
-      @Body('include') include?: Prisma.MemberInclude,
+      @Query('id') id: number,
+      //@Body('where') where: Prisma.MemberWhereUniqueInput,
+      //@Body('include') include?: Prisma.MemberInclude,
    ): Promise<Member> {
       return this.memberService.member({
          where: { id },
-         include,
+         //include,
       });
    }
 
-   // /member/all
-   // /member/all?take=5&skip=10
-   @Get('/all')
-   async getAll(
-      @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip?: number,
+   /*
+   // /member/page?take=5&skip=10
+   @Get('/page')
+   async getPage(
+      @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
       @Query('take', new DefaultValuePipe(pageEnum.PAGE_SIZE), ParseIntPipe)
-      take?: number,
+      take: number,
       @Body('where') where?: Prisma.MemberWhereInput,
       @Body('orderBy') orderBy?: Prisma.MemberOrderByWithRelationInput,
       @Body('include') include?: Prisma.MemberInclude,
@@ -49,10 +50,25 @@ export class MemberController {
          include,
       });
    }
+   */
+
+   // /member/all
+   @Get('/all')
+   async getAll(
+      // @Body('where') where?: Prisma.MemberWhereInput,
+      // @Body('orderBy') orderBy?: Prisma.MemberOrderByWithRelationInput,
+      // @Body('include') include?: Prisma.MemberInclude,
+   ): Promise<Member[]> {
+      return this.memberService.members({
+         where: { is_active: true },
+         orderBy: { name: "asc" },
+         //include,
+      });
+   }
 
    // /member
    @Post()
-   async create(@Body('data') data: MemberDTO): Promise<Member> {
+   async create(@Body('data') data: MemberCreateDTO): Promise<Member> {
       return this.memberService.create(data);
    }
 

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CommitteeService } from './committee.service';
 import { PrismaService } from '../database/prisma.service';
 import { DataFactory } from '../database/data.factory';
-import { CommitteeDTO } from 'src/DTOs/committee.dto'
+import { CommitteeCreateDTO } from 'src/DTOs/committee.dto'
 
 describe('CommitteeService', () => {
    let committeeService: CommitteeService;
@@ -47,7 +47,7 @@ describe('CommitteeService', () => {
          const mockDefaults = {
             name: mockCom.name,
             bond: mockCom.bond,
-         } as CommitteeDTO;
+         } as CommitteeCreateDTO;
 
          const response = await committeeService.create(mockDefaults);
 

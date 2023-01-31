@@ -1,18 +1,11 @@
-import { IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class MemberDTO {
+export class MemberCreateDTO {
    @IsNotEmpty()
+   @IsString()
    name: string;
 
    @IsBoolean()
    @IsOptional()
    is_active?: boolean;
 }
-
-
-// export class OptionalNumberDTO {
-//   @IsOptional()
-//   @Type(() => Number)
-//   @IsInt()
-//   number: number;
-//  }
