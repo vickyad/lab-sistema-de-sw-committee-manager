@@ -15,47 +15,17 @@ const axios_membersoncommittees = axios.create({
 })
 
 async function fetch_member_info() {
-  // let result = [] as any[]
-
-  // let resultResp = async() => { await axios_member.get("/all").then(res => {
-  //   console.log([...res.data])
-  //   console.log([...member_mock])
-  //   result = res.data
-  //   // setMemberContent(data);
-  //   // setDisplayedContent(data);
-  // }).catch(err => console.log(err))
-  // }
-
   let result = await axios_member.get("/all")
       .then(res => res.data)
       .catch(err => console.log(err))
-  
-  // console.log("ab")
-  // console.log(result)
 
   return result
 }
 
 async function fetch_membersoncommittees_info() {
-  // let result = [] as any[]
-  // let resultResp = async() => {
-  //   await axios_membersoncommittees.get("/all").then(res => {
-  //   console.log([res.data.filter((obj: any) => {
-  //     return obj.member_id=== 4;
-  //   }).length])
-  //   console.log([...member_mock])
-  //   result = res.data
-  //   // setMemberContent(data);
-  //   // setDisplayedContent(data);
-  // }).catch(err => console.log(err))
-  // }
-
   let result = await axios_membersoncommittees.get("/all")
       .then(res => res.data)
       .catch(err => console.log(err))
-
-  // console.log('ae')
-  // console.log(result)
 
   return result
 }
@@ -71,21 +41,14 @@ function format_member_info(member_info: any[], membersoncommittee_info: any[]) 
     formated_member_info.push({id: member.id, content: [member.name, number_of_comissions]})
   })
 
-  console.log(formated_member_info)
-
   return formated_member_info 
 }
-
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
-  const [memberContent, setMemberContent] = useState<any[]>([...member_mock])
-  const [displayedContent, setDisplayedContent] = useState<any[]>([
-    ...member_mock,
-  ])
-  
-  console.log(member_mock)
+  const [memberContent, setMemberContent] = useState<any[]>([])
+  const [displayedContent, setDisplayedContent] = useState<any[]>([])
 
   async function fetch_and_format_member_info()
   {
@@ -94,8 +57,6 @@ const Visualization = () => {
     const formated_member_info = format_member_info(member_info, membersoncommittee_info)
     setMemberContent(formated_member_info)
     setDisplayedContent(formated_member_info)
-    console.log(member_info)
-    console.log(memberContent)
   }
 
   const {
@@ -124,18 +85,6 @@ const Visualization = () => {
 
   useEffect(() => {
     fetch_and_format_member_info()
-    
-    // const temp = async() => {
-    //   let members_trunc = (axios.get("localhost:3000/member/all")).data.keys()
-    //   debugger;
-    //   
-    // }
-  
-    
-    
-    // let content = [...member_mock]
-    // setMemberContent(content)
-    // setDisplayedContent(content)
   }, [])
 
   useEffect(() => {
