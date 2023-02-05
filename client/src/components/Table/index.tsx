@@ -38,7 +38,7 @@ const Table = ({
         <TableHeader {...getTableHeader()} />
         {type === 'committee-details' || type === 'members-details' ? (
           <DetailsTable
-            sizes={getTableSizes()}
+            tableInfo={getTableHeader()}
             content={content}
             editMode={editMode}
             updateTable={updateTable}
