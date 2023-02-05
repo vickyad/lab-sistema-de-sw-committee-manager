@@ -5,6 +5,77 @@ import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { member_mock } from '../../../_mock/members'
+import axios from 'axios'
+
+const axios_member = axios.create({
+  baseURL: "http://localhost:3000/member"
+})
+const axios_membersoncommittees = axios.create({
+  baseURL: "http://localhost:3000/member_on_committee"
+})
+
+async function fetch_member_info() {
+  // let result = [] as any[]
+
+  // let resultResp = async() => { await axios_member.get("/all").then(res => {
+  //   console.log([...res.data])
+  //   console.log([...member_mock])
+  //   result = res.data
+  //   // setMemberContent(data);
+  //   // setDisplayedContent(data);
+  // }).catch(err => console.log(err))
+  // }
+
+  let result = await axios_member.get("/all")
+      .then(res => res.data)
+      .catch(err => console.log(err))
+  
+  // console.log("ab")
+  // console.log(result)
+
+  return result
+}
+
+async function fetch_membersoncommittees_info() {
+  // let result = [] as any[]
+  // let resultResp = async() => {
+  //   await axios_membersoncommittees.get("/all").then(res => {
+  //   console.log([res.data.filter((obj: any) => {
+  //     return obj.member_id=== 4;
+  //   }).length])
+  //   console.log([...member_mock])
+  //   result = res.data
+  //   // setMemberContent(data);
+  //   // setDisplayedContent(data);
+  // }).catch(err => console.log(err))
+  // }
+
+  let result = await axios_membersoncommittees.get("/all")
+      .then(res => res.data)
+      .catch(err => console.log(err))
+
+  // console.log('ae')
+  // console.log(result)
+
+  return result
+}
+
+function format_member_info(member_info: any[], membersoncommittee_info: any[]) {
+  let formated_member_info = [] as any[]
+
+  member_info.forEach( (member : any) => {
+    let number_of_comissions = membersoncommittee_info.filter((obj: any) => {
+      return obj.member_id=== member.id;
+    }).length
+
+    formated_member_info.push({id: member.id, content: [member.name, number_of_comissions]})
+  })
+
+  console.log(formated_member_info)
+
+  return formated_member_info 
+}
+
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -13,6 +84,19 @@ const Visualization = () => {
   const [displayedContent, setDisplayedContent] = useState<any[]>([
     ...member_mock,
   ])
+  
+  console.log(member_mock)
+
+  async function fetch_and_format_member_info()
+  {
+    const member_info = await fetch_member_info()
+    const membersoncommittee_info = await fetch_membersoncommittees_info()
+    const formated_member_info = format_member_info(member_info, membersoncommittee_info)
+    setMemberContent(formated_member_info)
+    setDisplayedContent(formated_member_info)
+    console.log(member_info)
+    console.log(memberContent)
+  }
 
   const {
     action,
@@ -39,9 +123,19 @@ const Visualization = () => {
   }, [action])
 
   useEffect(() => {
-    let content = [...member_mock]
-    setMemberContent(content)
-    setDisplayedContent(content)
+    fetch_and_format_member_info()
+    
+    // const temp = async() => {
+    //   let members_trunc = (axios.get("localhost:3000/member/all")).data.keys()
+    //   debugger;
+    //   
+    // }
+  
+    
+    
+    // let content = [...member_mock]
+    // setMemberContent(content)
+    // setDisplayedContent(content)
   }, [])
 
   useEffect(() => {
