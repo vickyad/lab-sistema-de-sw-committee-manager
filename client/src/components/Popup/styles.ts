@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
   background-color: #f7f9fb;
   text-align: center;
+  min-width: 29rem;
   max-width: 31.25rem;
   position: absolute;
   top: 50%;
