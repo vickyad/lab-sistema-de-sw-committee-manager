@@ -3,6 +3,7 @@ import { INavBar } from './types'
 import { Container, Link, LinkContainer } from './styles'
 import { useState, useEffect, useContext } from 'react'
 import { EntityContext } from '../../context/CommitteeContext'
+import { getEmptyEntity } from '../../utils/EmptyEntity'
 
 const NavBar = ({ data }: INavBar) => {
   const [tabSelected, setTabSelected] = useState('')
@@ -10,7 +11,7 @@ const NavBar = ({ data }: INavBar) => {
 
   const handleClick = () => {
     setAction(null)
-    setCurrentEntity({ id: -1, name: '' })
+    setCurrentEntity(getEmptyEntity())
   }
 
   useEffect(() => {

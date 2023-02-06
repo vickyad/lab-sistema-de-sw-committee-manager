@@ -30,16 +30,22 @@ const HeaderSecondary = ({
                 Cancelar alterações
               </Button>
             )}
-            <Button handleClick={handleExportOrSave} type={'save'}>
-              <Icon type={'save'} />
-              Salvar alterações
-            </Button>
+            {handleExportOrSave && (
+              <Button handleClick={handleExportOrSave} type={'save'}>
+                <Icon type={'save'} />
+                Salvar alterações
+              </Button>
+            )}
           </FlexBox>
         ) : (
-          <Button handleClick={handleExportOrSave} type="primary">
-            <Icon type={'download'} />
-            Exportar dados
-          </Button>
+          <>
+            {handleExportOrSave && (
+              <Button handleClick={handleExportOrSave} type="primary">
+                <Icon type={'download'} />
+                Exportar dados
+              </Button>
+            )}
+          </>
         )}
       </HeaderContainer>
     </>

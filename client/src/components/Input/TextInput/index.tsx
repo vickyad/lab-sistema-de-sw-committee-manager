@@ -1,19 +1,25 @@
 import { Container, InputContainer, Label, Required } from './styles'
 import { IInput } from './types'
 
-const Input = ({ label, value, required = false, handleChange }: IInput) => {
+const TextInput = ({
+  type = 'text',
+  label,
+  required = false,
+  value,
+  handleChange,
+  size = 'default',
+}: IInput) => {
   return (
     <Container>
-      <Label>
-        {label}
-        {required && <Required>*</Required>}:
+      <Label size={size}>
+        {label}:{required && <Required>*</Required>}
       </Label>
       <InputContainer
-        type="text"
+        type={type}
         value={value}
         onChange={(newValue) => handleChange(newValue.target.value)}
       />
     </Container>
   )
 }
-export default Input
+export default TextInput

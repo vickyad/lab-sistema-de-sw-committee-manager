@@ -1,9 +1,19 @@
 import { useState } from 'react'
-import Icon from '../Icon'
-import { Container, Label, LabelContainer, TransparentButton } from './styles'
+import Icon from '../../Icon'
+import {
+  BoxContainer,
+  Container,
+  Input,
+  InputContainer,
+  Label,
+  Required,
+  TransparentButton,
+} from './styles'
 import { IDropdown } from './types'
 
 const Dropdown = ({
+  label,
+  required = false,
   placeholder,
   options,
   optionSelected,
@@ -15,16 +25,22 @@ const Dropdown = ({
     setOptionSelected(item)
     setShowOptions(false)
   }
+
   return (
-    <div style={{ position: 'relative' }}>
-      <LabelContainer onClick={() => setShowOptions(!showOptions)}>
+    <Container>
+      {label && (
         <Label>
-          {optionSelected.name.length > 0 ? optionSelected.name : placeholder}
+          {label}:{required && <Required>*</Required>}
         </Label>
+      )}
+      <InputContainer onClick={() => setShowOptions(!showOptions)}>
+        <Input>
+          {optionSelected.name.length > 0 ? optionSelected.name : placeholder}
+        </Input>
         <Icon type="chevron" position={showOptions ? 'top' : 'down'} />
-      </LabelContainer>
+      </InputContainer>
       {showOptions && (
-        <Container>
+        <BoxContainer>
           {options.map((item, index) => (
             <TransparentButton
               key={`dropdown-item-${index}`}
@@ -33,9 +49,9 @@ const Dropdown = ({
               {item.name}
             </TransparentButton>
           ))}
-        </Container>
+        </BoxContainer>
       )}
-    </div>
+    </Container>
   )
 }
 export default Dropdown

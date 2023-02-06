@@ -4,13 +4,24 @@ import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
+import { getEmptyEntity } from '../../../utils/EmptyEntity'
 
 const Edit = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
-  const { currentEntity: currentCommittee } = useContext(EntityContext)
+  const {
+    currentEntity: currentCommittee,
+    setCurrentEntity,
+    setAction,
+  } = useContext(EntityContext)
   const [comitteeContent, setComitteeContent] = useState<any[]>([
     ...currentCommittee.content,
   ])
+
+  const handleSaveChanges = () => {
+    // TODO: save changes
+    setAction(null)
+    setCurrentEntity({ ...getEmptyEntity(), content: undefined })
+  }
 
   const handleCancelChanges = () => {
     setComitteeContent(currentCommittee.content)
@@ -37,9 +48,7 @@ const Edit = () => {
           headerTitle={`EDIÇÃO - ${currentCommittee.name}`}
           buttonType="save"
           backButtonMsg="voltar às comissões"
-          handleExportOrSave={() => {
-            /* TODO */
-          }}
+          handleExportOrSave={handleSaveChanges}
           handleCancel={() => setDisplayPopup(true)}
         />
         {comitteeContent.length > 0 && (

@@ -4,12 +4,15 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 1rem 0;
+  gap: 0.75rem;
 `
 
-export const Label = styled.label`
-  font-weight: 500;
-  font-size: 1.25rem;
-  margin-right: 1rem;
+export const Label = styled.label<{ size: 'default' | 'lg' }>`
+  font-weight: 600;
+  font-size: ${({ size }) => (size === 'lg' ? '1.25rem' : '1rem')};
+  min-width: 7.3rem;
+  text-align: right;
 `
 
 export const Required = styled.span`
@@ -24,6 +27,6 @@ export const InputContainer = styled.input`
   align-items: center;
   justify-content: space-between;
   font-size: 1rem;
-  padding: 0.3rem 0.5rem;
+  padding: 0.2rem 0.5rem;
   width: 70%;
 `

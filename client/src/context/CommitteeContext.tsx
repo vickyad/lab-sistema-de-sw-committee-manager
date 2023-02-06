@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react'
+import { getEmptyEntity } from '../utils/EmptyEntity'
 
 interface IEntityContext {
   currentEntity: { id: number; name: string; content?: any }
@@ -12,17 +13,14 @@ interface IEntityContext {
 }
 
 export const EntityContext = createContext<IEntityContext>({
-  currentEntity: { id: -1, name: '' },
+  currentEntity: getEmptyEntity(),
   setCurrentEntity: () => {},
   action: null,
   setAction: () => {},
 })
 
 export const EntityProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentEntity, setCurrentEntity] = useState({
-    id: -1,
-    name: '',
-  })
+  const [currentEntity, setCurrentEntity] = useState(getEmptyEntity())
   const [action, setAction] = useState<string | null>(null)
 
   return (
