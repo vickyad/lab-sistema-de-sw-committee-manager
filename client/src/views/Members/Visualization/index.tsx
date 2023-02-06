@@ -80,8 +80,9 @@ const Visualization = () => {
           searchPlaceholder="Pesquise pelo nome do funcionário..."
           searchText={searchtext}
           setSearchText={(input) => setSearchText(input)}
-          handleClick={() => {
+          handleExport={(type) => {
             /* TODO */
+            console.log(type)
           }}
         />
         <Table type={'members'} content={displayedContent} />

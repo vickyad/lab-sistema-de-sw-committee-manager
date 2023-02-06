@@ -2,6 +2,7 @@ export interface IHeader {
   headerTitle: string
   backButtonMsg: string
   buttonType: 'export' | 'save'
-  handleExportOrSave?: () => void
+  handleSave?: () => void
   handleCancel?: () => void
+  handleExport?: (type: 'csv' | 'pdf') => void
 }

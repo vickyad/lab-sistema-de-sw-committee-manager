@@ -22,8 +22,9 @@ const CommitteeHistory = () => {
         headerTitle={`HISTÓRICO - ${currentCommittee.name}`}
         buttonType="export"
         backButtonMsg="voltar às comissões"
-        handleExportOrSave={() => {
+        handleExport={(type) => {
           /* TODO */
+          console.log(type)
         }}
       />
       {comitteeContent.length > 0 ? (

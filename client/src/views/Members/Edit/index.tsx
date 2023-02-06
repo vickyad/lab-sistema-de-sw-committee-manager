@@ -45,7 +45,7 @@ const Edit = () => {
           headerTitle={`EDIÇÃO - ${currentEntity.name}`}
           buttonType="save"
           backButtonMsg="voltar a membros em comissões"
-          handleExportOrSave={handleSaveChanges}
+          handleSave={handleSaveChanges}
           handleCancel={() => setDisplayPopup(true)}
         />
         {memberContent.length > 0 && (

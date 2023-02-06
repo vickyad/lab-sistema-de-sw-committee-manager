@@ -86,8 +86,9 @@ const Visualization = () => {
           searchPlaceholder="Pesquise por órgão..."
           searchText={searchtext}
           setSearchText={(input) => setSearchText(input)}
-          handleClick={() => {
+          handleExport={(type) => {
             /* TODO */
+            console.log(type)
           }}
         />
         {displayedContent.length > 0 ? (
