@@ -1,6 +1,9 @@
 import { useContext } from 'react'
 import { EntityContext } from '../../../../context/CommitteeContext'
-import { Container, Input, Item, RowContainer } from './styles'
+import { member_list_mock } from '../../../../_mock/memberList'
+import Dropdown from '../../Input/Dropdown'
+import TextInput from '../../Input/TextInput'
+import { Container, Item, RowContainer } from './styles'
 import { ITableRow } from './types'
 
 const TableRow = ({ id, editMode, data, tableInfo, onChange }: ITableRow) => {
@@ -18,12 +21,23 @@ const TableRow = ({ id, editMode, data, tableInfo, onChange }: ITableRow) => {
         {editMode
           ? data.content.map((item: any, index: number) => {
               return headers[index].editable ? (
-                <Input
-                  size={sizes[index]}
-                  value={item}
-                  onChange={(e) => onChange(e.target.value, index, id)}
-                  key={`input-item-${index}`}
-                />
+                headers[index].type === 'dropdown' ? (
+                  <Dropdown
+                    size={sizes[index]}
+                    options={member_list_mock}
+                    optionSelected={item}
+                    setOptionSelected={(name: string) =>
+                      onChange(name, index, id)
+                    }
+                  />
+                ) : (
+                  <TextInput
+                    size={sizes[index]}
+                    value={item}
+                    handleOnChange={(newValue) => onChange(newValue, index, id)}
+                    key={`input-item-${index}`}
+                  />
+                )
               ) : (
                 <Item size={sizes[index]} key={`item-${item}-${index}`}>
                   {item}
