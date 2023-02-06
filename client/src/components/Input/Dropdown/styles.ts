@@ -1,11 +1,27 @@
 import styled from 'styled-components'
 
+export const Container = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
 export const Label = styled.p`
+  font-weight: 600;
+  font-size: 1.25rem;
+`
+
+export const Required = styled.span`
+  color: #c43838;
+`
+
+export const Input = styled.p`
   overflow: hidden;
   white-space: nowrap;
 `
 
-export const LabelContainer = styled.button`
+export const InputContainer = styled.button`
   background-color: transparent;
   border: 1px solid #00000033;
   border-radius: 0.3rem;
@@ -15,6 +31,7 @@ export const LabelContainer = styled.button`
   font-size: 1rem;
   padding: 0.3rem 0.5rem;
   margin: 0 auto;
+  min-width: 13rem;
   width: 85%;
 
   & svg {
@@ -22,7 +39,7 @@ export const LabelContainer = styled.button`
   }
 `
 
-export const Container = styled.div`
+export const BoxContainer = styled.div`
   position: absolute;
   right: 2rem;
   top: 2.25rem;

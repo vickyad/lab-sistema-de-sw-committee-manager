@@ -107,7 +107,7 @@ const CommitteeCustom = () => {
           type="save"
         >
           <Icon type="save" />
-          Salvar
+          Salvar alterações
         </Button>
       </FlexContainer>
     </div>

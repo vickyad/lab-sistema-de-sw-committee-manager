@@ -3,6 +3,7 @@ import Button from '../../../components/Button'
 import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Icon from '../../../components/Icon'
 import Checkbox from '../../../components/Input/Checkbox'
+import Dropdown from '../../../components/Input/Dropdown'
 import TextInput from '../../../components/Input/TextInput'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
@@ -35,15 +36,24 @@ const CommitteeFromTemplate = () => {
         backButtonMsg="voltar às comissões"
       />
       <FlexContainer>
-        <TextInput
-          label="Órgão"
-          required
-          value={committeeInfo.name}
-          handleChange={(newValue: string) =>
-            setCommitteeInfo({ ...committeeInfo, name: newValue })
-          }
-          size="lg"
-        />
+        <BondContainer>
+          <Dropdown
+            label="Órgão"
+            required
+            placeholder={'Selecione um órgão'}
+            options={[]}
+            optionSelected={{
+              id: 0,
+              name: '',
+            }}
+            setOptionSelected={function (option: {
+              id: number
+              name: string
+            }): void {
+              throw new Error('Function not implemented.')
+            }}
+          />
+        </BondContainer>
         {committeeInfo.name.length > 0 && (
           <BondContainer>
             <Title type="subsection">Vínculo:</Title>
@@ -113,7 +123,7 @@ const CommitteeFromTemplate = () => {
               type="save"
             >
               <Icon type="save" />
-              Salvar
+              Salvar alterações
             </Button>
           </FlexContainer>
         </>

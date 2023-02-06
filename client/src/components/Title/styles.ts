@@ -15,5 +15,6 @@ export const SecondaryTitle = styled(BaseTitle)`
 `
 
 export const SubsectionTitle = styled(BaseTitle)`
+  color: black;
   font-size: 1.25rem;
 `
