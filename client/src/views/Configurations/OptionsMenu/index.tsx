@@ -6,6 +6,7 @@ import Popup from '../../../components/Popup'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { MainContainer } from '../../../styles/commonStyles'
+import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { member_list_mock } from '../../../_mock/memberList'
 import { ButtonContainer } from './styles'
 
@@ -14,10 +15,9 @@ const OptionsMenu = () => {
   const [displayPopup, setDisplayPopup] = useState<'add' | 'deactivate' | null>(
     null
   )
-  const [activeMemberSelected, setActiveMemberSelected] = useState({
-    id: -1,
-    name: '',
-  })
+  const [activeMemberSelected, setActiveMemberSelected] = useState(
+    getEmptyEntity()
+  )
   const [memberName, setMemberName] = useState('')
 
   const handleAddMember = () => {

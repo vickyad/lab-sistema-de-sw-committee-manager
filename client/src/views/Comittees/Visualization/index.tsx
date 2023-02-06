@@ -8,6 +8,7 @@ import {
   MainContainer,
   NoContentMessage,
 } from '../../../styles/commonStyles'
+import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { comittee_mock } from '../../../_mock/comittee'
 
 const Visualization = () => {
@@ -30,7 +31,7 @@ const Visualization = () => {
   const closePopUp = () => {
     setDisplayPopup(false)
     setAction(null)
-    setCurrentCommittee({ id: -1, name: '', content: undefined })
+    setCurrentCommittee({ ...getEmptyEntity(), content: undefined })
   }
 
   const handleDeactivateCommittee = () => {
