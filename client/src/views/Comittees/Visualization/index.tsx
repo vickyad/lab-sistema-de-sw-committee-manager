@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import ExportableTable from '../../../components/ExportableTable'
 import HeaderPrimary from '../../../components/Header/HeaderPrimary'
 import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
@@ -92,7 +93,10 @@ const Visualization = () => {
           }}
         />
         {displayedContent.length > 0 ? (
-          <Table type={'committee'} content={displayedContent} />
+          <>
+            <Table type={'committee'} content={displayedContent} />
+            <ExportableTable type={'committee'} content={displayedContent} />
+          </>
         ) : (
           <NoContentMessage>
             Não há comissões ativas no momento
