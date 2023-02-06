@@ -40,6 +40,7 @@ const Edit = () => {
           handleExportOrSave={() => {
             /* TODO */
           }}
+          handleCancel={() => setDisplayPopup(true)}
         />
         {memberContent.length > 0 && (
           <Table
