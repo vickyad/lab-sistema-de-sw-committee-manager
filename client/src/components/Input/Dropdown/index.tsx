@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Icon from '../Icon'
+import Icon from '../../Icon'
 import { Container, Label, LabelContainer, TransparentButton } from './styles'
 import { IDropdown } from './types'
 

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import Button from '../../../components/Button'
-import Dropdown from '../../../components/Dropdown'
-import Input from '../../../components/Input'
+import Dropdown from '../../../components/Input/Dropdown'
+import TextInput from '../../../components/Input/TextInput'
 import Popup from '../../../components/Popup'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
@@ -40,11 +40,12 @@ const OptionsMenu = () => {
           handleActionClick={handleAddMember}
           handleCancelClick={() => setDisplayPopup(null)}
         >
-          <Input
+          <TextInput
             label="Nome"
-            required={true}
+            required
             value={memberName}
             handleChange={(member) => setMemberName(member)}
+            size="lg"
           />
         </Popup>
       ) : (
