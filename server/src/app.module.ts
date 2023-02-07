@@ -10,6 +10,7 @@ import { MemberOnCommitteeService } from './services/member_on_committee.service
 @Module({
    imports: [],
    controllers: [MemberController, CommiteeController, MemberOnCommitteeController],
-   providers: [PrismaService, CommitteeService, MemberService, MemberOnCommitteeService],
+   providers: [PrismaService, CommitteeService, MemberService, MemberOnCommitteeService,
+   ],
 })
 export class AppModule {}
