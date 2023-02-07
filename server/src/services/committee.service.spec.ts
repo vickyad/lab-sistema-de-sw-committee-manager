@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CommitteeService } from './committee.service';
 import { PrismaService } from '../database/prisma.service';
 import { DataFactory } from '../database/data.factory';
-import { CreateCommitteeDTO } from 'src/DTOs';
+import { CommitteeCreateDTO } from 'src/DTOs/committee.dto'
 
 describe('CommitteeService', () => {
    let committeeService: CommitteeService;
@@ -47,18 +47,18 @@ describe('CommitteeService', () => {
          const mockDefaults = {
             name: mockCom.name,
             bond: mockCom.bond,
-         } as CreateCommitteeDTO;
+         } as CommitteeCreateDTO;
 
-         const com = await committeeService.create(mockDefaults);
+         const response = await committeeService.create(mockDefaults);
 
-         expect(com.bond).toEqual(mockDefaults.bond);
-         expect(com.name).toEqual(mockDefaults.name);
-         expect(com.is_active).toEqual(true);
-         expect(com.begin_date).toEqual(null);
-         expect(com.end_date).toEqual(null);
-         expect(com.term).toEqual(1);
-         expect(com.observations).toEqual(null);
-         expect(com.ordinance).toEqual(null);
+         expect(response.bond).toEqual(mockDefaults.bond);
+         expect(response.name).toEqual(mockDefaults.name);
+         expect(response.is_active).toEqual(true);
+         expect(response.begin_date).toEqual(null);
+         expect(response.end_date).toEqual(null);
+         expect(response.term).toEqual(1);
+         expect(response.observations).toEqual(null);
+         expect(response.ordinance).toEqual(null);
       });
    });
 

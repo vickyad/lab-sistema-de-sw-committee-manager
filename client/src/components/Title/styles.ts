@@ -13,3 +13,8 @@ export const SecondaryTitle = styled(BaseTitle)`
   font-size: 1.625rem;
   text-transform: uppercase;
 `
+
+export const SubsectionTitle = styled(BaseTitle)`
+  color: black;
+  font-size: 1.25rem;
+`

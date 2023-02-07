@@ -4,6 +4,7 @@ import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
+import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { member_mock } from '../../../_mock/members'
 import axios from 'axios'
 
@@ -69,7 +70,7 @@ const Visualization = () => {
   const closePopUp = () => {
     setDisplayPopup(false)
     setAction(null)
-    setCurrentMember({ id: -1, name: '', content: undefined })
+    setCurrentMember({ ...getEmptyEntity(), content: undefined })
   }
 
   const handleDeactivateCommittee = () => {

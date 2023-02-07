@@ -6,7 +6,7 @@ const TableHeader = ({ headers, sizes, type }: ITableHeader) => {
     <Container type={type}>
       {headers.map((item, index) => (
         <ColumnHeader size={sizes[index]} key={`column-${item}`}>
-          {item}
+          {item.label}
         </ColumnHeader>
       ))}
     </Container>

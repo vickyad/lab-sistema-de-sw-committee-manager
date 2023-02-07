@@ -1,5 +1,6 @@
+import { ITableHeader } from './../TableHeader/type.d'
 export interface IDetailsTable {
-  sizes: number[]
+  tableInfo: ITableHeader
   editMode: boolean
   content: any
   updateTable?: (content: any) => void

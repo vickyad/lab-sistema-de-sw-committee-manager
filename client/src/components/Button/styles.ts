@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const DefaultButton = styled.button`
+export const DefaultButton = styled.button<{ fontSize: 'default' | 'large' }>`
   color: white;
   border-radius: 0.5rem;
   border: 1px solid #00000026;
@@ -12,6 +12,7 @@ export const DefaultButton = styled.button`
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: #9dbce6;
@@ -20,6 +21,11 @@ export const DefaultButton = styled.button`
   & svg {
     margin-right: 0.5rem;
   }
+
+  ${({ fontSize }) =>
+    css`
+      font-size: ${fontSize === 'default' ? '0.875rem' : '1.25rem'};
+    `}
 `
 
 export const SecondaryButton = styled(DefaultButton)`

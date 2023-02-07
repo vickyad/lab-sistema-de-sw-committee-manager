@@ -4,7 +4,7 @@ import { IDetailsTable } from './types'
 const DetailsTable = ({
   content,
   editMode,
-  sizes,
+  tableInfo,
   updateTable,
 }: IDetailsTable) => {
   const handleChange = (updatedInfo: any, index: number, id: number) => {
@@ -30,7 +30,7 @@ const DetailsTable = ({
             handleChange(updatedInfo, index, id)
           }
           data={item}
-          sizes={sizes}
+          tableInfo={tableInfo}
           key={`table-row-${index}`}
         />
       ))}
