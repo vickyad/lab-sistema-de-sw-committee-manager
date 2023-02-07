@@ -21,48 +21,26 @@ export class MemberController {
    // /member?id=1
    @Get()
    async getOne(
-      @Query('id') id: number,
-      //@Body('where') where: Prisma.MemberWhereUniqueInput,
-      //@Body('include') include?: Prisma.MemberInclude,
+      @Query('id', ParseIntPipe) id: number,
    ): Promise<Member> {
       return this.memberService.member({
          where: { id },
-         //include,
+         include: { committees: {
+            include: { committee: true },
+         }},
       });
    }
-
-   /*
-   // /member/page?take=5&skip=10
-   @Get('/page')
-   async getPage(
-      @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
-      @Query('take', new DefaultValuePipe(pageEnum.PAGE_SIZE), ParseIntPipe)
-      take: number,
-      @Body('where') where?: Prisma.MemberWhereInput,
-      @Body('orderBy') orderBy?: Prisma.MemberOrderByWithRelationInput,
-      @Body('include') include?: Prisma.MemberInclude,
-   ): Promise<Member[]> {
-      return this.memberService.members({
-         skip,
-         take,
-         where,
-         orderBy,
-         include,
-      });
-   }
-   */
 
    // /member/all
    @Get('/all')
    async getAll(
-      // @Body('where') where?: Prisma.MemberWhereInput,
-      // @Body('orderBy') orderBy?: Prisma.MemberOrderByWithRelationInput,
-      // @Body('include') include?: Prisma.MemberInclude,
    ): Promise<Member[]> {
       return this.memberService.members({
          where: { is_active: true },
          orderBy: { name: "asc" },
-         //include,
+         include: { committees: {
+            include: { committee: true },
+         }},
       });
    }
 
@@ -75,7 +53,7 @@ export class MemberController {
    // /member?id=1
    @Patch()
    async update(
-      @Query('id', ParseIntPipe) id: number,
+      @Query('id') id: number,
       @Body('data') data: Prisma.MemberUpdateInput,
    ): Promise<Member> {
       return this.memberService.update({
@@ -86,7 +64,7 @@ export class MemberController {
 
    // /member?id=1
    @Delete()
-   async delete(@Query('id', ParseIntPipe) id: number): Promise<Member> {
+   async delete(@Query('id') id: number): Promise<Member> {
       return this.memberService.delete({ id });
    }
 }

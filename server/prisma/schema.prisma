@@ -34,8 +34,8 @@ model Committee {
   observations String?
   is_active Boolean @default(true)
   members MemberOnCommittee[]
-
 }
+
 model MemberOnCommittee {
   member Member @relation(fields: [member_id], references: [id])
   member_id Int // relation scalar field (used in the `@relation` attribute above)

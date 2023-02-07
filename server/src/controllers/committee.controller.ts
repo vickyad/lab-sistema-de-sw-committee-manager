@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { CommitteeService } from '../services/committee.service';
 import { Committee, Prisma } from '@prisma/client';
-import { pageEnum } from 'src/enum';
 import { CommitteeCreateDTO } from 'src/DTOs/committee.dto'
 
 @Controller('committee')
@@ -20,52 +19,25 @@ export class CommiteeController {
 
    @Get()
    async getOne(
-      @Query() id: number,
-      //@Body('include') include?: Prisma.CommitteeInclude,
+      @Query('id', ParseIntPipe) id: number,
    ): Promise<Committee> {
       return this.committeeService.committee({
          where: { id },
-         //include,
+         include: { members: {
+            select: { member: true },
+          }},
       });
    }
-
-   /*
-   @Get('/page')
-   async getPage(
-      @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip?: number,
-      @Query('take', new DefaultValuePipe(pageEnum.PAGE_SIZE), ParseIntPipe) take?: number,
-      // @Body('where') where?: Prisma.CommitteeWhereInput,
-      // @Body('orderBy') orderBy?: Prisma.CommitteeOrderByWithRelationInput,
-      // @Body('include') include?: Prisma.CommitteeInclude,
-   ): Promise<Committee[]> {
-      return this.committeeService.committees({
-         skip,
-         take,
-         // where,
-         // orderBy,
-         // include,
-      });
-   }
-   */
 
    @Get('/all')
    async getAll(
-      // @Body('where') where?: Prisma.CommitteeWhereInput,
-      // @Body('orderBy') orderBy?: Prisma.CommitteeOrderByWithRelationInput,
-      // @Body('include') include?: Prisma.CommitteeInclude,
    ): Promise<Committee[]> {
       return this.committeeService.committees({
          where: { is_active: true },
          orderBy: { name: "asc" },
          include: { members: {
-            select: {
-               role: true,
-               begin_date: true,
-               term: true,
-               observations: true,
-               member: true
-            },
-          } },
+            select: { member: true },
+          }},
       });
    }
 
