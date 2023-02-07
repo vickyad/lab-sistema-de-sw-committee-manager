@@ -7,7 +7,6 @@ import {
    ParseIntPipe,
    Query,
    Patch,
-   DefaultValuePipe,
 } from '@nestjs/common';
 import { CommitteeService } from '../services/committee.service';
 import { Committee, Prisma } from '@prisma/client';

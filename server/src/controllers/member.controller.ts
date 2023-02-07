@@ -7,12 +7,10 @@ import {
    ParseIntPipe,
    Patch,
    Query,
-   DefaultValuePipe,
 } from '@nestjs/common';
 import { MemberService } from '../services/member.service';
 import { Member, Prisma } from '@prisma/client';
 import { MemberCreateDTO } from '../DTOs/member.dto';
-import { pageEnum } from 'src/enum';
 
 @Controller('member')
 export class MemberController {

@@ -9,9 +9,8 @@ import {
    Query,
 } from '@nestjs/common';
 import { MemberOnCommitteeService } from '../services/member_on_committee.service';
-import { MemberOnCommittee as MemberOnCommitteeModel, Prisma } from '@prisma/client';
-import { MemberOnCommitteeCreateDTO, MemberOnCommitteeUniqueDTO } from 'src/DTOs/member_on_committee.dto'
-import { IsNotEmpty } from 'class-validator'
+import { MemberOnCommittee as MemberOnCommitteeModel } from '@prisma/client';
+import { MemberOnCommitteeCreateDTO } from 'src/DTOs/member_on_committee.dto'
 import { ValidatePayloadExistsPipe } from 'src/pipes/validate_payload_exists'
 
 @Controller('member_on_committee')
