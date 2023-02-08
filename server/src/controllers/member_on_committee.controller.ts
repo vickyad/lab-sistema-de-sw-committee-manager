@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { MemberOnCommitteeService } from '../services/member_on_committee.service';
 import { MemberOnCommittee as MemberOnCommitteeModel } from '@prisma/client';
-import { MemberOnCommitteeCreateDTO } from 'src/DTOs/member_on_committee.dto'
+import { MemberOnCommitteeCreateDTO, MemberOnCommitteeUpdateDTO } from 'src/DTOs/member_on_committee.dto'
 import { ValidatePayloadExistsPipe } from 'src/pipes/validate_payload_exists'
 
 @Controller('member_on_committee')
@@ -24,7 +24,6 @@ export class MemberOnCommitteeController {
    ): Promise<MemberOnCommitteeModel> {
       return this.memberOnCommitteeService.memberOnCommittee({
          where: { member_id_committee_id: { member_id, committee_id } },
-         //include,
       });
    }
       
@@ -36,7 +35,7 @@ export class MemberOnCommitteeController {
    }
       
    @Post()
-   async create(
+   async create( //TODO tentar quebrar ao fazer update por POST.
       @Query('member_id', ParseIntPipe) member_id: number,
       @Query('committee_id', ParseIntPipe) committee_id: number,
       @Body('data', ValidatePayloadExistsPipe) data: MemberOnCommitteeCreateDTO,
@@ -52,7 +51,7 @@ export class MemberOnCommitteeController {
    async update(
       @Query('member_id', ParseIntPipe) member_id: number,
       @Query('committee_id', ParseIntPipe) committee_id: number,
-      @Body('data', ValidatePayloadExistsPipe) data: MemberOnCommitteeCreateDTO,
+      @Body('data', ValidatePayloadExistsPipe) data: MemberOnCommitteeUpdateDTO,
    ): Promise<MemberOnCommitteeModel> {
       return this.memberOnCommitteeService.update({
          where: { member_id_committee_id: { member_id, committee_id } },

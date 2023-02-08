@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { MemberService } from '../services/member.service';
 import { Member, Prisma } from '@prisma/client';
-import { MemberCreateDTO } from '../DTOs/member.dto';
+import { MemberCreateDTO, MemberUpdateDTO } from '../DTOs/member.dto';
 
 @Controller('member')
 export class MemberController {
@@ -23,9 +23,9 @@ export class MemberController {
    ): Promise<Member> {
       return this.memberService.member({
          where: { id },
-         include: { committees: {
-            include: { committee: true },
-         }},
+         include: { 
+            committees: { include: { committee: true } }
+         },
       });
    }
 
@@ -52,7 +52,7 @@ export class MemberController {
    @Patch()
    async update(
       @Query('id') id: number,
-      @Body('data') data: Prisma.MemberUpdateInput,
+      @Body('data') data: MemberUpdateDTO,
    ): Promise<Member> {
       return this.memberService.update({
          where: { id },
