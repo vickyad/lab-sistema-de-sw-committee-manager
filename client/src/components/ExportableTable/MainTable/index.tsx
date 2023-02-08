@@ -19,6 +19,7 @@ const MainTable = ({ content, type, sizes }: IMainTable) => {
             <MemberParticipations
               activeContent={member_details_mock.active_participations}
               closedContent={member_details_mock.history}
+              exportMode={true}
             />
           )}
         </TableRow>

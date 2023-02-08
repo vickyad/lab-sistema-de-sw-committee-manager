@@ -1,14 +1,16 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import ExportableTable from '../../../components/ExportableTable'
 import HeaderPrimary from '../../../components/Header/HeaderPrimary'
 import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
+import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import {
   FontBold,
   MainContainer,
   NoContentMessage,
 } from '../../../styles/commonStyles'
+import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { comittee_mock } from '../../../_mock/comittee'
 
@@ -21,6 +23,8 @@ const Visualization = () => {
   const [displayedContent, setDisplayedContent] = useState<any[]>([
     ...comittee_mock,
   ])
+  const [exportPDF, setExportPDF] = useState(false)
+  const table = useRef<HTMLInputElement>(null)
 
   const {
     action,
@@ -47,6 +51,18 @@ const Visualization = () => {
   }, [action])
 
   useEffect(() => {
+    if (exportPDF) {
+      try {
+        createPDF(table, 'committees')
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setExportPDF(false)
+      }
+    }
+  }, [exportPDF])
+
+  useEffect(() => {
     let content = [...comittee_mock]
     setComitteeContent(content)
     setDisplayedContent(content)
@@ -68,41 +84,46 @@ const Visualization = () => {
 
   return (
     <>
-      {displayPopup && (
-        <Popup
-          title={'Desativar Órgão'}
-          action={'Desativar Órgão'}
-          actionType={'important'}
-          handleActionClick={handleDeactivateCommittee}
-          handleCancelClick={() => setDisplayPopup(false)}
-        >
-          Você tem certeza que deseja desativar{' '}
-          <FontBold>{currentCommittee.name}</FontBold>? Essa ação não pode ser
-          revertida
-        </Popup>
+      {exportPDF ? (
+        <div ref={table}>
+          <Title type="primary">Comissões</Title>
+          <ExportableTable type={'committee'} content={displayedContent} />
+        </div>
+      ) : (
+        <>
+          {displayPopup && (
+            <Popup
+              title={'Desativar Órgão'}
+              action={'Desativar Órgão'}
+              actionType={'important'}
+              handleActionClick={handleDeactivateCommittee}
+              handleCancelClick={() => setDisplayPopup(false)}
+            >
+              Você tem certeza que deseja desativar{' '}
+              <FontBold>{currentCommittee.name}</FontBold>? Essa ação não pode
+              ser revertida
+            </Popup>
+          )}
+          <MainContainer displayingPopup={displayPopup}>
+            <HeaderPrimary
+              headerTitle="Comissões"
+              searchPlaceholder="Pesquise por órgão..."
+              searchText={searchtext}
+              setSearchText={(input) => setSearchText(input)}
+              handleExport={(type) => {
+                type === 'pdf' && setExportPDF(true)
+              }}
+            />
+            {displayedContent.length > 0 ? (
+              <Table type={'committee'} content={displayedContent} />
+            ) : (
+              <NoContentMessage>
+                Não há comissões ativas no momento
+              </NoContentMessage>
+            )}
+          </MainContainer>
+        </>
       )}
-      <MainContainer displayingPopup={displayPopup}>
-        <HeaderPrimary
-          headerTitle="Comissões"
-          searchPlaceholder="Pesquise por órgão..."
-          searchText={searchtext}
-          setSearchText={(input) => setSearchText(input)}
-          handleExport={(type) => {
-            /* TODO */
-            console.log(type)
-          }}
-        />
-        {displayedContent.length > 0 ? (
-          <>
-            <Table type={'committee'} content={displayedContent} />
-            <ExportableTable type={'committee'} content={displayedContent} />
-          </>
-        ) : (
-          <NoContentMessage>
-            Não há comissões ativas no momento
-          </NoContentMessage>
-        )}
-      </MainContainer>
     </>
   )
 }
