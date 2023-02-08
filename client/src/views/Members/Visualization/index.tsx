@@ -6,7 +6,7 @@ import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
-import { createPDF, getPDF } from '../../../utils/CreatePDF'
+import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { member_mock } from '../../../_mock/members'
 
@@ -23,7 +23,7 @@ const Visualization = () => {
   useEffect(() => {
     if (exportPDF) {
       try {
-        getPDF(table, 'members_on_committees')
+        createPDF(table, 'members_on_committees')
       } catch (e) {
         console.log(e)
       } finally {
