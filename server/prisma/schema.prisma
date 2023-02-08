@@ -45,6 +45,7 @@ model MemberOnCommittee {
   begin_date DateTime? @default(now())
   term Int? @default(1) //Ordem do mandato
   observations String?
+  is_active Boolean @default(true)
 
   @@id([member_id, committee_id])
 	@@map("MembersOnCommittees")
