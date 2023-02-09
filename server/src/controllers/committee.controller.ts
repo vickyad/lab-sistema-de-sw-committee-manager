@@ -40,8 +40,8 @@ export class CommiteeController {
       });
    }
 
-   @Get('/list')
-   async getList(
+   @Get('/options')
+   async getOptions(
    ): Promise<Committee[]> {
       return this.committeeService.committees({
          where: { is_active: true },

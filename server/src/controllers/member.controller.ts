@@ -21,39 +21,21 @@ export class MemberController {
    async getOne(
       @Query('id', ParseIntPipe) id: number,
    ): Promise<Member> {
-      return this.memberService.member({
-         where: { id },
-         include: { 
-            committees: { include: { committee: true } }
-         },
-      });
+      return this.memberService.getOne(id);
    }
 
    // /member/all
    @Get('/all')
    async getAll(
    ): Promise<Member[]> {
-      return this.memberService.members({
-         where: { is_active: true },
-         orderBy: { name: "asc" },
-         include: { committees: {
-            include: { committee: true },
-         }},
-      });
+      return this.memberService.getAll();
    }
 
-   // /member/list
-   @Get('/list')
-   async getList(
-   ): Promise<Member[]> {
-      return this.memberService.members({
-         where: { is_active: true },
-         orderBy: { name: "asc" },
-         select: {
-            id: true,
-            name: true
-         },
-      });
+   // /member/options
+   @Get('/options')
+   async getOptions(
+   ): Promise<any[]> {
+      return this.memberService.getOptions();
    }
 
    // /member

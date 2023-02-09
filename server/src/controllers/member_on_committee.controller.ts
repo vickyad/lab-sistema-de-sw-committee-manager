@@ -17,23 +17,39 @@ import { ValidatePayloadExistsPipe } from 'src/pipes/validate_payload_exists'
 export class MemberOnCommitteeController {
    constructor(private readonly memberOnCommitteeService: MemberOnCommitteeService) {}
 
-   @Get()
-   async getOne(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number
-   ): Promise<MemberOnCommitteeModel> {
-      return this.memberOnCommitteeService.memberOnCommittee({
-         where: { member_id_committee_id: { member_id, committee_id } },
-      });
+   // @Get()
+   // async getOne(
+   //    @Query('member_id', ParseIntPipe) member_id: number,
+   //    @Query('committee_id', ParseIntPipe) committee_id: number
+   // ): Promise<MemberOnCommitteeModel> {
+   //    return this.memberOnCommitteeService.memberOnCommittee({
+   //       where: { member_id_committee_id: { member_id, committee_id } },
+   //    });
+   // }
+   
+   // // /member_on_committee/all
+   // @Get('/all')
+   // async getAll(
+   // ): Promise<MemberOnCommitteeModel[]> {
+   //    return this.memberOnCommitteeService.memberOnCommittees({
+   //    });
+   // }
+   
+   // /member_on_committee/list
+   @Get('/list')
+   async getList(
+   ) {
+      return this.memberOnCommitteeService.getMember_ActiveMemberOnCommitteeList();
    }
-      
-   @Get('/all')
-   async getAll(
-   ): Promise<MemberOnCommitteeModel[]> {
-      return this.memberOnCommitteeService.memberOnCommittees({
-      });
+
+   // /member_on_committee/list/details?member_id=1
+   @Get('/list/details')
+   async getMemberCommitteeHistory(
+      @Query('member_id', ParseIntPipe) id: number,
+   ) {
+      return this.memberOnCommitteeService.getMemberOnCommitteeHistory(id);
    }
-      
+
    @Post()
    async create( //TODO tentar quebrar ao fazer update por POST.
       @Query('member_id', ParseIntPipe) member_id: number,
@@ -59,13 +75,13 @@ export class MemberOnCommitteeController {
       });
    }
 
-   @Delete()
-   async delete(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number
-   ): Promise<MemberOnCommitteeModel> {
-      return this.memberOnCommitteeService.delete({
-         member_id_committee_id: { member_id, committee_id },
-      });
-   }
+   // @Delete()
+   // async delete(
+   //    @Query('member_id', ParseIntPipe) member_id: number,
+   //    @Query('committee_id', ParseIntPipe) committee_id: number
+   // ): Promise<MemberOnCommitteeModel> {
+   //    return this.memberOnCommitteeService.delete({
+   //       member_id_committee_id: { member_id, committee_id },
+   //    });
+   // }
 }
