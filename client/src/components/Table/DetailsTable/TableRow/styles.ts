@@ -25,6 +25,10 @@ export const Item = styled.p<{ size: number }>`
     `}
 `
 
+export const ClickableItem = styled(Item)`
+  cursor: pointer;
+`
+
 export const Input = styled.input<{ size: number }>`
   background-color: transparent;
   border: 1px solid #00000033;
