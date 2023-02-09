@@ -40,6 +40,19 @@ export class CommiteeController {
       });
    }
 
+   @Get('/list')
+   async getList(
+   ): Promise<Committee[]> {
+      return this.committeeService.committees({
+         where: { is_active: true },
+         orderBy: { name: "asc" },
+         select: { 
+            id: true,
+            name: true
+         },
+      });
+   }
+
    @Post()
    async create(@Body('data') data: CommitteeCreateDTO): Promise<Committee> {
       return this.committeeService.create(data);

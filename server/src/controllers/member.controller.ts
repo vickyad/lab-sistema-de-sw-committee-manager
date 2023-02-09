@@ -42,6 +42,20 @@ export class MemberController {
       });
    }
 
+   // /member/list
+   @Get('/list')
+   async getList(
+   ): Promise<Member[]> {
+      return this.memberService.members({
+         where: { is_active: true },
+         orderBy: { name: "asc" },
+         select: {
+            id: true,
+            name: true
+         },
+      });
+   }
+
    // /member
    @Post()
    async create(@Body('data') data: MemberCreateDTO): Promise<Member> {
