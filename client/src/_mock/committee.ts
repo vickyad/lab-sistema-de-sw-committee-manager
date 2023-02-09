@@ -1,4 +1,4 @@
-export const comittee_mock = [
+export const committee_mock = [
   {
     id: 1,
     content: [

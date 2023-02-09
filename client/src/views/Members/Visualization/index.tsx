@@ -71,8 +71,8 @@ const Visualization = () => {
       let searchTextLowerCase = searchtext.toLowerCase()
       let newComittee = [...memberContent]
       newComittee = newComittee.filter((item) => {
-        let comitteeNameLowerCase = item.content[0].toLowerCase()
-        return comitteeNameLowerCase.includes(searchTextLowerCase)
+        let committeeNameLowerCase = item.content[0].toLowerCase()
+        return committeeNameLowerCase.includes(searchTextLowerCase)
       })
       setDisplayedContent(newComittee)
     } else {

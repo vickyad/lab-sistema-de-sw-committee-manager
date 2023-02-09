@@ -20,7 +20,7 @@ import { IIcon } from './types'
 const Icon = ({ type, position = 'down' }: IIcon) => {
   const icon = () => {
     switch (type) {
-      case 'comittee':
+      case 'committee':
         return <ComitteeIcon />
       case 'members':
         return <MembersIcon />
