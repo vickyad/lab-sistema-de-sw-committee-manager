@@ -6,12 +6,12 @@ import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { NoContentMessage } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
-import { comittee_mock } from '../../../_mock/comittee'
+import { committee_mock } from '../../../_mock/comittee'
 
 const CommitteeHistory = () => {
   const { currentEntity: currentCommittee } = useContext(EntityContext)
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...comittee_mock,
+  const [committeeContent, setCommitteeContent] = useState<any[]>([
+    ...committee_mock,
   ])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
@@ -29,8 +29,8 @@ const CommitteeHistory = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    let content = [...comittee_mock]
-    setComitteeContent(content)
+    let content = [...committee_mock]
+    setCommitteeContent(content)
   }, [])
 
   return (
@@ -38,7 +38,7 @@ const CommitteeHistory = () => {
       {exportPDF ? (
         <div ref={table}>
           <Title type="secondary">HISTÓRICO - {currentCommittee.name}</Title>
-          <ExportableTable type={'committee'} content={comitteeContent} />
+          <ExportableTable type={'committee'} content={committeeContent} />
         </div>
       ) : (
         <>
@@ -50,10 +50,10 @@ const CommitteeHistory = () => {
               type === 'pdf' && setExportPDF(true)
             }}
           />
-          {comitteeContent.length > 0 ? (
+          {committeeContent.length > 0 ? (
             <Table
               type={'committee'}
-              content={comitteeContent}
+              content={committeeContent}
               showOptions={false}
             />
           ) : (

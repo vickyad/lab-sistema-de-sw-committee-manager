@@ -12,16 +12,16 @@ import {
 } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
-import { comittee_mock } from '../../../_mock/comittee'
+import { committee_mock } from '../../../_mock/comittee'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
-    ...comittee_mock,
+  const [committeeContent, setCommitteeContent] = useState<any[]>([
+    ...committee_mock,
   ])
   const [displayedContent, setDisplayedContent] = useState<any[]>([
-    ...comittee_mock,
+    ...committee_mock,
   ])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
@@ -63,24 +63,24 @@ const Visualization = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    let content = [...comittee_mock]
-    setComitteeContent(content)
+    let content = [...committee_mock]
+    setCommitteeContent(content)
     setDisplayedContent(content)
   }, [])
 
   useEffect(() => {
     if (searchtext.length > 0) {
       let searchTextLowerCase = searchtext.toLowerCase()
-      let newComittee = [...comitteeContent]
+      let newComittee = [...committeeContent]
       newComittee = newComittee.filter((item) => {
-        let comitteeNameLowerCase = item.content[0].toLowerCase()
-        return comitteeNameLowerCase.includes(searchTextLowerCase)
+        let committeeNameLowerCase = item.content[0].toLowerCase()
+        return committeeNameLowerCase.includes(searchTextLowerCase)
       })
       setDisplayedContent(newComittee)
     } else {
-      setDisplayedContent(comitteeContent)
+      setDisplayedContent(committeeContent)
     }
-  }, [searchtext, comitteeContent])
+  }, [searchtext, committeeContent])
 
   return (
     <>

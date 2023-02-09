@@ -11,7 +11,7 @@ const FunctionHistory = () => {
   const { currentEntity } = useContext(EntityContext)
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
+  const [committeeContent, setCommitteeContent] = useState<any[]>([
     ...committee_details_mock,
   ])
 
@@ -19,7 +19,7 @@ const FunctionHistory = () => {
     // TODO: use currentEntity.id or curentEntity.name to get the correct info
 
     let content = [...committee_details_mock]
-    setComitteeContent(content)
+    setCommitteeContent(content)
   }, [])
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const FunctionHistory = () => {
           <Title type="secondary"> HISTÓRICO - {currentEntity.name} </Title>
           <ExportableTable
             type={'committee-details'}
-            content={comitteeContent}
+            content={committeeContent}
           />
         </div>
       ) : (
@@ -54,7 +54,7 @@ const FunctionHistory = () => {
               type === 'pdf' && setExportPDF(true)
             }}
           />
-          <Table type={'committee-details'} content={comitteeContent} />
+          <Table type={'committee-details'} content={committeeContent} />
         </>
       )}
     </>

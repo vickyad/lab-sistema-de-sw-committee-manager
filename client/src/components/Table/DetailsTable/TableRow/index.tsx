@@ -56,6 +56,7 @@ const TableRow = ({ id, editMode, data, tableInfo, onChange }: ITableRow) => {
           : data.content.map((item: any, index: number) =>
               index === 0 ? (
                 <ClickableItem
+                  title="This is a test"
                   size={sizes[index]}
                   key={`item-${item}-${index}`}
                   onClick={() => handleSeeFunctionHistory(item)}
