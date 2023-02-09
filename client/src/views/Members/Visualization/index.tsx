@@ -60,6 +60,10 @@ const Visualization = () => {
     let content = [...member_mock]
     setMemberContent(content)
     setDisplayedContent(content)
+
+    if (action === 'search-member') {
+      setSearchText(currentMember.name)
+    }
   }, [])
 
   useEffect(() => {

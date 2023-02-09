@@ -6,7 +6,7 @@ import { EntityContext } from '../../context/CommitteeContext'
 import { getEmptyEntity } from '../../utils/EmptyEntity'
 
 const NavBar = ({ data }: INavBar) => {
-  const [tabSelected, setTabSelected] = useState('')
+  const [tabSelected, setTabSelected] = useState('comittee')
   const { setAction, setCurrentEntity } = useContext(EntityContext)
 
   const handleClick = () => {
@@ -18,7 +18,7 @@ const NavBar = ({ data }: INavBar) => {
     let path = window.location.pathname
     const currentTab = path === '/' ? 'comittee' : path.slice(1)
     setTabSelected(currentTab)
-  }, [])
+  }, [tabSelected])
 
   return (
     <Container>
