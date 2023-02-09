@@ -12,9 +12,9 @@ import { EntityProvider } from '../context/CommitteeContext'
 
 const Main: React.FC = () => {
   const navIcon: NavItem[] = [
-    { icon: 'comittee', href: '/' },
-    { icon: 'members', href: '/members' },
-    { icon: 'configurations', href: '/configurations' },
+    { icon: 'committee', href: Paths.COMMITTEE },
+    { icon: 'members', href: Paths.MEMBERS },
+    { icon: 'configurations', href: Paths.CONFIGURATIONS },
   ]
   return (
     <div>
@@ -23,7 +23,7 @@ const Main: React.FC = () => {
         <Content>
           <Router>
             <Routes>
-              <Route path={Paths.COMITTEE} element={<ComitteesView />} />
+              <Route path={Paths.COMMITTEE} element={<ComitteesView />} />
               <Route path={Paths.MEMBERS} element={<MembersView />} />
               <Route
                 path={Paths.CONFIGURATIONS}

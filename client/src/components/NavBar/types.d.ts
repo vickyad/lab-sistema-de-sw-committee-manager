@@ -1,5 +1,5 @@
 export interface NavItem {
-  icon: string
+  icon: 'committee' | 'members' | 'configurations'
   href: string
 }
 
