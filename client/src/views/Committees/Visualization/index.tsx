@@ -12,7 +12,7 @@ import {
 } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
-import { committee_mock } from '../../../_mock/comittee'
+import { committee_mock } from '../../../_mock/committee'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)

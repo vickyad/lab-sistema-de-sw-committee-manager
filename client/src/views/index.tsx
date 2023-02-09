@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Paths from '../constants/Paths'
-import ComitteesView from './Comittees'
+import ComitteesView from './Committees'
 import NotFoundView from './NotFound'
 import MembersView from './Members'
 import ConfigurationsView from './Configurations'

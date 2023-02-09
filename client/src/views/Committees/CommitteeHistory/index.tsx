@@ -6,7 +6,7 @@ import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { NoContentMessage } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
-import { committee_mock } from '../../../_mock/comittee'
+import { committee_mock } from '../../../_mock/committee'
 
 const CommitteeHistory = () => {
   const { currentEntity: currentCommittee } = useContext(EntityContext)

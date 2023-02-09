@@ -5,7 +5,7 @@ import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { createPDF } from '../../../utils/CreatePDF'
-import { committee_details_mock } from '../../../_mock/comittee'
+import { committee_details_mock } from '../../../_mock/committee'
 
 const FunctionHistory = () => {
   const { currentEntity } = useContext(EntityContext)

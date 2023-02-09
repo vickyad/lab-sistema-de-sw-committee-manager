@@ -1,5 +1,5 @@
 import ExportableTable from '..'
-import { committee_details_mock } from '../../../_mock/comittee'
+import { committee_details_mock } from '../../../_mock/committee'
 import { member_details_mock } from '../../../_mock/members'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
