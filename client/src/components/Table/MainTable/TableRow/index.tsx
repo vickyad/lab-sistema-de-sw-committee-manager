@@ -1,6 +1,6 @@
 import useComponentVisible from '../../../../hooks/useComponentVisible'
 import Icon from '../../../Icon'
-import OptionsBox from '../../../OptionsBox'
+import EditOptionsBox from '../../../EditOptionsBox'
 import { ITableRowExpandable } from './types'
 import {
   ActionsWrapper,
@@ -59,7 +59,7 @@ const TableRow = ({
       )}
       {isComponentVisible && (
         <div ref={ref}>
-          <OptionsBox
+          <EditOptionsBox
             type={type}
             handleSeeHistory={() => handleOptionBoxSelection('history', data)}
             handleEdit={() => handleOptionBoxSelection('edit', data)}

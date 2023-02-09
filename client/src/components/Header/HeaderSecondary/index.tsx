@@ -1,6 +1,8 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { RelativeBox } from '../../../styles/commonStyles'
 import Button from '../../Button'
+import ExportOptionsBox from '../../ExportOptionsBox'
 import Icon from '../../Icon'
 import Title from '../../Title'
 import { FlexBox, HeaderContainer } from './styles'
@@ -10,10 +12,12 @@ const HeaderSecondary = ({
   headerTitle,
   buttonType,
   backButtonMsg,
-  handleExportOrSave,
+  handleSave,
   handleCancel,
+  handleExport,
 }: IHeader) => {
   const { setAction } = useContext(EntityContext)
+  const [openOptions, setOpenOptions] = useState(false)
 
   return (
     <>
@@ -30,22 +34,33 @@ const HeaderSecondary = ({
                 Cancelar alterações
               </Button>
             )}
-            {handleExportOrSave && (
-              <Button handleClick={handleExportOrSave} type={'save'}>
+            {handleSave && (
+              <Button handleClick={handleSave} type={'save'}>
                 <Icon type={'save'} />
                 Salvar alterações
               </Button>
             )}
           </FlexBox>
         ) : (
-          <>
-            {handleExportOrSave && (
-              <Button handleClick={handleExportOrSave} type="primary">
-                <Icon type={'download'} />
-                Exportar dados
-              </Button>
+          <RelativeBox>
+            {handleExport && (
+              <>
+                <Button
+                  handleClick={() => setOpenOptions(!openOptions)}
+                  type="primary"
+                >
+                  <Icon type={'download'} />
+                  Exportar dados
+                </Button>
+                {openOptions && (
+                  <ExportOptionsBox
+                    handleExportAsPDF={() => handleExport('pdf')}
+                    handleExportAsCSV={() => handleExport('csv')}
+                  />
+                )}
+              </>
             )}
-          </>
+          </RelativeBox>
         )}
       </HeaderContainer>
     </>

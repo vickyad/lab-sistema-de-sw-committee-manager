@@ -11,8 +11,9 @@ const FunctionHistory = () => {
         headerTitle={`HISTÓRICO - ${currentEntity.name}`}
         buttonType="export"
         backButtonMsg="voltar às comissões"
-        handleExportOrSave={() => {
+        handleExport={(type) => {
           /* TODO */
+          console.log(type)
         }}
       />
       Bora ver o histórico de um cargo: {currentEntity.id}, {currentEntity.name}
