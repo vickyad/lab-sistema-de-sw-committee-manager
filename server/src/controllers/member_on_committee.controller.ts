@@ -10,33 +10,48 @@ import {
 } from '@nestjs/common';
 import { MemberOnCommitteeService } from '../services/member_on_committee.service';
 import { MemberOnCommittee as MemberOnCommitteeModel } from '@prisma/client';
-import { MemberOnCommitteeCreateDTO } from 'src/DTOs/member_on_committee.dto'
+import { MemberOnCommitteeCreateDTO, MemberOnCommitteeUpdateDTO } from 'src/DTOs/member_on_committee.dto'
 import { ValidatePayloadExistsPipe } from 'src/pipes/validate_payload_exists'
 
 @Controller('member_on_committee')
 export class MemberOnCommitteeController {
    constructor(private readonly memberOnCommitteeService: MemberOnCommitteeService) {}
 
-   @Get()
-   async getOne(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number
-   ): Promise<MemberOnCommitteeModel> {
-      return this.memberOnCommitteeService.memberOnCommittee({
-         where: { member_id_committee_id: { member_id, committee_id } },
-         //include,
-      });
+   // @Get()
+   // async getOne(
+   //    @Query('member_id', ParseIntPipe) member_id: number,
+   //    @Query('committee_id', ParseIntPipe) committee_id: number
+   // ): Promise<MemberOnCommitteeModel> {
+   //    return this.memberOnCommitteeService.memberOnCommittee({
+   //       where: { member_id_committee_id: { member_id, committee_id } },
+   //    });
+   // }
+   
+   // // /member_on_committee/all
+   // @Get('/all')
+   // async getAll(
+   // ): Promise<MemberOnCommitteeModel[]> {
+   //    return this.memberOnCommitteeService.memberOnCommittees({
+   //    });
+   // }
+   
+   // /member_on_committee/list
+   @Get('/list')
+   async getList(
+   ) {
+      return this.memberOnCommitteeService.getMember_ActiveMemberOnCommitteeList();
    }
-      
-   @Get('/all')
-   async getAll(
-   ): Promise<MemberOnCommitteeModel[]> {
-      return this.memberOnCommitteeService.memberOnCommittees({
-      });
+
+   // /member_on_committee/list/details?member_id=1
+   @Get('/list/details')
+   async getMemberCommitteeHistory(
+      @Query('member_id', ParseIntPipe) id: number,
+   ) {
+      return this.memberOnCommitteeService.getMemberOnCommitteeHistory(id);
    }
-      
+
    @Post()
-   async create(
+   async create( //TODO tentar quebrar ao fazer update por POST.
       @Query('member_id', ParseIntPipe) member_id: number,
       @Query('committee_id', ParseIntPipe) committee_id: number,
       @Body('data', ValidatePayloadExistsPipe) data: MemberOnCommitteeCreateDTO,
@@ -52,7 +67,7 @@ export class MemberOnCommitteeController {
    async update(
       @Query('member_id', ParseIntPipe) member_id: number,
       @Query('committee_id', ParseIntPipe) committee_id: number,
-      @Body('data', ValidatePayloadExistsPipe) data: MemberOnCommitteeCreateDTO,
+      @Body('data', ValidatePayloadExistsPipe) data: MemberOnCommitteeUpdateDTO,
    ): Promise<MemberOnCommitteeModel> {
       return this.memberOnCommitteeService.update({
          where: { member_id_committee_id: { member_id, committee_id } },
@@ -60,13 +75,13 @@ export class MemberOnCommitteeController {
       });
    }
 
-   @Delete()
-   async delete(
-      @Query('member_id', ParseIntPipe) member_id: number,
-      @Query('committee_id', ParseIntPipe) committee_id: number
-   ): Promise<MemberOnCommitteeModel> {
-      return this.memberOnCommitteeService.delete({
-         member_id_committee_id: { member_id, committee_id },
-      });
-   }
+   // @Delete()
+   // async delete(
+   //    @Query('member_id', ParseIntPipe) member_id: number,
+   //    @Query('committee_id', ParseIntPipe) committee_id: number
+   // ): Promise<MemberOnCommitteeModel> {
+   //    return this.memberOnCommitteeService.delete({
+   //       member_id_committee_id: { member_id, committee_id },
+   //    });
+   // }
 }

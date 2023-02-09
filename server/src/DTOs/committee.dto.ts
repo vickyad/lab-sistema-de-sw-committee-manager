@@ -1,3 +1,4 @@
+import { PartialType } from "@nestjs/mapped-types"
 import { Type } from "class-transformer"
 import { IsNotEmpty, IsString, IsBoolean, IsOptional, Min, Max, IsInt, IsDate } from "class-validator"
 
@@ -38,3 +39,5 @@ export class CommitteeCreateDTO {
   @IsOptional()
   observations?: string;
 }
+
+export class CommitteeUpdateDTO extends PartialType(CommitteeCreateDTO) {}
