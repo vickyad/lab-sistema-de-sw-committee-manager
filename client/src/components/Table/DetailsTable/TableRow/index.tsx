@@ -2,13 +2,21 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Paths from '../../../../constants/Paths'
 import { EntityContext } from '../../../../context/CommitteeContext'
+import { TableTypesExtended } from '../../../../types/tableTypes'
 import { member_list_mock } from '../../../../_mock/memberList'
 import Dropdown from '../../Input/Dropdown'
 import TextInput from '../../Input/TextInput'
 import { ClickableItem, Container, Item, RowContainer } from './styles'
 import { ITableRow } from './types'
 
-const TableRow = ({ id, editMode, data, tableInfo, onChange }: ITableRow) => {
+const TableRow = ({
+  id,
+  editMode,
+  data,
+  tableInfo,
+  type,
+  onChange,
+}: ITableRow) => {
   const navigate = useNavigate()
   const { headers, sizes } = tableInfo
   const { setAction, setCurrentEntity } = useContext(EntityContext)
@@ -18,8 +26,20 @@ const TableRow = ({ id, editMode, data, tableInfo, onChange }: ITableRow) => {
     setCurrentEntity({ id: data.id, name: item })
   }
 
+  const handleSeeCommittee = (item: any) => {
+    setAction('search')
+    setCurrentEntity({ id: data.id, name: item })
+    navigate(Paths.COMMITTEE)
+  }
+
+  const handleClick = (type: TableTypesExtended, item: any) => {
+    type === 'committee-details'
+      ? handleSeeFunctionHistory(item)
+      : handleSeeCommittee(item)
+  }
+
   const handleSeeMember = (item: any) => {
-    setAction('search-member')
+    setAction('search')
     setCurrentEntity({ id: data.id, name: item })
     navigate(Paths.MEMBERS)
   }
@@ -59,11 +79,11 @@ const TableRow = ({ id, editMode, data, tableInfo, onChange }: ITableRow) => {
                   title="This is a test"
                   size={sizes[index]}
                   key={`item-${item}-${index}`}
-                  onClick={() => handleSeeFunctionHistory(item)}
+                  onClick={() => handleClick(type, item)}
                 >
                   {item}
                 </ClickableItem>
-              ) : index === 1 ? (
+              ) : index === 1 && type === 'committee-details' ? (
                 <ClickableItem
                   size={sizes[index]}
                   key={`item-${item}-${index}`}

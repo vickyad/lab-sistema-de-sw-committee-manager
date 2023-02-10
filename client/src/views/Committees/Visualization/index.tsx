@@ -66,6 +66,10 @@ const Visualization = () => {
     let content = [...committee_mock]
     setCommitteeContent(content)
     setDisplayedContent(content)
+
+    if (action === 'search') {
+      setSearchText(currentCommittee.name)
+    }
   }, [])
 
   useEffect(() => {
