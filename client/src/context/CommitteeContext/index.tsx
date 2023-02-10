@@ -1,16 +1,6 @@
 import React, { useState, createContext } from 'react'
-import { getEmptyEntity } from '../utils/EmptyEntity'
-
-interface IEntityContext {
-  currentEntity: { id: number; name: string; content?: any }
-  setCurrentEntity: (currentEntity: {
-    id: number
-    name: string
-    content?: any
-  }) => void
-  action: null | string
-  setAction: (action: string | null) => void
-}
+import { getEmptyEntity } from '../../utils/EmptyEntity'
+import { ActionType, IEntityContext } from './types.d'
 
 export const EntityContext = createContext<IEntityContext>({
   currentEntity: getEmptyEntity(),
@@ -21,7 +11,7 @@ export const EntityContext = createContext<IEntityContext>({
 
 export const EntityProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentEntity, setCurrentEntity] = useState(getEmptyEntity())
-  const [action, setAction] = useState<string | null>(null)
+  const [action, setAction] = useState<ActionType | null>(null)
 
   return (
     <EntityContext.Provider

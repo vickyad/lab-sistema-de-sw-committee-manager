@@ -42,6 +42,7 @@ const Table = ({
             content={content}
             editMode={editMode}
             updateTable={updateTable}
+            type={type}
           />
         ) : (
           <MainTable

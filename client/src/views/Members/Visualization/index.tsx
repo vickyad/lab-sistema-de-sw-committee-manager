@@ -61,7 +61,7 @@ const Visualization = () => {
     setMemberContent(content)
     setDisplayedContent(content)
 
-    if (action === 'search-member') {
+    if (action === 'search') {
       setSearchText(currentMember.name)
     }
   }, [])

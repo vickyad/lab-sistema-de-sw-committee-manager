@@ -26,7 +26,10 @@ const HeaderPrimary = ({
           handleOnChange={(input) => setSearchText(input)}
         />
         <RelativeBox>
-          <Button handleClick={() => setOpenOptions(!openOptions)}>
+          <Button
+            title="abrir opções para exportar dados"
+            handleClick={() => setOpenOptions(!openOptions)}
+          >
             <Icon type={'download'} />
             Exportar dados
           </Button>

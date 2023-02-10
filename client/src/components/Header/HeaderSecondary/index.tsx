@@ -21,7 +21,11 @@ const HeaderSecondary = ({
 
   return (
     <>
-      <Button handleClick={() => setAction(null)} type="transparent">
+      <Button
+        title={backButtonMsg}
+        handleClick={() => setAction(null)}
+        type="transparent"
+      >
         <Icon type="arrow-left" /> {backButtonMsg}
       </Button>
       <HeaderContainer>
@@ -29,13 +33,21 @@ const HeaderSecondary = ({
         {buttonType === 'save' ? (
           <FlexBox>
             {handleCancel && (
-              <Button handleClick={handleCancel} type="attention">
+              <Button
+                title="cancelar alterações"
+                handleClick={handleCancel}
+                type="attention"
+              >
                 <Icon type="cancel" />
                 Cancelar alterações
               </Button>
             )}
             {handleSave && (
-              <Button handleClick={handleSave} type={'save'}>
+              <Button
+                title="salvar alterações"
+                handleClick={handleSave}
+                type={'save'}
+              >
                 <Icon type={'save'} />
                 Salvar alterações
               </Button>
@@ -46,6 +58,7 @@ const HeaderSecondary = ({
             {handleExport && (
               <>
                 <Button
+                  title="abrir opções para exportar dados"
                   handleClick={() => setOpenOptions(!openOptions)}
                   type="primary"
                 >

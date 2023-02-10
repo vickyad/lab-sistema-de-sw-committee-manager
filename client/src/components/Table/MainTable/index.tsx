@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import Table from '..'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { ActionType } from '../../../context/CommitteeContext/types'
 import { committee_details_mock } from '../../../_mock/committee'
 import { member_details_mock } from '../../../_mock/members'
 import MemberParticipations from '../../MemberParticipations'
@@ -12,7 +13,7 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
   const { setAction, setCurrentEntity } = useContext(EntityContext)
 
   const handleOptionBoxSelection = (
-    selected: string,
+    selected: ActionType,
     data: {
       id: number
       content: any[]

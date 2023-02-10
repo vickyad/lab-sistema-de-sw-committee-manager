@@ -8,7 +8,7 @@ export interface ITableRowExpandable {
   showOptions: boolean
   handleRowClick: (id: number) => void
   handleOptionBoxSelection: (
-    selected: string,
+    selected: ActionType,
     data: {
       id: number
       content: any[]
