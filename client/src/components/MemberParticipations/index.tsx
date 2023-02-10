@@ -7,6 +7,7 @@ import { IMemberParticipations } from './types'
 const MemberParticipations = ({
   activeContent,
   closedContent,
+  exportMode = false,
 }: IMemberParticipations) => {
   const [displayActive, setDisplayActive] = useState(true)
   const [displayClosed, setDisplayClosed] = useState(false)
@@ -17,14 +18,14 @@ const MemberParticipations = ({
         Participações ativas
         <Icon type={displayActive ? 'minus' : 'plus'} />
       </ExpandButton>
-      {displayActive && (
+      {(exportMode || displayActive) && (
         <Table type={'members-details'} content={activeContent} />
       )}
       <ExpandButton onClick={() => setDisplayClosed(!displayClosed)}>
         Participações encerradas
         <Icon type={displayClosed ? 'minus' : 'plus'} />
       </ExpandButton>
-      {displayClosed && (
+      {(exportMode || displayClosed) && (
         <Table type={'members-details'} content={closedContent} />
       )}
     </Container>

@@ -9,8 +9,8 @@ import {
    Patch,
 } from '@nestjs/common';
 import { CommitteeService } from '../services/committee.service';
-import { Committee, Prisma } from '@prisma/client';
-import { CommitteeCreateDTO } from 'src/DTOs/committee.dto'
+import { Committee } from '@prisma/client';
+import { CommitteeCreateDTO, CommitteeUpdateDTO } from 'src/DTOs/committee.dto'
 
 @Controller('committee')
 export class CommiteeController {
@@ -22,9 +22,9 @@ export class CommiteeController {
    ): Promise<Committee> {
       return this.committeeService.committee({
          where: { id },
-         include: { members: {
-            select: { member: true },
-          }},
+         include: { 
+            members: { include: { member: true } }
+         },
       });
    }
 
@@ -40,6 +40,19 @@ export class CommiteeController {
       });
    }
 
+   @Get('/options')
+   async getOptions(
+   ): Promise<Committee[]> {
+      return this.committeeService.committees({
+         where: { is_active: true },
+         orderBy: { name: "asc" },
+         select: { 
+            id: true,
+            name: true
+         },
+      });
+   }
+
    @Post()
    async create(@Body('data') data: CommitteeCreateDTO): Promise<Committee> {
       return this.committeeService.create(data);
@@ -48,7 +61,7 @@ export class CommiteeController {
    @Patch()
    async update(
       @Query('id', ParseIntPipe) id: number,
-      @Body('data') data: Prisma.CommitteeUpdateInput,
+      @Body('data') data: CommitteeUpdateDTO,
    ): Promise<Committee> {
       return this.committeeService.update({
          where: { id },

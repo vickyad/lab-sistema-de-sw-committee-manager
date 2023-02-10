@@ -5,6 +5,7 @@ const DetailsTable = ({
   content,
   editMode,
   tableInfo,
+  type,
   updateTable,
 }: IDetailsTable) => {
   const handleChange = (updatedInfo: any, index: number, id: number) => {
@@ -32,6 +33,7 @@ const DetailsTable = ({
           data={item}
           tableInfo={tableInfo}
           key={`table-row-${index}`}
+          type={type}
         />
       ))}
     </>

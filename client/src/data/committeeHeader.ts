@@ -8,6 +8,6 @@ export const CommitteeTableHeader: ITableHeader = {
     { label: 'período', editable: false, type: 'text' },
     { label: 'mandato', editable: false, type: 'text' },
   ],
-  sizes: [3, 1, 2, 3, 1],
+  sizes: [5, 1, 2, 3, 1],
   type: 'primary',
 }

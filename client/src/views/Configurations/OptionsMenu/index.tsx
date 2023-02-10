@@ -70,18 +70,28 @@ const OptionsMenu = () => {
         <Title type="primary">Configurações de bando de dados</Title>
         <ButtonContainer>
           <Button
+            title="adicionar uma nova composição de órgão a partir de template"
             handleClick={() => setAction('add-from-template')}
             fontSize="large"
           >
             Adicionar formação a partir de órgão pré-definido
           </Button>
-          <Button handleClick={() => setAction('add-custom')} fontSize="large">
+          <Button
+            title="adicionar uma nova composição de órgão personalizado"
+            handleClick={() => setAction('add-custom')}
+            fontSize="large"
+          >
             Adicionar formação a partir de órgão personalizado
           </Button>
-          <Button handleClick={() => setDisplayPopup('add')} fontSize="large">
+          <Button
+            title="adicionar novo funcionário"
+            handleClick={() => setDisplayPopup('add')}
+            fontSize="large"
+          >
             Adicionar funcionário
           </Button>
           <Button
+            title="desativar funcionário"
             handleClick={() => setDisplayPopup('deactivate')}
             fontSize="large"
           >

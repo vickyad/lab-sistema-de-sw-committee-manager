@@ -1,5 +1,6 @@
+export type TabType = 'committee' | 'members' | 'configurations'
 export interface NavItem {
-  icon: string
+  icon: TabType
   href: string
 }
 

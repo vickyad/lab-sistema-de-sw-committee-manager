@@ -1,12 +1,12 @@
 import Icon from '../Icon'
-import { INavBar } from './types'
+import { INavBar, TabType } from './types'
 import { Container, Link, LinkContainer } from './styles'
 import { useState, useEffect, useContext } from 'react'
 import { EntityContext } from '../../context/CommitteeContext'
 import { getEmptyEntity } from '../../utils/EmptyEntity'
 
 const NavBar = ({ data }: INavBar) => {
-  const [tabSelected, setTabSelected] = useState('')
+  const [tabSelected, setTabSelected] = useState<TabType>('committee')
   const { setAction, setCurrentEntity } = useContext(EntityContext)
 
   const handleClick = () => {
@@ -16,9 +16,9 @@ const NavBar = ({ data }: INavBar) => {
 
   useEffect(() => {
     let path = window.location.pathname
-    const currentTab = path === '/' ? 'comittee' : path.slice(1)
-    setTabSelected(currentTab)
-  }, [])
+    const currentTab = path === '/' ? 'committee' : path.slice(1)
+    setTabSelected(currentTab as TabType)
+  }, [tabSelected])
 
   return (
     <Container>

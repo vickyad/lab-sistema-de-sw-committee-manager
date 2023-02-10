@@ -13,7 +13,7 @@ const Edit = () => {
     setCurrentEntity,
     setAction,
   } = useContext(EntityContext)
-  const [comitteeContent, setComitteeContent] = useState<any[]>([
+  const [committeeContent, setCommitteeContent] = useState<any[]>([
     ...currentCommittee.content,
   ])
 
@@ -24,7 +24,7 @@ const Edit = () => {
   }
 
   const handleCancelChanges = () => {
-    setComitteeContent(currentCommittee.content)
+    setCommitteeContent(currentCommittee.content)
     setDisplayPopup(false)
   }
 
@@ -48,15 +48,15 @@ const Edit = () => {
           headerTitle={`EDIÇÃO - ${currentCommittee.name}`}
           buttonType="save"
           backButtonMsg="voltar às comissões"
-          handleExportOrSave={handleSaveChanges}
+          handleSave={handleSaveChanges}
           handleCancel={() => setDisplayPopup(true)}
         />
-        {comitteeContent.length > 0 && (
+        {committeeContent.length > 0 && (
           <Table
             type={'committee-details'}
             editMode={true}
-            content={comitteeContent}
-            updateTable={(content) => setComitteeContent(content)}
+            content={committeeContent}
+            updateTable={(content) => setCommitteeContent(content)}
           />
         )}
       </MainContainer>

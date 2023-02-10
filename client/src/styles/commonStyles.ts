@@ -16,3 +16,7 @@ export const MainContainer = styled.div<{ displayingPopup: boolean }>`
 export const FontBold = styled.span`
   font-weight: 600;
 `
+
+export const RelativeBox = styled.div`
+  position: relative;
+`

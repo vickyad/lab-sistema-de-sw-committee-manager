@@ -2,7 +2,7 @@ import Icon from '../Icon'
 import { Container, ImportantButton, TransparentButton } from './styles'
 import { IOptionsBox } from './types'
 
-const OptionsBox = ({
+const EditOptionsBox = ({
   type,
   handleEdit,
   handleDisable,
@@ -25,4 +25,4 @@ const OptionsBox = ({
     </Container>
   )
 }
-export default OptionsBox
+export default EditOptionsBox

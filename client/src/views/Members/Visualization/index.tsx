@@ -1,9 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
+import ExportableTable from '../../../components/ExportableTable'
 import HeaderPrimary from '../../../components/Header/HeaderPrimary'
 import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
+import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
+import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { member_mock } from '../../../_mock/members'
 import axios from 'axios'
@@ -59,6 +62,20 @@ const Visualization = () => {
     setMemberContent(formated_member_info)
     setDisplayedContent(formated_member_info)
   }
+  const [exportPDF, setExportPDF] = useState(false)
+  const table = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (exportPDF) {
+      try {
+        createPDF(table, 'members_on_committees')
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setExportPDF(false)
+      }
+    }
+  }, [exportPDF])
 
   const {
     action,
@@ -86,6 +103,10 @@ const Visualization = () => {
 
   useEffect(() => {
     fetch_and_format_member_info()
+
+    if (action === 'search') {
+      setSearchText(currentMember.name)
+    }
   }, [])
 
   useEffect(() => {
@@ -93,8 +114,8 @@ const Visualization = () => {
       let searchTextLowerCase = searchtext.toLowerCase()
       let newComittee = [...memberContent]
       newComittee = newComittee.filter((item) => {
-        let comitteeNameLowerCase = item.content[0].toLowerCase()
-        return comitteeNameLowerCase.includes(searchTextLowerCase)
+        let committeeNameLowerCase = item.content[0].toLowerCase()
+        return committeeNameLowerCase.includes(searchTextLowerCase)
       })
       setDisplayedContent(newComittee)
     } else {
@@ -104,31 +125,40 @@ const Visualization = () => {
 
   return (
     <>
-      {displayPopup && (
-        <Popup
-          title={'Desativar Membro'}
-          action={'Desativar Membro'}
-          actionType={'important'}
-          handleActionClick={handleDeactivateCommittee}
-          handleCancelClick={closePopUp}
-        >
-          Você tem certeza que deseja desativar{' '}
-          <FontBold>{currentMember.name}</FontBold>? Essa ação não pode ser
-          revertida
-        </Popup>
+      {exportPDF ? (
+        <div ref={table}>
+          <Title type="secondary">Comissões por pessoa</Title>
+          <ExportableTable type={'members'} content={displayedContent} />
+        </div>
+      ) : (
+        <>
+          {displayPopup && (
+            <Popup
+              title={'Desativar Membro'}
+              action={'Desativar Membro'}
+              actionType={'important'}
+              handleActionClick={handleDeactivateCommittee}
+              handleCancelClick={closePopUp}
+            >
+              Você tem certeza que deseja desativar{' '}
+              <FontBold>{currentMember.name}</FontBold>? Essa ação não pode ser
+              revertida
+            </Popup>
+          )}
+          <MainContainer displayingPopup={displayPopup}>
+            <HeaderPrimary
+              headerTitle="Comissões por pessoa"
+              searchPlaceholder="Pesquise pelo nome do funcionário..."
+              searchText={searchtext}
+              setSearchText={(input) => setSearchText(input)}
+              handleExport={(type) => {
+                type && setExportPDF(true)
+              }}
+            />
+            <Table type={'members'} content={displayedContent} />
+          </MainContainer>
+        </>
       )}
-      <MainContainer displayingPopup={displayPopup}>
-        <HeaderPrimary
-          headerTitle="Comissões por pessoa"
-          searchPlaceholder="Pesquise pelo nome do funcionário..."
-          searchText={searchtext}
-          setSearchText={(input) => setSearchText(input)}
-          handleClick={() => {
-            /* TODO */
-          }}
-        />
-        <Table type={'members'} content={displayedContent} />
-      </MainContainer>
     </>
   )
 }

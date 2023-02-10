@@ -1,6 +1,8 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { RelativeBox } from '../../../styles/commonStyles'
 import Button from '../../Button'
+import ExportOptionsBox from '../../ExportOptionsBox'
 import Icon from '../../Icon'
 import Title from '../../Title'
 import { FlexBox, HeaderContainer } from './styles'
@@ -10,14 +12,20 @@ const HeaderSecondary = ({
   headerTitle,
   buttonType,
   backButtonMsg,
-  handleExportOrSave,
+  handleSave,
   handleCancel,
+  handleExport,
 }: IHeader) => {
   const { setAction } = useContext(EntityContext)
+  const [openOptions, setOpenOptions] = useState(false)
 
   return (
     <>
-      <Button handleClick={() => setAction(null)} type="transparent">
+      <Button
+        title={backButtonMsg}
+        handleClick={() => setAction(null)}
+        type="transparent"
+      >
         <Icon type="arrow-left" /> {backButtonMsg}
       </Button>
       <HeaderContainer>
@@ -25,27 +33,47 @@ const HeaderSecondary = ({
         {buttonType === 'save' ? (
           <FlexBox>
             {handleCancel && (
-              <Button handleClick={handleCancel} type="attention">
+              <Button
+                title="cancelar alterações"
+                handleClick={handleCancel}
+                type="attention"
+              >
                 <Icon type="cancel" />
                 Cancelar alterações
               </Button>
             )}
-            {handleExportOrSave && (
-              <Button handleClick={handleExportOrSave} type={'save'}>
+            {handleSave && (
+              <Button
+                title="salvar alterações"
+                handleClick={handleSave}
+                type={'save'}
+              >
                 <Icon type={'save'} />
                 Salvar alterações
               </Button>
             )}
           </FlexBox>
         ) : (
-          <>
-            {handleExportOrSave && (
-              <Button handleClick={handleExportOrSave} type="primary">
-                <Icon type={'download'} />
-                Exportar dados
-              </Button>
+          <RelativeBox>
+            {handleExport && (
+              <>
+                <Button
+                  title="abrir opções para exportar dados"
+                  handleClick={() => setOpenOptions(!openOptions)}
+                  type="primary"
+                >
+                  <Icon type={'download'} />
+                  Exportar dados
+                </Button>
+                {openOptions && (
+                  <ExportOptionsBox
+                    handleExportAsPDF={() => handleExport('pdf')}
+                    handleExportAsCSV={() => handleExport('csv')}
+                  />
+                )}
+              </>
             )}
-          </>
+          </RelativeBox>
         )}
       </HeaderContainer>
     </>
