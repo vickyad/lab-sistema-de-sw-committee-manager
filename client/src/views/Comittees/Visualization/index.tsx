@@ -136,6 +136,7 @@ const Visualization = () => {
           handleClick={() => {
             /* TODO */
           }}
+          
         />
         {displayedContent.length > 0 ? (
           <Table type={'committee'} content={displayedContent} />
