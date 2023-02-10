@@ -76,7 +76,11 @@ const TableRow = ({
           : data.content.map((item: any, index: number) =>
               index === 0 ? (
                 <ClickableItem
-                  title="This is a test"
+                  title={
+                    type === 'committee-details'
+                      ? `visualizar histórico do cargo ${item}`
+                      : `visualizar a comissão ${item}`
+                  }
                   size={sizes[index]}
                   key={`item-${item}-${index}`}
                   onClick={() => handleClick(type, item)}
@@ -85,6 +89,7 @@ const TableRow = ({
                 </ClickableItem>
               ) : index === 1 && type === 'committee-details' ? (
                 <ClickableItem
+                  title={`visualizar o membro ${item}`}
                   size={sizes[index]}
                   key={`item-${item}-${index}`}
                   onClick={() => handleSeeMember(item)}

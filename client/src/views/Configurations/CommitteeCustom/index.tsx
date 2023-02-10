@@ -96,11 +96,16 @@ const CommitteeCustom = () => {
         handleClick={() => setCreateTemplate(!createTemplate)}
       />
       <FlexContainer>
-        <Button handleClick={() => setAction(null)} type="primary">
+        <Button
+          title="cancelar alterações"
+          handleClick={() => setAction(null)}
+          type="primary"
+        >
           <Icon type="cancel" />
           Cancelar
         </Button>
         <Button
+          title="salvar alterações"
           handleClick={() => {
             /* TODO: handle save committee */
           }}

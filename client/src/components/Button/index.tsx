@@ -9,6 +9,7 @@ import {
 import { IButton } from './types'
 
 const Button = ({
+  title,
   children,
   handleClick,
   type,
@@ -19,38 +20,50 @@ const Button = ({
     switch (type) {
       case 'save':
         return (
-          <SaveButton onClick={handleClick} fontSize={fontSize}>
+          <SaveButton onClick={handleClick} title={title} fontSize={fontSize}>
             {children}
           </SaveButton>
         )
       case 'attention':
         return (
-          <AttentionButton onClick={handleClick} fontSize={fontSize}>
+          <AttentionButton
+            onClick={handleClick}
+            title={title}
+            fontSize={fontSize}
+          >
             {children}
           </AttentionButton>
         )
       case 'card':
         return (
-          <CardButton onClick={handleClick} fontSize={fontSize}>
+          <CardButton onClick={handleClick} title={title} fontSize={fontSize}>
             {children}
           </CardButton>
         )
       case 'transparent':
         return (
-          <TransparentButton onClick={handleClick} color={color}>
+          <TransparentButton onClick={handleClick} title={title} color={color}>
             {children}
           </TransparentButton>
         )
       case 'secondary':
         return (
-          <SecondaryButton onClick={handleClick} fontSize={fontSize}>
+          <SecondaryButton
+            onClick={handleClick}
+            title={title}
+            fontSize={fontSize}
+          >
             {children}
           </SecondaryButton>
         )
       case 'primary':
       default:
         return (
-          <DefaultButton onClick={handleClick} fontSize={fontSize}>
+          <DefaultButton
+            onClick={handleClick}
+            title={title}
+            fontSize={fontSize}
+          >
             {children}
           </DefaultButton>
         )

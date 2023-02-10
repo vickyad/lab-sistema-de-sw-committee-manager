@@ -1,25 +1,6 @@
 import React, { useState, createContext } from 'react'
-import { getEmptyEntity } from '../utils/EmptyEntity'
-
-export type ActionType =
-  | 'function-history'
-  | 'search'
-  | 'history'
-  | 'edit'
-  | 'deactivate'
-  | 'add-custom'
-  | 'add-from-template'
-
-interface IEntityContext {
-  currentEntity: { id: number; name: string; content?: any }
-  setCurrentEntity: (currentEntity: {
-    id: number
-    name: string
-    content?: any
-  }) => void
-  action: ActionType | null
-  setAction: (action: ActionType | null) => void
-}
+import { getEmptyEntity } from '../../utils/EmptyEntity'
+import { ActionType, IEntityContext } from './types.d'
 
 export const EntityContext = createContext<IEntityContext>({
   currentEntity: getEmptyEntity(),

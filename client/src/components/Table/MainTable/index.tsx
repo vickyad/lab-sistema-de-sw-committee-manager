@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import Table from '..'
-import { ActionType, EntityContext } from '../../../context/CommitteeContext'
+import { EntityContext } from '../../../context/CommitteeContext'
+import { ActionType } from '../../../context/CommitteeContext/types'
 import { committee_details_mock } from '../../../_mock/committee'
 import { member_details_mock } from '../../../_mock/members'
 import MemberParticipations from '../../MemberParticipations'
