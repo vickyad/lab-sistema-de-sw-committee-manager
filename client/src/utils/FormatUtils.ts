@@ -1,9 +1,4 @@
-import { useState } from "react"
-import MainTable from "../components/ExportableTable/MainTable"
 import RequestManager from "./RequestManager"
-import { IMainTable } from "../components/Table/MainTable/types"
-import { TableTypesExtended } from "../types/tableTypes"
-import { member_details_mock } from "../_mock/members"
 
 function formatDate(date: string) {
     let formated_date: string = ""
@@ -18,7 +13,11 @@ export function formatMember(member_list: any) {
 
     member_list.forEach( (member : any) => {
         let number_of_comissions = member.committees.length
-        formated_member_info.push({id: member.id, content: [member.name, number_of_comissions]})
+        formated_member_info.push({
+            id: member.id, 
+            content: [member.name, number_of_comissions], 
+            committees: formatMemberDetails_internal(member.committees, [])
+        })
     })
 
     return formated_member_info 
@@ -45,4 +44,35 @@ export function formatCommittee(committee_list: any) {
     
     return formated_committee_info
       
+}
+
+function formatMemberDetails_internal(active: any[], history: any[]){
+
+    let active_participations = [] as any[]
+    let inactive_participations = [] as any[]
+    
+
+    active.forEach( (detail: any)  => {
+        active_participations.push({
+            id: detail.committee_id, 
+            content: [
+                detail.committee.name,
+                detail.role,
+                '-',
+                '-'
+            ]})
+    })
+
+    history.forEach( (detail: any)  => {
+        inactive_participations.push({
+            id: detail.committee_id, 
+            content: [
+                detail.committee.name,
+                detail.role,
+                '-',
+                '-'
+            ]})
+    })
+
+    return {active_participations: active_participations, history: inactive_participations}
 }
