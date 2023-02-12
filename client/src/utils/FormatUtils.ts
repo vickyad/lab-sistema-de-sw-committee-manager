@@ -1,5 +1,3 @@
-import RequestManager from "./RequestManager"
-
 function formatDate(date: string) {
     let formated_date: string = ""
 
@@ -23,6 +21,35 @@ export function formatMember(member_list: any) {
     return formated_member_info 
 }
 
+function formatMemberCommitteeDetails(active: any[], history: any[]){
+
+    let active_participations = [] as any[]
+    let inactive_participations = [] as any[]
+    
+    active.forEach( (detail: any)  => {
+        active_participations.push({
+            id: detail.committee_id, 
+            content: [
+                detail.committee.name,
+                detail.role,
+                detail.begin_date!=null ? formatDate(detail.begin_date) : '-',
+                detail.observations!=null ? detail.observations : '-'
+            ]})
+    })
+
+    history.forEach( (detail: any)  => {
+        inactive_participations.push({
+            id: detail.committee_id, 
+            content: [
+                detail.committee.name,
+                detail.role,
+                detail.begin_date!=null ? formatDate(detail.begin_date) : '-',
+                detail.observations!=null ? detail.observations : '-'
+            ]})
+    })
+    return {active_participations: active_participations, history: inactive_participations}
+}
+
 export function formatCommittee(committee_list: any) {
    
     let formated_committee_info = [] as any[]
@@ -43,33 +70,4 @@ export function formatCommittee(committee_list: any) {
     })
     
     return formated_committee_info
-}
-
-function formatMemberCommitteeDetails(active: any[], history: any[]){
-
-    let active_participations = [] as any[]
-    let inactive_participations = [] as any[]
-    
-    active.forEach( (detail: any)  => {
-        active_participations.push({
-            id: detail.committee_id, 
-            content: [
-                detail.committee.name,
-                detail.role,
-                '-',
-                '-'
-            ]})
-    })
-
-    history.forEach( (detail: any)  => {
-        inactive_participations.push({
-            id: detail.committee_id, 
-            content: [
-                detail.committee.name,
-                detail.role,
-                '-',
-                '-'
-            ]})
-    })
-    return {active_participations: active_participations, history: inactive_participations}
 }
