@@ -10,43 +10,8 @@ import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import { member_mock } from '../../../_mock/members'
 import axios from 'axios'
-
-const axios_member = axios.create({
-  baseURL: "http://localhost:3000/member"
-})
-const axios_membersoncommittees = axios.create({
-  baseURL: "http://localhost:3000/member_on_committee"
-})
-
-async function fetch_member_info() {
-  let result = await axios_member.get("/all")
-      .then(res => res.data)
-      .catch(err => console.log(err))
-
-  return result
-}
-
-async function fetch_membersoncommittees_info() {
-  let result = await axios_membersoncommittees.get("/all")
-      .then(res => res.data)
-      .catch(err => console.log(err))
-
-  return result
-}
-
-function format_member_info(member_info: any[], membersoncommittee_info: any[]) {
-  let formated_member_info = [] as any[]
-
-  member_info.forEach( (member : any) => {
-    let number_of_comissions = membersoncommittee_info.filter((obj: any) => {
-      return obj.member_id=== member.id;
-    }).length
-
-    formated_member_info.push({id: member.id, content: [member.name, number_of_comissions]})
-  })
-
-  return formated_member_info 
-}
+import RequestManager from '../../../utils/RequestManager'
+import { formatMember } from '../../../utils/FormatUtils'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -54,14 +19,6 @@ const Visualization = () => {
   const [memberContent, setMemberContent] = useState<any[]>([])
   const [displayedContent, setDisplayedContent] = useState<any[]>([])
 
-  async function fetch_and_format_member_info()
-  {
-    const member_info = await fetch_member_info()
-    const membersoncommittee_info = await fetch_membersoncommittees_info()
-    const formated_member_info = format_member_info(member_info, membersoncommittee_info)
-    setMemberContent(formated_member_info)
-    setDisplayedContent(formated_member_info)
-  }
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
 
@@ -102,7 +59,13 @@ const Visualization = () => {
   }, [action])
 
   useEffect(() => {
-    fetch_and_format_member_info()
+    const request_answer =  async() =>  {
+      let member_content = await RequestManager.getAllMembers()
+      member_content = formatMember(member_content)
+      setMemberContent(member_content)
+      setDisplayedContent(member_content)
+    }
+    request_answer()
 
     if (action === 'search') {
       setSearchText(currentMember.name)
