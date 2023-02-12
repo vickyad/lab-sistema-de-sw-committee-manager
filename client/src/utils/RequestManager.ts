@@ -9,14 +9,13 @@ class requestManager {
         this.axios_socket = axios.create()
     }
 
-    
-
     private async makeGetRequest(access_point: string, params:any = {}) {
-        let result = await this.axios_socket.get(access_point, 
-            {params: params})
-            .then(res => res.data)
-            .catch(err => console.log(err))
-      
+        let result = await this.axios_socket
+            .get(access_point, {params: params})
+                .then(res => res.data)
+                .catch(err => console.log(err))
+        
+        console.log(params)
         return result
     }
 
@@ -40,9 +39,10 @@ class requestManager {
         return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST)
     }
 
-    async getMembersOnCommitteeDetails(member_id: string) {
+    async getMembersOnCommitteeDetails(member_id: any) {
         let params={member_id: member_id}
-        return await this.makeGetRequest(BackendPaths.COMMITTEE_OPTIONS, params)
+        console.log(params)
+        return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST_DETAILS, params=params)
     }
 }
 export default new requestManager()
