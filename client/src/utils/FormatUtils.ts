@@ -16,7 +16,7 @@ export function formatMember(member_list: any) {
         formated_member_info.push({
             id: member.id, 
             content: [member.name, number_of_comissions], 
-            committees: formatMemberDetails_internal(member.committees, [])
+            committees: formatMemberCommitteeDetails(member.committees, [])
         })
     })
 
@@ -43,15 +43,13 @@ export function formatCommittee(committee_list: any) {
     })
     
     return formated_committee_info
-      
 }
 
-function formatMemberDetails_internal(active: any[], history: any[]){
+function formatMemberCommitteeDetails(active: any[], history: any[]){
 
     let active_participations = [] as any[]
     let inactive_participations = [] as any[]
     
-
     active.forEach( (detail: any)  => {
         active_participations.push({
             id: detail.committee_id, 
@@ -73,6 +71,5 @@ function formatMemberDetails_internal(active: any[], history: any[]){
                 '-'
             ]})
     })
-
     return {active_participations: active_participations, history: inactive_participations}
 }
