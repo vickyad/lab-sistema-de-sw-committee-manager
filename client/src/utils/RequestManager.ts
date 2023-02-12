@@ -15,7 +15,6 @@ class requestManager {
                 .then(res => res.data)
                 .catch(err => console.log(err))
         
-        console.log(params)
         return result
     }
 
@@ -39,7 +38,7 @@ class requestManager {
         return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST)
     }
 
-    async getMembersOnCommitteeDetails(member_id: any) {
+    async getMembersOnCommitteeDetails(member_id: number) {
         let params={member_id: member_id}
         console.log(params)
         return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST_DETAILS, params=params)
