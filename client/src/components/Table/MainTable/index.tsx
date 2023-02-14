@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import Table from '..'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { ActionType } from '../../../context/CommitteeContext/types'
-import { committee_details_mock } from '../../../_mock/committee'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
@@ -23,7 +22,7 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
         name: data.content[0],
         content:
           type === 'committee'
-            ? committee_details_mock
+            ? content[data.id-1].participation_details
             : content[data.id-1].committees.active_participations,
       })
     } else {
@@ -49,12 +48,12 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
           {type === 'committee' ? (
             <Table
               type={'committee-details'}
-              content={committee_details_mock}
+              content={item.participation_details}
             />
           ) : (
             <MemberParticipations
-              activeContent={content[index].committees.active_participations}
-              closedContent={content[index].committees.history}
+              activeContent={item.committees.active_participations}
+              closedContent={item.committees.history}
             />
           )}
         </TableRow>

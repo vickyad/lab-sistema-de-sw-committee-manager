@@ -5,20 +5,17 @@ import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { createPDF } from '../../../utils/CreatePDF'
-import { committee_details_mock } from '../../../_mock/committee'
 
 const FunctionHistory = () => {
   const { currentEntity } = useContext(EntityContext)
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
-  const [committeeContent, setCommitteeContent] = useState<any[]>([
-    ...committee_details_mock,
-  ])
+  const [committeeContent, setCommitteeContent] = useState<any[]>([])
 
   useEffect(() => {
     // TODO: use currentEntity.id or curentEntity.name to get the correct info
 
-    let content = [...committee_details_mock]
+    let content = [] as any[]
     setCommitteeContent(content)
   }, [])
 

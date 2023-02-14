@@ -1,5 +1,4 @@
 import ExportableTable from '..'
-import { committee_details_mock } from '../../../_mock/committee'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
@@ -13,12 +12,12 @@ const MainTable = ({ content, type, sizes }: IMainTable) => {
           {type === 'committee' ? (
             <ExportableTable
               type={'committee-details'}
-              content={committee_details_mock}
+              content={item.participation_details}
             />
           ) : (
             <MemberParticipations
-              activeContent={content[index].committees.active_participations}
-              closedContent={content[index].committees.active_participations}
+              activeContent={item.committees.active_participations}
+              closedContent={item.committees.active_participations}
               exportMode={true}
             />
           )}
