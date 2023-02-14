@@ -13,7 +13,8 @@ import {
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import RequestManager from '../../../utils/RequestManager'
-import { formatCommittee } from '../../../utils/FormatUtils'
+import { formatCommittee, formatMemberOnCommitteeDetails } from '../../../utils/FormatUtils'
+import { committeeIteratorFunction } from '../../../utils/CommitteeUtils'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -62,7 +63,11 @@ const Visualization = () => {
   useEffect(() => {
     const request_answer =  async() =>  {
       let committee_content = await RequestManager.getAllCommittees()
-      committee_content = formatCommittee(committee_content)
+      let all_committee_details = [] as any[]
+
+      committeeIteratorFunction(committee_content, all_committee_details)
+
+      committee_content = formatCommittee(committee_content, all_committee_details)
       setCommitteeContent(committee_content)
       setDisplayedContent(committee_content)
     }

@@ -4,13 +4,13 @@ class BackendPaths {
     MEMBER = this.ROOT + '/member'
     MEMBER_ON_COMMITTEES = this.ROOT + '/member_on_committee'
 
-    MEMBER_ON_COMMITTEE_LIST = this.MEMBER_ON_COMMITTEES + '/list'
-    MEMBER_ON_COMMITTEE_LIST_DETAILS = this.MEMBER_ON_COMMITTEE_LIST + '/details'
+    // MEMBER_ON_COMMITTEE_LIST = this.MEMBER_ON_COMMITTEES + '/list'
+    // MEMBER_ON_COMMITTEE_LIST_DETAILS = this.MEMBER_ON_COMMITTEE_LIST + '/details'
 
     COMMITTEE_ALL = this.COMMITTEE + '/all'
     COMMITTEE_OPTIONS = this.COMMITTEE + '/options'
 
-    MEMBER_ALL = this.MEMBER + '/all'
+    MEMBER_HISTORY = this.MEMBER + '/history'
     MEMBER_OPTIONS = this.MEMBER + '/options'
     // In member, '/all' will return all members with all related member_on_committee instances.
     // In committee, '/all' will return all the committees registerd in the database.

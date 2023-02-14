@@ -19,7 +19,9 @@ class requestManager {
     }
 
     async getAllMembers() {
-        return await this.makeGetRequest(BackendPaths.MEMBER_ALL)
+        let params={id: 5}
+        await this.makeGetRequest(BackendPaths.MEMBER, params=params)
+        return await this.makeGetRequest(BackendPaths.MEMBER_HISTORY)
     }
 
     async getMemberList() {
@@ -39,13 +41,19 @@ class requestManager {
         return await this.makeGetRequest(BackendPaths.COMMITTEE, params=params)
     }
 
-    async getMembersOnCommitteeList() {
-        return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST)
+    async getOneMember(member_id: number) {
+        let params={id: member_id}
+        // console.log(member_id)
+        return await this.makeGetRequest(BackendPaths.MEMBER, params=params)
     }
 
-    async getMembersOnCommitteeDetails(member_id: number) {
-        let params={member_id: member_id}
-        return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST_DETAILS, params=params)
-    }
+    // async getMembersOnCommitteeList() {
+    //     return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST)
+    // }
+
+    // async getMembersOnCommitteeDetails(member_id: number) {
+    //     let params={member_id: member_id}
+    //     return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST_DETAILS, params=params)
+    // }
 }
 export default new requestManager()
