@@ -8,8 +8,6 @@ import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
-import { member_mock } from '../../../_mock/members'
-import axios from 'axios'
 import RequestManager from '../../../utils/RequestManager'
 import { formatMember } from '../../../utils/FormatUtils'
 

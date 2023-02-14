@@ -12,8 +12,6 @@ import {
 } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
-import { committee_mock } from '../../../_mock/committee'
-import axios from 'axios'
 import RequestManager from '../../../utils/RequestManager'
 import { formatCommittee } from '../../../utils/FormatUtils'
 
@@ -24,15 +22,6 @@ const Visualization = () => {
   const [displayedContent, setDisplayedContent] = useState<any[]>([])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
-
-  async function fetch_and_format_committee_info()
-  {
-    const committee_info = await RequestManager.getAllCommittees()
-    const formated_committee_info = formatCommittee(committee_info)
-    console.log(formated_committee_info)
-    setCommitteeContent(formated_committee_info)
-    setDisplayedContent(formated_committee_info)
-  }
 
   const {
     action,

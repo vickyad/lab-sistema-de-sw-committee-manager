@@ -34,13 +34,17 @@ class requestManager {
         return await this.makeGetRequest(BackendPaths.COMMITTEE_OPTIONS)
     }
 
+    async getOneCommittee(committee_id: number) {
+        let params= {id: committee_id}
+        return await this.makeGetRequest(BackendPaths.COMMITTEE, params=params)
+    }
+
     async getMembersOnCommitteeList() {
         return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST)
     }
 
     async getMembersOnCommitteeDetails(member_id: number) {
         let params={member_id: member_id}
-        console.log(params)
         return await this.makeGetRequest(BackendPaths.MEMBER_ON_COMMITTEE_LIST_DETAILS, params=params)
     }
 }
