@@ -34,21 +34,7 @@ export class MemberOnCommitteeController {
    //    return this.memberOnCommitteeService.memberOnCommittees({
    //    });
    // }
-   
-   // /member_on_committee/list
-   @Get('/list')
-   async getList(
-   ) {
-      return this.memberOnCommitteeService.getMember_ActiveMemberOnCommitteeList();
-   }
 
-   // /member_on_committee/list/details?member_id=1
-   @Get('/list/details')
-   async getMemberCommitteeHistory(
-      @Query('member_id', ParseIntPipe) id: number,
-   ) {
-      return this.memberOnCommitteeService.getMemberOnCommitteeHistory(id);
-   }
 
    @Post()
    async create( //TODO tentar quebrar ao fazer update por POST.

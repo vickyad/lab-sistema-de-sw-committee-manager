@@ -63,4 +63,44 @@ export class MemberService {
          where,
       });
    }
+
+   async getActiveMemberCommitteeHistory(): Promise<any[]> {
+      const results = await this.prisma.member.findMany({
+         select: {
+            id: true,
+            name: true,
+            committees: {
+               select: {
+                  role: true,
+                  begin_date: true,
+                  observations: true,
+                  is_active: true,
+                  committee: {
+                     select: {
+                        id: true,
+                        name: true,
+                     }
+                  }
+               },
+            }
+         },
+         where: {
+            is_active: true
+         },
+         orderBy: {
+            name: "asc"
+         }
+      });
+
+      if(!results) return
+
+      results.forEach(m => {
+         return (m as any).committees =  m.committees.reduce((obj, curr) => {
+            obj[curr.is_active ? 'active' : 'inactive'].push(curr)
+            return obj
+         }, { active: new Array(), inactive: new Array() })
+      })
+
+      return results
+   }
 }
