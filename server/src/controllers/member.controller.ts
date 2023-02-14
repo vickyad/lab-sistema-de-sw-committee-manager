@@ -31,6 +31,12 @@ export class MemberController {
       return this.memberService.getAll();
    }
 
+   @Get('/history')
+   async getHistory(
+   ) {
+      return this.memberService.getActiveMemberCommitteeHistory();
+   }
+   
    // /member/options
    @Get('/options')
    async getOptions(
