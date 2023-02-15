@@ -1,5 +1,3 @@
-import RequestManager from "./RequestManager"
-
 function formatDate(date: string) {
     let formated_date: string = ""
 
@@ -53,6 +51,10 @@ function formatMemberCommitteeDetails(active: any[], history: any[]){
 }
 
 export function formatMemberOnCommitteeDetails(member_details:any, memberOnCommittee_details:any) {
+    console.log(memberOnCommittee_details)
+    if(memberOnCommittee_details === undefined) {
+        return undefined
+    }
     return {
         id: member_details.id, 
         content: [
