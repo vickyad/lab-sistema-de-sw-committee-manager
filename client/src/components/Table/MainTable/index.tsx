@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import Table from '..'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { ActionType } from '../../../context/CommitteeContext/types'
+import { genericInstanceType } from '../../../types/contentTypes'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
@@ -12,18 +13,15 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
 
   const handleOptionBoxSelection = (
     selected: ActionType,
-    data: {
-      id: number
-      content: any[]
-    }
+    data: genericInstanceType
   ) => {
     if (selected === 'edit') {setCurrentEntity({
         id: data.id,
         name: data.content[0],
         content:
           type === 'committee'
-            ? content[data.id-1].participation_details
-            : content[data.id-1].committees.active_participations,
+            ? data.participation_details
+            : data.committees.active_participations,
       })
     } else {
       setCurrentEntity({ id: data.id, name: data.content[0] })
@@ -33,7 +31,7 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
 
   return (
     <>
-      {content.map((item: any, index: number) => {
+      {content.map((item: genericInstanceType, index: number) => {
       return (
         <TableRow
           type={type}

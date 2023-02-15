@@ -13,14 +13,16 @@ import {
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import RequestManager from '../../../utils/RequestManager'
-import { formatCommittee, formatMemberOnCommitteeDetails } from '../../../utils/FormatUtils'
-import { committeeIteratorFunction } from '../../../utils/CommitteeUtils'
+import { formatCommittee } from '../../../utils/FormatUtils'
+import { getAndFormatAllCommitteeParticipations } from '../../../utils/CommitteeUtils'
+import { committeeParticipation, committeeType } from '../../../types/contentTypes'
+import { committeeGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
-  const [committeeContent, setCommitteeContent] = useState<any[]>([])
-  const [displayedContent, setDisplayedContent] = useState<any[]>([])
+  const [committeeContent, setCommitteeContent] = useState<committeeType[]>([])
+  const [displayedContent, setDisplayedContent] = useState<committeeType[]>([])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
 
@@ -62,12 +64,15 @@ const Visualization = () => {
 
   useEffect(() => {
     const request_answer =  async() =>  {
-      let committee_content = await RequestManager.getAllCommittees()
-      let all_committee_details = [] as any[]
+      let committee_content_raw : committeeGetAllAnswerEntry[] = await RequestManager.getAllCommittees()
+      let all_committee_details : committeeParticipation[][] = []
+      let committee_content : committeeType[] = []
 
-      committeeIteratorFunction(committee_content, all_committee_details)
+      if(committee_content_raw !== undefined){
+        all_committee_details = await getAndFormatAllCommitteeParticipations(committee_content_raw)
+        committee_content = formatCommittee(committee_content_raw, all_committee_details)
+      }
 
-      committee_content = formatCommittee(committee_content, all_committee_details)
       setCommitteeContent(committee_content)
       setDisplayedContent(committee_content)
     }

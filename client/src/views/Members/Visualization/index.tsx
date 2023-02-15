@@ -10,12 +10,14 @@ import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import RequestManager from '../../../utils/RequestManager'
 import { formatMember } from '../../../utils/FormatUtils'
+import { memberType } from '../../../types/contentTypes'
+import { memberGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
-  const [memberContent, setMemberContent] = useState<any[]>([])
-  const [displayedContent, setDisplayedContent] = useState<any[]>([])
+  const [memberContent, setMemberContent] = useState<memberType[]>([])
+  const [displayedContent, setDisplayedContent] = useState<memberType[]>([])
 
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
@@ -58,8 +60,13 @@ const Visualization = () => {
 
   useEffect(() => {
     const request_answer =  async() =>  {
-      let member_content = await RequestManager.getAllMembers()
-      member_content = formatMember(member_content)
+      let member_content_raw : memberGetAllAnswerEntry[] = await RequestManager.getAllMembers()
+      let member_content : memberType[] = []
+      
+      if(member_content_raw !== undefined){
+        member_content = formatMember(member_content_raw)
+      }
+
       setMemberContent(member_content)
       setDisplayedContent(member_content)
     }

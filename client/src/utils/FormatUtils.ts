@@ -1,3 +1,6 @@
+import { committeeParticipation, committeeType, memberParticipation, memberType } from "../types/contentTypes"
+import { committeeDetails, committeeGetAllAnswerEntry, committeeGetAllAnswerMemberEntry, committeeMemberDetailsAnswer, memberDetails, memberGetAllAnswerEntry } from "../types/requestAnswerTypes"
+
 function formatDate(date: string) {
     let formated_date: string = ""
 
@@ -6,10 +9,10 @@ function formatDate(date: string) {
     return formated_date
 }
 
-export function formatMember(member_list: any) {
-    let formated_member_info = [] as any[]
+export function formatMember(member_list: memberGetAllAnswerEntry[]) {
+    let formated_member_info : memberType[] = []
 
-    member_list.forEach( (member : any) => {
+    member_list.forEach( (member : memberGetAllAnswerEntry) => {
         let number_of_comissions = member.committees.active.length
         formated_member_info.push({
             id: member.id, 
@@ -21,14 +24,14 @@ export function formatMember(member_list: any) {
     return formated_member_info 
 }
 
-function formatMemberCommitteeDetails(active: any[], history: any[]){
+function formatMemberCommitteeDetails(active: memberDetails[], history: memberDetails[]){
 
-    let active_participations = [] as any[]
-    let inactive_participations = [] as any[]
+    let active_participations : memberParticipation[] = []
+    let inactive_participations : memberParticipation[] = []
     
-    active.forEach( (detail: any)  => {
+    active.forEach( (detail: memberDetails)  => {
         active_participations.push({
-            id: detail.committee_id, 
+            id: detail.committee.id, 
             content: [
                 detail.committee.name,
                 detail.role,
@@ -37,9 +40,9 @@ function formatMemberCommitteeDetails(active: any[], history: any[]){
             ]})
     })
 
-    history.forEach( (detail: any)  => {
+    history.forEach( (detail: memberDetails)  => {
         inactive_participations.push({
-            id: detail.committee_id, 
+            id: detail.committee.id, 
             content: [
                 detail.committee.name,
                 detail.role,
@@ -50,7 +53,7 @@ function formatMemberCommitteeDetails(active: any[], history: any[]){
     return {active_participations: active_participations, history: inactive_participations}
 }
 
-export function formatMemberOnCommitteeDetails(member_details:any, memberOnCommittee_details:any) {
+export function formatMemberOnCommitteeDetails(member_details:committeeMemberDetailsAnswer, memberOnCommittee_details:committeeDetails|undefined) {
     console.log(memberOnCommittee_details)
     if(memberOnCommittee_details === undefined) {
         return undefined
@@ -60,27 +63,25 @@ export function formatMemberOnCommitteeDetails(member_details:any, memberOnCommi
         content: [
             memberOnCommittee_details.role,
             member_details.name,
-            memberOnCommittee_details.begin_date == null ? '-' : memberOnCommittee_details.begin_date,
+            memberOnCommittee_details.begin_date == null ? '-' : formatDate(memberOnCommittee_details.begin_date),
             memberOnCommittee_details.term + 'º',
             memberOnCommittee_details.observations == null ? '-' : memberOnCommittee_details.observations
         ]
-    }
+    } as committeeParticipation
 }
 
-export function formatCommittee(committee_list: any, committee_details_list: any) {
+export function formatCommittee(committee_list: committeeGetAllAnswerEntry[], committee_details_list: committeeParticipation[][]) {
    
-    let formated_committee_info = [] as any[]
+    let formated_committee_info : committeeType[] = []
     let i = 0
     
-    committee_list.forEach( (committee : any) => {
-        let formated_date_duration = "-"
-        let committee_details = [] as any[]
+    committee_list.forEach( (committee : committeeGetAllAnswerEntry) => {
+        let formated_date_duration : string = "-"
+        let committee_details : committeeParticipation[] = []
     
         if(committee.begin_date != null && committee.end_date != null){
-        formated_date_duration = formatDate(committee.begin_date) + " a " + formatDate(committee.end_date)
+            formated_date_duration = formatDate(committee.begin_date) + " a " + formatDate(committee.end_date)
         }
-
-
     
         formated_committee_info.push({
                                 id: committee.id, 
