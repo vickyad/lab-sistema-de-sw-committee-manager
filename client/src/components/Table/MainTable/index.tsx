@@ -2,8 +2,7 @@ import { useContext, useState } from 'react'
 import Table from '..'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { ActionType } from '../../../context/CommitteeContext/types'
-import { committee_details_mock } from '../../../_mock/committee'
-import { member_details_mock } from '../../../_mock/members'
+import { committeeType, genericInstanceType, memberType } from '../../../types/contentTypes'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
@@ -14,19 +13,17 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
 
   const handleOptionBoxSelection = (
     selected: ActionType,
-    data: {
-      id: number
-      content: any[]
-    }
+    data: genericInstanceType
   ) => {
-    if (selected === 'edit') {
-      setCurrentEntity({
+    let data_committee = data as committeeType
+    let data_member = data as memberType
+    if (selected === 'edit') {setCurrentEntity({
         id: data.id,
         name: data.content[0],
         content:
           type === 'committee'
-            ? committee_details_mock
-            : member_details_mock.active_participations,
+            ? data_committee.participation_details
+            : data_member.committees.active_participations,
       })
     } else {
       setCurrentEntity({ id: data.id, name: data.content[0] })
@@ -36,7 +33,10 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
 
   return (
     <>
-      {content.map((item: any, index: number) => (
+      {content.map((item: genericInstanceType, index: number) => {
+      let item_committee = item as committeeType
+      let item_member = item as memberType
+      return (
         <TableRow
           type={type}
           data={item}
@@ -50,16 +50,16 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
           {type === 'committee' ? (
             <Table
               type={'committee-details'}
-              content={committee_details_mock}
+              content={item_committee.participation_details}
             />
           ) : (
             <MemberParticipations
-              activeContent={member_details_mock.active_participations}
-              closedContent={member_details_mock.history}
+              activeContent={item_member.committees.active_participations}
+              closedContent={item_member.committees.history}
             />
           )}
         </TableRow>
-      ))}
+      )})}
     </>
   )
 }
