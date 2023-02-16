@@ -1,8 +1,16 @@
+export type memberContentType = [string, number]
+export type committeeContentType = [string, string, string, string, string]
+export type memberCommitteesType = {
+
+    active_participations: memberParticipation[],
+    history: memberParticipation[]
+}
+
 export interface genericInstanceType {
     id: number
-    content: [string, number]|[string, string, string, string, string] 
-    committees?: any
-    participation_details?: any
+    content: memberContentType | committeeContentType
+    committees?: memberCommitteesType
+    participation_details?: committeeParticipation[]
 }
 
 export type memberParticipation = {
@@ -10,22 +18,21 @@ export type memberParticipation = {
     content: [string, string, string, string]
 }
 
+
+
 export interface memberType extends genericInstanceType {
 
-    content: [string, number]
-    committees: {
-        active_participations: memberParticipation[],
-        history: memberParticipation[]
-    }
+    content: memberContentType
+    committees: memberCommitteesType
 }
 
 export type committeeParticipation = {
     id: number,
-    content: [string, string, string, string, string]
+    content: committeeContentType
 }
 
 export interface committeeType extends genericInstanceType {
 
-    content: [string, string, string, string, string] 
+    content: committeeContentType
     participation_details:  committeeParticipation[]
 }
