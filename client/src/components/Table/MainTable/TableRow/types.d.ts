@@ -1,8 +1,9 @@
+import { committeeContentType, memberContentType } from '../../../../types/contentTypes';
 import { TableTypesBase } from '../../../../types/tableTypes'
 export interface ITableRowExpandable {
   children: React.ReactNode
   type: TableTypesBase
-  data: { id: number; content: [string, number]|[string, string, string, string, string]  }
+  data: { id: number; content: memberContentType|committeeContentType  }
   sizes: number[]
   detailsToShowId: number
   showOptions: boolean

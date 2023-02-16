@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import Table from '..'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { ActionType } from '../../../context/CommitteeContext/types'
-import { genericInstanceType } from '../../../types/contentTypes'
+import { committeeType, genericInstanceType, memberType } from '../../../types/contentTypes'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
@@ -15,13 +15,15 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
     selected: ActionType,
     data: genericInstanceType
   ) => {
+    let data_committee = data as committeeType
+    let data_member = data as memberType
     if (selected === 'edit') {setCurrentEntity({
         id: data.id,
         name: data.content[0],
         content:
           type === 'committee'
-            ? data.participation_details
-            : data.committees.active_participations,
+            ? data_committee.participation_details
+            : data_member.committees.active_participations,
       })
     } else {
       setCurrentEntity({ id: data.id, name: data.content[0] })
@@ -32,6 +34,8 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
   return (
     <>
       {content.map((item: genericInstanceType, index: number) => {
+      let item_committee = item as committeeType
+      let item_member = item as memberType
       return (
         <TableRow
           type={type}
@@ -46,12 +50,12 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
           {type === 'committee' ? (
             <Table
               type={'committee-details'}
-              content={item.participation_details}
+              content={item_committee.participation_details}
             />
           ) : (
             <MemberParticipations
-              activeContent={item.committees.active_participations}
-              closedContent={item.committees.history}
+              activeContent={item_member.committees.active_participations}
+              closedContent={item_member.committees.history}
             />
           )}
         </TableRow>

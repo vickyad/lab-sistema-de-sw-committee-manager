@@ -2,23 +2,25 @@ import ExportableTable from '..'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
-import { genericInstanceType } from '../../../types/contentTypes'
+import { committeeType, genericInstanceType, memberType } from '../../../types/contentTypes'
 
 const MainTable = ({ content, type, sizes }: IMainTable) => {
   return (
     <>
       {content.map((item: genericInstanceType, index: number) => {
+        let item_committee = item as committeeType
+        let item_member = item as memberType
         (
         <TableRow data={item} sizes={sizes} key={`table-row-${index}`}>
           {type === 'committee' ? (
             <ExportableTable
               type={'committee-details'}
-              content={item.participation_details}
+              content={item_committee.participation_details}
             />
           ) : (
             <MemberParticipations
-              activeContent={item.committees.active_participations}
-              closedContent={item.committees.history}
+              activeContent={item_member.committees.active_participations}
+              closedContent={item_member.committees.history}
               exportMode={true}
             />
           )}
