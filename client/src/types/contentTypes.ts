@@ -1,6 +1,6 @@
 export interface genericInstanceType {
     id: number
-    content: any
+    content: [string, number]|[string, string, string, string, string] 
     committees?: any
     participation_details?: any
 }
