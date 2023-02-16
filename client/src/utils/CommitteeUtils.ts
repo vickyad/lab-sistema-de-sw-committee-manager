@@ -1,18 +1,18 @@
 import RequestManager from "./RequestManager"
 import { formatMemberOnCommitteeDetails } from "./FormatUtils"
 import { committeeParticipation } from "../types/contentTypes"
-import { committeeDetails, committeeGetAllAnswerEntry, committeeGetAllAnswerMemberEntry, committeeMemberDetailsAnswer } from "../types/requestAnswerTypes"
+import { memberGetOneMemberDetailsType_committeeDetails, committeeGetAllAnswerEntry, committeeGetAllAnswerEntry_member, memberGetOneMemberDetailsType } from "../types/requestAnswerTypes"
 
-export const getOneCommitteeParticipations = async (members: committeeGetAllAnswerMemberEntry[], committee_id:number) => {
+export const getOneCommitteeParticipations = async (members: committeeGetAllAnswerEntry_member[], committee_id:number) => {
   let committee_details_array : committeeParticipation[] = []
 
   for(const member of members) {
-    let member_details : committeeMemberDetailsAnswer = await RequestManager.getOneMember(member.member.id)
+    let member_details : memberGetOneMemberDetailsType = await RequestManager.getOneMember(member.member.id)
 
     let memberOnCommittee_details = member_details.committees
-      .filter( (obj : committeeDetails) => {
+      .filter( (obj : memberGetOneMemberDetailsType_committeeDetails) => {
         return obj.committee_id === committee_id})
-      .find( (obj: committeeDetails) => {
+      .find( (obj: memberGetOneMemberDetailsType_committeeDetails) => {
         return obj.is_active === true
       })
 

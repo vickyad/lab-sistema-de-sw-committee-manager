@@ -1,11 +1,11 @@
-export interface committeeMemberDetailsAnswer {
+export interface memberGetOneMemberDetailsType {
     id: number,
     name: string,
     is_active: boolean,
-    committees: committeeDetails[]
+    committees: memberGetOneMemberDetailsType_committeeDetails[]
 }
 
-export type committeeDetails = {
+export type memberGetOneMemberDetailsType_committeeDetails = {
     member_id: number,
     committee_id: number,
     role: string,
@@ -15,7 +15,7 @@ export type committeeDetails = {
     is_active: boolean
 }
 
-export interface committeeGetAllAnswerMemberEntry {
+export interface committeeGetAllAnswerEntry_member {
     member:{
         id: number,
         name: string,
@@ -32,10 +32,10 @@ export interface committeeGetAllAnswerEntry {
     term: number,
     ordinance: string,
     observations?: string,
-    members: committeeGetAllAnswerMemberEntry[]
+    members: committeeGetAllAnswerEntry_member[]
 }
 
-export type memberDetails = {
+export type memberGetAllAnswerEntry_memberDetails = {
     role: string,
     begin_date?: string,
     observations?: string,
@@ -49,7 +49,7 @@ export interface memberGetAllAnswerEntry {
     id: number,
     name: string,
     committees: {
-        active: memberDetails[],
-        inactive: memberDetails[]
+        active: memberGetAllAnswerEntry_memberDetails[],
+        inactive: memberGetAllAnswerEntry_memberDetails[]
     }
 }

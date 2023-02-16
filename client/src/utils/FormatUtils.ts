@@ -1,5 +1,5 @@
 import { committeeParticipation, committeeType, memberParticipation, memberType } from "../types/contentTypes"
-import { committeeDetails, committeeGetAllAnswerEntry, committeeGetAllAnswerMemberEntry, committeeMemberDetailsAnswer, memberDetails, memberGetAllAnswerEntry } from "../types/requestAnswerTypes"
+import { memberGetOneMemberDetailsType_committeeDetails, committeeGetAllAnswerEntry, committeeGetAllAnswerEntry_member, memberGetOneMemberDetailsType, memberGetAllAnswerEntry_memberDetails, memberGetAllAnswerEntry } from "../types/requestAnswerTypes"
 
 function formatDate(date: string) {
     let formated_date: string = ""
@@ -24,12 +24,12 @@ export function formatMember(member_list: memberGetAllAnswerEntry[]) {
     return formated_member_info 
 }
 
-function formatMemberCommitteeDetails(active: memberDetails[], history: memberDetails[]){
+function formatMemberCommitteeDetails(active: memberGetAllAnswerEntry_memberDetails[], history: memberGetAllAnswerEntry_memberDetails[]){
 
     let active_participations : memberParticipation[] = []
     let inactive_participations : memberParticipation[] = []
     
-    active.forEach( (detail: memberDetails)  => {
+    active.forEach( (detail: memberGetAllAnswerEntry_memberDetails)  => {
         active_participations.push({
             id: detail.committee.id, 
             content: [
@@ -40,7 +40,7 @@ function formatMemberCommitteeDetails(active: memberDetails[], history: memberDe
             ]})
     })
 
-    history.forEach( (detail: memberDetails)  => {
+    history.forEach( (detail: memberGetAllAnswerEntry_memberDetails)  => {
         inactive_participations.push({
             id: detail.committee.id, 
             content: [
@@ -53,7 +53,7 @@ function formatMemberCommitteeDetails(active: memberDetails[], history: memberDe
     return {active_participations: active_participations, history: inactive_participations}
 }
 
-export function formatMemberOnCommitteeDetails(member_details:committeeMemberDetailsAnswer, memberOnCommittee_details:committeeDetails|undefined) {
+export function formatMemberOnCommitteeDetails(member_details:memberGetOneMemberDetailsType, memberOnCommittee_details:memberGetOneMemberDetailsType_committeeDetails|undefined) {
     console.log(memberOnCommittee_details)
     if(memberOnCommittee_details === undefined) {
         return undefined
