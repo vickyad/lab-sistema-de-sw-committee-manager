@@ -12,17 +12,17 @@ import {
 } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
-import { committee_mock } from '../../../_mock/committee'
+import RequestManager from '../../../utils/RequestManager'
+import { formatCommittee } from '../../../utils/FormatUtils'
+import { getAndFormatAllCommitteeParticipations } from '../../../utils/CommitteeUtils'
+import { committeeParticipation, committeeType } from '../../../types/contentTypes'
+import { committeeGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
-  const [committeeContent, setCommitteeContent] = useState<any[]>([
-    ...committee_mock,
-  ])
-  const [displayedContent, setDisplayedContent] = useState<any[]>([
-    ...committee_mock,
-  ])
+  const [committeeContent, setCommitteeContent] = useState<committeeType[]>([])
+  const [displayedContent, setDisplayedContent] = useState<committeeType[]>([])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
 
@@ -63,9 +63,20 @@ const Visualization = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    let content = [...committee_mock]
-    setCommitteeContent(content)
-    setDisplayedContent(content)
+    const request_answer =  async() =>  {
+      let committee_content_raw : committeeGetAllAnswerEntry[] = await RequestManager.getAllCommittees()
+      let all_committee_details : committeeParticipation[][] = []
+      let committee_content : committeeType[] = []
+
+      if(committee_content_raw !== undefined){
+        all_committee_details = await getAndFormatAllCommitteeParticipations(committee_content_raw)
+        committee_content = formatCommittee(committee_content_raw, all_committee_details)
+      }
+
+      setCommitteeContent(committee_content)
+      setDisplayedContent(committee_content)
+    }
+    request_answer()
 
     if (action === 'search') {
       setSearchText(currentCommittee.name)

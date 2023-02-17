@@ -8,15 +8,17 @@ import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
-import { member_mock } from '../../../_mock/members'
+import RequestManager from '../../../utils/RequestManager'
+import { formatMember } from '../../../utils/FormatUtils'
+import { memberType } from '../../../types/contentTypes'
+import { memberGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
   const [searchtext, setSearchText] = useState('')
-  const [memberContent, setMemberContent] = useState<any[]>([...member_mock])
-  const [displayedContent, setDisplayedContent] = useState<any[]>([
-    ...member_mock,
-  ])
+  const [memberContent, setMemberContent] = useState<memberType[]>([])
+  const [displayedContent, setDisplayedContent] = useState<memberType[]>([])
+
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
 
@@ -57,9 +59,18 @@ const Visualization = () => {
   }, [action])
 
   useEffect(() => {
-    let content = [...member_mock]
-    setMemberContent(content)
-    setDisplayedContent(content)
+    const request_answer =  async() =>  {
+      let member_content_raw : memberGetAllAnswerEntry[] = await RequestManager.getAllMembers()
+      let member_content : memberType[] = []
+      
+      if(member_content_raw !== undefined){
+        member_content = formatMember(member_content_raw)
+      }
+
+      setMemberContent(member_content)
+      setDisplayedContent(member_content)
+    }
+    request_answer()
 
     if (action === 'search') {
       setSearchText(currentMember.name)
