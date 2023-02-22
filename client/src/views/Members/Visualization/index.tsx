@@ -12,6 +12,7 @@ import RequestManager from '../../../utils/RequestManager'
 import { formatMember } from '../../../utils/FormatUtils'
 import { memberType } from '../../../types/contentTypes'
 import { memberGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
+import { MemberTableHeader } from '../../../data/membersHeader'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -59,11 +60,12 @@ const Visualization = () => {
   }, [action])
 
   useEffect(() => {
-    const request_answer =  async() =>  {
-      let member_content_raw : memberGetAllAnswerEntry[] = await RequestManager.getAllMembers()
-      let member_content : memberType[] = []
-      
-      if(member_content_raw !== undefined){
+    const request_answer = async () => {
+      let member_content_raw: memberGetAllAnswerEntry[] =
+        await RequestManager.getAllMembers()
+      let member_content: memberType[] = []
+
+      if (member_content_raw !== undefined) {
         member_content = formatMember(member_content_raw)
       }
 
@@ -123,7 +125,11 @@ const Visualization = () => {
                 type && setExportPDF(true)
               }}
             />
-            <Table type={'members'} content={displayedContent} />
+            <Table
+              header={MemberTableHeader}
+              type={'members'}
+              content={displayedContent}
+            />
           </MainContainer>
         </>
       )}

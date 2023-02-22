@@ -15,8 +15,12 @@ import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import RequestManager from '../../../utils/RequestManager'
 import { formatCommittee } from '../../../utils/FormatUtils'
 import { getAndFormatAllCommitteeParticipations } from '../../../utils/CommitteeUtils'
-import { committeeParticipation, committeeType } from '../../../types/contentTypes'
+import {
+  committeeParticipation,
+  committeeType,
+} from '../../../types/contentTypes'
 import { committeeGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
+import { CommitteeTableHeader } from '../../../data/committeeHeader'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -63,14 +67,20 @@ const Visualization = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    const request_answer =  async() =>  {
-      let committee_content_raw : committeeGetAllAnswerEntry[] = await RequestManager.getAllCommittees()
-      let all_committee_details : committeeParticipation[][] = []
-      let committee_content : committeeType[] = []
+    const request_answer = async () => {
+      let committee_content_raw: committeeGetAllAnswerEntry[] =
+        await RequestManager.getAllCommittees()
+      let all_committee_details: committeeParticipation[][] = []
+      let committee_content: committeeType[] = []
 
-      if(committee_content_raw !== undefined){
-        all_committee_details = await getAndFormatAllCommitteeParticipations(committee_content_raw)
-        committee_content = formatCommittee(committee_content_raw, all_committee_details)
+      if (committee_content_raw !== undefined) {
+        all_committee_details = await getAndFormatAllCommitteeParticipations(
+          committee_content_raw
+        )
+        committee_content = formatCommittee(
+          committee_content_raw,
+          all_committee_details
+        )
       }
 
       setCommitteeContent(committee_content)
@@ -130,7 +140,11 @@ const Visualization = () => {
               }}
             />
             {displayedContent.length > 0 ? (
-              <Table type={'committee'} content={displayedContent} />
+              <Table
+                header={CommitteeTableHeader}
+                type={'committee'}
+                content={displayedContent}
+              />
             ) : (
               <NoContentMessage>
                 Não há comissões ativas no momento

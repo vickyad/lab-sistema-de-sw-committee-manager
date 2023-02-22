@@ -4,6 +4,7 @@ import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { CommitteeDetailsHeader } from '../../../data/committeeDetailsHeader'
 import { createPDF } from '../../../utils/CreatePDF'
 
 const FunctionHistory = () => {
@@ -51,7 +52,11 @@ const FunctionHistory = () => {
               type === 'pdf' && setExportPDF(true)
             }}
           />
-          <Table type={'committee-details'} content={committeeContent} />
+          <Table
+            header={CommitteeDetailsHeader}
+            type={'committee-details'}
+            content={committeeContent}
+          />
         </>
       )}
     </>

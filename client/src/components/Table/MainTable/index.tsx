@@ -2,7 +2,12 @@ import { useContext, useState } from 'react'
 import Table from '..'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { ActionType } from '../../../context/CommitteeContext/types'
-import { committeeType, genericInstanceType, memberType } from '../../../types/contentTypes'
+import { CommitteeDetailsHeader } from '../../../data/committeeDetailsHeader'
+import {
+  committeeType,
+  genericInstanceType,
+  memberType,
+} from '../../../types/contentTypes'
 import MemberParticipations from '../../MemberParticipations'
 import TableRow from './TableRow'
 import { IMainTable } from './types'
@@ -17,7 +22,8 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
   ) => {
     let data_committee = data as committeeType
     let data_member = data as memberType
-    if (selected === 'edit') {setCurrentEntity({
+    if (selected === 'edit') {
+      setCurrentEntity({
         id: data.id,
         name: data.content[0],
         content:
@@ -34,32 +40,34 @@ const MainTable = ({ content, type, sizes, showOptions }: IMainTable) => {
   return (
     <>
       {content.map((item: genericInstanceType, index: number) => {
-      let item_committee = item as committeeType
-      let item_member = item as memberType
-      return (
-        <TableRow
-          type={type}
-          data={item}
-          sizes={sizes}
-          detailsToShowId={showDetails}
-          handleRowClick={(id: number) => setShowDetails(id)}
-          showOptions={showOptions}
-          key={`table-row-${index}`}
-          handleOptionBoxSelection={handleOptionBoxSelection}
-        >
-          {type === 'committee' ? (
-            <Table
-              type={'committee-details'}
-              content={item_committee.participation_details}
-            />
-          ) : (
-            <MemberParticipations
-              activeContent={item_member.committees.active_participations}
-              closedContent={item_member.committees.history}
-            />
-          )}
-        </TableRow>
-      )})}
+        let item_committee = item as committeeType
+        let item_member = item as memberType
+        return (
+          <TableRow
+            type={type}
+            data={item}
+            sizes={sizes}
+            detailsToShowId={showDetails}
+            handleRowClick={(id: number) => setShowDetails(id)}
+            showOptions={showOptions}
+            key={`table-row-${index}`}
+            handleOptionBoxSelection={handleOptionBoxSelection}
+          >
+            {type === 'committee' ? (
+              <Table
+                header={CommitteeDetailsHeader}
+                type={'committee-details'}
+                content={item_committee.participation_details}
+              />
+            ) : (
+              <MemberParticipations
+                activeContent={item_member.committees.active_participations}
+                closedContent={item_member.committees.history}
+              />
+            )}
+          </TableRow>
+        )
+      })}
     </>
   )
 }

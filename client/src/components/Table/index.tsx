@@ -1,7 +1,3 @@
-import { CommitteeDetailsHeader } from '../../data/committeeDetailsHeader'
-import { CommitteeTableHeader } from '../../data/committeeHeader'
-import { MemberDetailsHeader } from '../../data/membersDetailsHeader'
-import { MemberTableHeader } from '../../data/membersHeader'
 import DetailsTable from './DetailsTable'
 import MainTable from './MainTable'
 import TableHeader from './TableHeader'
@@ -9,36 +5,19 @@ import { ITable } from './types'
 
 const Table = ({
   type,
+  header,
   content,
   editMode = false,
   showOptions = true,
   updateTable,
 }: ITable) => {
-  const getTableHeader = () => {
-    switch (type) {
-      case 'committee-details':
-        return CommitteeDetailsHeader
-      case 'members-details':
-        return MemberDetailsHeader
-      case 'members':
-        return MemberTableHeader
-      case 'committee':
-      default:
-        return CommitteeTableHeader
-    }
-  }
-
-  const getTableSizes = () => {
-    return getTableHeader().sizes
-  }
-
   return (
     <div>
       <>
-        <TableHeader {...getTableHeader()} />
-        {type === 'committee-details' || type === 'members-details' ? (
+        <TableHeader {...header} />
+        {header.type === 'secondary' ? (
           <DetailsTable
-            tableInfo={getTableHeader()}
+            tableInfo={header}
             content={content}
             editMode={editMode}
             updateTable={updateTable}
@@ -47,7 +26,7 @@ const Table = ({
         ) : (
           <MainTable
             type={type}
-            sizes={getTableSizes()}
+            sizes={header.sizes}
             content={content}
             showOptions={showOptions}
           />

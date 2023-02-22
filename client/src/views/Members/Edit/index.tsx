@@ -3,6 +3,7 @@ import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { MemberDetailsHeader } from '../../../data/membersDetailsHeader'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 
@@ -50,6 +51,7 @@ const Edit = () => {
         />
         {memberContent.length > 0 && (
           <Table
+            header={MemberDetailsHeader}
             type={'members-details'}
             editMode={true}
             content={memberContent}

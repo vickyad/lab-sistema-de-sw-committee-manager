@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { MemberDetailsHeader } from '../../data/membersDetailsHeader'
+import { NoContentMessage } from '../../styles/commonStyles'
 import Icon from '../Icon'
 import Table from '../Table'
 import { Container, ExpandButton } from './styles'
@@ -19,14 +21,36 @@ const MemberParticipations = ({
         <Icon type={displayActive ? 'minus' : 'plus'} />
       </ExpandButton>
       {(exportMode || displayActive) && (
-        <Table type={'members-details'} content={activeContent} />
+        <>
+          {activeContent.length > 0 ? (
+            <Table
+              header={MemberDetailsHeader}
+              type={'members-details'}
+              content={activeContent}
+            />
+          ) : (
+            <NoContentMessage>
+              Esse membro não participa de nenhuma comissão no momento
+            </NoContentMessage>
+          )}
+        </>
       )}
       <ExpandButton onClick={() => setDisplayClosed(!displayClosed)}>
         Participações encerradas
         <Icon type={displayClosed ? 'minus' : 'plus'} />
       </ExpandButton>
       {(exportMode || displayClosed) && (
-        <Table type={'members-details'} content={closedContent} />
+        <>
+          {closedContent.length > 0 ? (
+            <Table
+              header={MemberDetailsHeader}
+              type={'members-details'}
+              content={closedContent}
+            />
+          ) : (
+            <NoContentMessage>Não há histórico desse membro</NoContentMessage>
+          )}
+        </>
       )}
     </Container>
   )
