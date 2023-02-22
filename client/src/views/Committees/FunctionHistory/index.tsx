@@ -53,7 +53,7 @@ const FunctionHistory = () => {
             }}
           />
           <Table
-            header={CommitteeDetailsHeader}
+            tableInfo={CommitteeDetailsHeader}
             type={'committee-details'}
             content={committeeContent}
           />

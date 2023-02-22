@@ -1,4 +1,4 @@
-import { ITableHeader } from '../components/Table/TableHeader/type'
+import { ITableHeader } from '../components/Table/Header/type'
 
 export const MemberTableHeader: ITableHeader = {
   headers: [

@@ -24,7 +24,7 @@ const MemberParticipations = ({
         <>
           {activeContent.length > 0 ? (
             <Table
-              header={MemberDetailsHeader}
+              tableInfo={MemberDetailsHeader}
               type={'members-details'}
               content={activeContent}
             />
@@ -43,7 +43,7 @@ const MemberParticipations = ({
         <>
           {closedContent.length > 0 ? (
             <Table
-              header={MemberDetailsHeader}
+              tableInfo={MemberDetailsHeader}
               type={'members-details'}
               content={closedContent}
             />

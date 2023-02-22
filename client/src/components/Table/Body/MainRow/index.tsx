@@ -12,7 +12,7 @@ import {
   InnerTableWrapper,
 } from './styles'
 
-const TableRow = ({
+const MainRow = ({
   children,
   type,
   data,
@@ -70,4 +70,4 @@ const TableRow = ({
     </Container>
   )
 }
-export default TableRow
+export default MainRow

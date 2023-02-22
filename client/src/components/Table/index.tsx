@@ -1,36 +1,27 @@
-import DetailsTable from './DetailsTable'
-import MainTable from './MainTable'
-import TableHeader from './TableHeader'
+import Header from './Header'
 import { ITable } from './types'
+import Body from './Body'
 
 const Table = ({
   type,
-  header,
+  tableInfo,
   content,
   editMode = false,
   showOptions = true,
-  updateTable,
+  onUpdateTable,
 }: ITable) => {
   return (
     <div>
       <>
-        <TableHeader {...header} />
-        {header.type === 'secondary' ? (
-          <DetailsTable
-            tableInfo={header}
-            content={content}
-            editMode={editMode}
-            updateTable={updateTable}
-            type={type}
-          />
-        ) : (
-          <MainTable
-            type={type}
-            sizes={header.sizes}
-            content={content}
-            showOptions={showOptions}
-          />
-        )}
+        <Header {...tableInfo} />
+        <Body
+          type={type}
+          content={content}
+          showOptions={showOptions}
+          tableInfo={tableInfo}
+          editMode={editMode}
+          onUpdateTable={onUpdateTable}
+        />
       </>
     </div>
   )

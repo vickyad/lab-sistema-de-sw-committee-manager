@@ -126,7 +126,7 @@ const Visualization = () => {
               }}
             />
             <Table
-              header={MemberTableHeader}
+              tableInfo={MemberTableHeader}
               type={'members'}
               content={displayedContent}
             />

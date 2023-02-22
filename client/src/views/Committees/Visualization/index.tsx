@@ -141,7 +141,7 @@ const Visualization = () => {
             />
             {displayedContent.length > 0 ? (
               <Table
-                header={CommitteeTableHeader}
+                tableInfo={CommitteeTableHeader}
                 type={'committee'}
                 content={displayedContent}
               />

@@ -53,7 +53,7 @@ const CommitteeHistory = () => {
           />
           {committeeContent.length > 0 ? (
             <Table
-              header={CommitteeTableHeader}
+              tableInfo={CommitteeTableHeader}
               type={'committee'}
               content={committeeContent}
               showOptions={false}

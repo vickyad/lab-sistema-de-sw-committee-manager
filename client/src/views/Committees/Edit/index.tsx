@@ -54,11 +54,11 @@ const Edit = () => {
         />
         {committeeContent.length > 0 && (
           <Table
-            header={CommitteeDetailsHeader}
+            tableInfo={CommitteeDetailsHeader}
             type={'committee-details'}
             editMode={true}
             content={committeeContent}
-            updateTable={(content) => setCommitteeContent(content)}
+            onUpdateTable={(content) => setCommitteeContent(content)}
           />
         )}
       </MainContainer>

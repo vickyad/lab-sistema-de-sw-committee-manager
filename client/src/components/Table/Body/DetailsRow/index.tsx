@@ -9,7 +9,7 @@ import TextInput from '../../Input/TextInput'
 import { ClickableItem, Container, Item, RowContainer } from './styles'
 import { ITableRow } from './types'
 
-const TableRow = ({
+const DetailsRow = ({
   id,
   editMode,
   data,
@@ -106,4 +106,4 @@ const TableRow = ({
     </Container>
   )
 }
-export default TableRow
+export default DetailsRow

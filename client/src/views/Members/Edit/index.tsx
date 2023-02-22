@@ -51,11 +51,11 @@ const Edit = () => {
         />
         {memberContent.length > 0 && (
           <Table
-            header={MemberDetailsHeader}
+            tableInfo={MemberDetailsHeader}
             type={'members-details'}
             editMode={true}
             content={memberContent}
-            updateTable={(content) => setMemberContent(content)}
+            onUpdateTable={(content) => setMemberContent(content)}
           />
         )}
       </MainContainer>
