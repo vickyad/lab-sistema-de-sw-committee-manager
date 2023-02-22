@@ -1,8 +1,10 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Paths from '../../../../constants/Paths'
 import { EntityContext } from '../../../../context/CommitteeContext'
+import { memberGetOptionsEntry } from '../../../../types/requestAnswerTypes'
 import { TableTypesExtended } from '../../../../types/tableTypes'
+import RequestManager from '../../../../utils/RequestManager'
 import { member_list_mock } from '../../../../_mock/memberList'
 import Dropdown from '../../Input/Dropdown'
 import TextInput from '../../Input/TextInput'
@@ -20,6 +22,14 @@ const TableRow = ({
   const navigate = useNavigate()
   const { headers, sizes } = tableInfo
   const { setAction, setCurrentEntity } = useContext(EntityContext)
+  const [optionsList, setOptionsList] = useState([] as memberGetOptionsEntry[])
+
+  const update_options = async() => {
+    let options_answer = await RequestManager.getMemberList()
+    setOptionsList(options_answer)
+  }
+
+  update_options()
 
   const handleSeeFunctionHistory = (item: any) => {
     setAction('function-history')
@@ -53,7 +63,7 @@ const TableRow = ({
                 headers[index].type === 'dropdown' ? (
                   <Dropdown
                     size={sizes[index]}
-                    options={member_list_mock}
+                    options={optionsList}
                     optionSelected={item}
                     setOptionSelected={(name: string) =>
                       onChange(name, index, id)

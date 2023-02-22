@@ -23,6 +23,18 @@ export interface committeeGetAllAnswerEntry_member {
     } 
 }
 
+export interface memberPostDTO {
+    data: {
+        name: string;
+        is_active: boolean;
+    }
+}
+
+export interface memberGetOptionsEntry {
+    id: number,
+    name: string
+}
+
 export interface committeeGetAllAnswerEntry {
     id: number,
     bond: string,

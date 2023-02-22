@@ -5,14 +5,13 @@ import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { NoContentMessage } from '../../../styles/commonStyles'
+import { committeeType } from '../../../types/contentTypes'
 import { createPDF } from '../../../utils/CreatePDF'
 import { committee_mock } from '../../../_mock/committee'
 
 const CommitteeHistory = () => {
   const { currentEntity: currentCommittee } = useContext(EntityContext)
-  const [committeeContent, setCommitteeContent] = useState<any[]>([
-    ...committee_mock,
-  ])
+  const [committeeContent, setCommitteeContent] = useState<committeeType[]>([])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
 
@@ -29,7 +28,7 @@ const CommitteeHistory = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    let content = [...committee_mock]
+    let content = committeeContent
     setCommitteeContent(content)
   }, [])
 

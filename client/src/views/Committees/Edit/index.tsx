@@ -4,7 +4,9 @@ import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
+import { committeeType } from '../../../types/contentTypes'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
+import RequestManager from '../../../utils/RequestManager'
 
 const Edit = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -13,13 +15,15 @@ const Edit = () => {
     setCurrentEntity,
     setAction,
   } = useContext(EntityContext)
-  const [committeeContent, setCommitteeContent] = useState<any[]>([
+  const [committeeContent, setCommitteeContent] = useState<committeeType[]>([
     ...currentCommittee.content,
   ])
 
   const handleSaveChanges = () => {
     // TODO: save changes
     setAction(null)
+    console.log("CHANGE DETECTED")
+    console.log(committeeContent)
     setCurrentEntity({ ...getEmptyEntity(), content: undefined })
   }
 

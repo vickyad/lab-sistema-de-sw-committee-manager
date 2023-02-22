@@ -54,7 +54,6 @@ function formatMemberCommitteeDetails(active: memberGetAllAnswerEntry_memberDeta
 }
 
 export function formatMemberOnCommitteeDetails(member_details:memberGetOneMemberDetailsType, memberOnCommittee_details:memberGetOneMemberDetailsType_committeeDetails|undefined) {
-    console.log(memberOnCommittee_details)
     if(memberOnCommittee_details === undefined) {
         return undefined
     }
