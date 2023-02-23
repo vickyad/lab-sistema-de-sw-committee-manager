@@ -7,7 +7,6 @@ import {
   ActionsWrapper,
   RowContainer,
   RowItem,
-  TransparentButton,
   VerticalLine,
   Container,
   InnerTableWrapper,
@@ -23,6 +22,7 @@ import {
   TableTypesBase,
   TableTypesExtended,
 } from '../../../../types/tableTypes'
+import Button from '../../../Button'
 
 const Row = ({
   children,
@@ -130,14 +130,23 @@ const Row = ({
           <ActionsWrapper>
             {showOptions && (
               <>
-                <TransparentButton onClick={() => setIsComponentVisible(true)}>
+                <Button
+                  title="mostrar opções de ação"
+                  type="transparent"
+                  color="#00000078"
+                  handleClick={() => setIsComponentVisible(true)}
+                >
                   <Icon type="options" />
-                </TransparentButton>
+                </Button>
                 <VerticalLine />
               </>
             )}
-            <TransparentButton
-              onClick={() =>
+            <Button
+              title="expandir linha"
+              type="transparent"
+              color="#00000078"
+              svgStroke
+              handleClick={() =>
                 handleRowClick(detailsToShowId === data.id ? -1 : data.id)
               }
             >
@@ -145,7 +154,7 @@ const Row = ({
                 type="chevron"
                 position={detailsToShowId === data.id ? 'top' : 'down'}
               />
-            </TransparentButton>
+            </Button>
           </ActionsWrapper>
         )}
       </RowContainer>

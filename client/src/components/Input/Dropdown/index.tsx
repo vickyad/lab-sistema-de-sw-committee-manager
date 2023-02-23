@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Button from '../../Button'
 import Icon from '../../Icon'
 import {
   BoxContainer,
@@ -7,7 +8,6 @@ import {
   InputContainer,
   Label,
   Required,
-  TransparentButton,
 } from './styles'
 import { IDropdown } from './types'
 
@@ -42,12 +42,15 @@ const Dropdown = ({
       {showOptions && (
         <BoxContainer>
           {options.map((item, index) => (
-            <TransparentButton
+            <Button
               key={`dropdown-item-${index}`}
-              onClick={() => handleItemSelected(item)}
+              title={`opção ${item.name}`}
+              type="transparent"
+              color="black"
+              handleClick={() => handleItemSelected(item)}
             >
               {item.name}
-            </TransparentButton>
+            </Button>
           ))}
         </BoxContainer>
       )}

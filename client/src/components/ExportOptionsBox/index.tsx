@@ -1,5 +1,6 @@
+import Button from '../Button'
 import Icon from '../Icon'
-import { Container, TransparentButton } from './styles'
+import { Container } from './styles'
 import { IOptionsBox } from './types'
 
 const ExportOptionsBox = ({
@@ -8,12 +9,20 @@ const ExportOptionsBox = ({
 }: IOptionsBox) => {
   return (
     <Container>
-      <TransparentButton onClick={handleExportAsPDF}>
+      <Button
+        title={'exportar conteúdo da página como PDF'}
+        type="transparent"
+        handleClick={handleExportAsPDF}
+      >
         <Icon type="pdf" /> Exportar como PDF
-      </TransparentButton>
-      <TransparentButton onClick={handleExportAsCSV}>
+      </Button>
+      <Button
+        title={'exportar conteúdo da página como CSV'}
+        type="transparent"
+        handleClick={handleExportAsCSV}
+      >
         <Icon type="csv" /> Exportar como CSV
-      </TransparentButton>
+      </Button>
     </Container>
   )
 }

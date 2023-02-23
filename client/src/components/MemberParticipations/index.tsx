@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { MemberDetailsHeader } from '../../data/membersDetailsHeader'
 import { NoContentMessage } from '../../styles/commonStyles'
+import Button from '../Button'
 import Icon from '../Icon'
 import Table from '../Table'
-import { Container, ExpandButton } from './styles'
+import { Container } from './styles'
 import { IMemberParticipations } from './types'
 
 const MemberParticipations = ({
@@ -16,10 +17,16 @@ const MemberParticipations = ({
 
   return (
     <Container>
-      <ExpandButton onClick={() => setDisplayActive(!displayActive)}>
+      <Button
+        title={`${
+          displayActive ? 'ocultar' : 'mostrar'
+        } participações ativas do membro`}
+        type="subsection"
+        handleClick={() => setDisplayActive(!displayActive)}
+      >
         Participações ativas
         <Icon type={displayActive ? 'minus' : 'plus'} />
-      </ExpandButton>
+      </Button>
       {(exportMode || displayActive) && (
         <>
           {active_participations.length > 0 ? (
@@ -35,10 +42,16 @@ const MemberParticipations = ({
           )}
         </>
       )}
-      <ExpandButton onClick={() => setDisplayClosed(!displayClosed)}>
+      <Button
+        title={`${
+          displayActive ? 'ocultar' : 'mostrar'
+        } histórico de participações do membro`}
+        type="subsection"
+        handleClick={() => setDisplayClosed(!displayClosed)}
+      >
         Participações encerradas
         <Icon type={displayClosed ? 'minus' : 'plus'} />
-      </ExpandButton>
+      </Button>
       {(exportMode || displayClosed) && (
         <>
           {history.length > 0 ? (

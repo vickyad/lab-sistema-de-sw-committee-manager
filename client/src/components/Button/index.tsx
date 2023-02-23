@@ -5,6 +5,7 @@ import {
   TransparentButton,
   DefaultButton,
   SecondaryButton,
+  SubsectionButton,
 } from './styles'
 import { IButton } from './types'
 
@@ -13,11 +14,23 @@ const Button = ({
   children,
   handleClick,
   type,
-  color = 'black',
+  color,
   fontSize = 'default',
+  noBorder = false,
+  svgStroke = false,
 }: IButton) => {
   const getButton = () => {
     switch (type) {
+      case 'subsection':
+        return (
+          <SubsectionButton
+            onClick={handleClick}
+            title={title}
+            fontSize={fontSize}
+          >
+            {children}
+          </SubsectionButton>
+        )
       case 'save':
         return (
           <SaveButton onClick={handleClick} title={title} fontSize={fontSize}>
@@ -30,6 +43,7 @@ const Button = ({
             onClick={handleClick}
             title={title}
             fontSize={fontSize}
+            noBorder={noBorder}
           >
             {children}
           </AttentionButton>
@@ -42,7 +56,12 @@ const Button = ({
         )
       case 'transparent':
         return (
-          <TransparentButton onClick={handleClick} title={title} color={color}>
+          <TransparentButton
+            onClick={handleClick}
+            title={title}
+            color={color}
+            svgStroke={svgStroke}
+          >
             {children}
           </TransparentButton>
         )

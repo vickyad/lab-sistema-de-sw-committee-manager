@@ -57,12 +57,6 @@ export const VerticalLine = styled.div`
   background-color: #00000033;
 `
 
-export const TransparentButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-`
-
 export const InnerTableWrapper = styled.div`
   border: 1px solid #0000002e;
 `

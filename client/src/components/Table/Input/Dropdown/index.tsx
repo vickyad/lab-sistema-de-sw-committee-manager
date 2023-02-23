@@ -1,12 +1,7 @@
 import { useState } from 'react'
+import Button from '../../../Button'
 import Icon from '../../../Icon'
-import {
-  OptionsContainer,
-  Label,
-  LabelContainer,
-  TransparentButton,
-  Container,
-} from './styles'
+import { OptionsContainer, Label, LabelContainer, Container } from './styles'
 import { IDropdown } from './types'
 
 const Dropdown = ({
@@ -30,12 +25,14 @@ const Dropdown = ({
       {showOptions && (
         <OptionsContainer>
           {options.map((item, index) => (
-            <TransparentButton
+            <Button
               key={`dropdown-item-${index}`}
-              onClick={() => handleItemSelected(item.name)}
+              title={`opção ${item.name}`}
+              type="transparent"
+              handleClick={() => handleItemSelected(item.name)}
             >
               {item.name}
-            </TransparentButton>
+            </Button>
           ))}
         </OptionsContainer>
       )}
