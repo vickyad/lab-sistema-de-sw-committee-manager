@@ -7,8 +7,8 @@ import { Container, ExpandButton } from './styles'
 import { IMemberParticipations } from './types'
 
 const MemberParticipations = ({
-  activeContent,
-  closedContent,
+  active_participations,
+  history,
   exportMode = false,
 }: IMemberParticipations) => {
   const [displayActive, setDisplayActive] = useState(true)
@@ -22,11 +22,11 @@ const MemberParticipations = ({
       </ExpandButton>
       {(exportMode || displayActive) && (
         <>
-          {activeContent.length > 0 ? (
+          {active_participations.length > 0 ? (
             <Table
               tableInfo={MemberDetailsHeader}
               type={'members-details'}
-              content={activeContent}
+              content={active_participations}
             />
           ) : (
             <NoContentMessage>
@@ -41,11 +41,11 @@ const MemberParticipations = ({
       </ExpandButton>
       {(exportMode || displayClosed) && (
         <>
-          {closedContent.length > 0 ? (
+          {history.length > 0 ? (
             <Table
               tableInfo={MemberDetailsHeader}
               type={'members-details'}
-              content={closedContent}
+              content={history}
             />
           ) : (
             <NoContentMessage>Não há histórico desse membro</NoContentMessage>

@@ -1,5 +1,5 @@
 export interface IMemberParticipations {
-  activeContent: { id: number; content: string[] }[]
-  closedContent: { id: number; content: string[] }[]
+  active_participations: { id: number; content: string[] }[]
+  history: { id: number; content: string[] }[]
   exportMode?: boolean
 }

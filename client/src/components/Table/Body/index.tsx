@@ -8,10 +8,8 @@ import {
   committeeType,
   memberType,
 } from '../../../types/contentTypes'
-import { TableTypesBase } from '../../../types/tableTypes'
 import MemberParticipations from '../../MemberParticipations'
-import DetailsRow from './DetailsRow'
-import MainRow from './MainRow'
+import Row from './Row'
 import { IBody } from './types'
 
 const Body = ({
@@ -59,57 +57,47 @@ const Body = ({
     onUpdateTable && onUpdateTable(newTable)
   }
 
+  const getRowChild = (item: genericInstanceType) => {
+    if (tableInfo.type === 'secondary') {
+      return <></>
+    }
+    if (type === 'committee') {
+      let item_committee = item as committeeType
+      return (
+        <Table
+          tableInfo={CommitteeDetailsHeader}
+          type={'committee-details'}
+          content={item_committee.participation_details}
+        />
+      )
+    }
+    let item_member = item as memberType
+    return <MemberParticipations {...item_member.committees} />
+  }
+
   return (
     <>
-      {tableInfo.type === 'secondary' ? (
-        <>
-          {content.map((item: any, index: number) => (
-            <DetailsRow
-              id={item.id}
-              editMode={editMode}
-              onChange={(updatedInfo, index, id) =>
-                handleChange(updatedInfo, index, id)
-              }
-              data={item}
-              tableInfo={tableInfo}
-              key={`table-row-${index}`}
-              type={type}
-            />
-          ))}
-        </>
-      ) : (
-        <>
-          {content.map((item: genericInstanceType, index: number) => {
-            let item_committee = item as committeeType
-            let item_member = item as memberType
-            return (
-              <MainRow
-                type={type as TableTypesBase}
-                data={item}
-                sizes={tableInfo.sizes}
-                detailsToShowId={showDetails}
-                handleRowClick={(id: number) => setShowDetails(id)}
-                showOptions={showOptions}
-                key={`table-row-${index}`}
-                handleOptionBoxSelection={handleOptionBoxSelection}
-              >
-                {type === 'committee' ? (
-                  <Table
-                    tableInfo={CommitteeDetailsHeader}
-                    type={'committee-details'}
-                    content={item_committee.participation_details}
-                  />
-                ) : (
-                  <MemberParticipations
-                    activeContent={item_member.committees.active_participations}
-                    closedContent={item_member.committees.history}
-                  />
-                )}
-              </MainRow>
-            )
-          })}
-        </>
-      )}
+      {content.map((item: genericInstanceType, index: number) => {
+        return (
+          <Row
+            key={`table-row-${index}`}
+            id={item.id}
+            tableType={type}
+            tableInfo={tableInfo}
+            data={item}
+            editMode={editMode}
+            showOptions={showOptions}
+            detailsToShowId={showDetails}
+            handleRowClick={(id: number) => setShowDetails(id)}
+            handleOptionBoxSelection={handleOptionBoxSelection}
+            onChange={(updatedInfo, index, id) =>
+              handleChange(updatedInfo, index, id)
+            }
+          >
+            {getRowChild(item)}
+          </Row>
+        )
+      })}
     </>
   )
 }

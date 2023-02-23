@@ -2,7 +2,7 @@ import { ITableHeader } from '../components/Table/Header/type'
 
 export const CommitteeDetailsHeader: ITableHeader = {
   headers: [
-    { label: 'cargo', editable: false, type: 'text' },
+    { label: 'cargo', editable: false, type: '' },
     { label: 'membro corrente', editable: true, type: 'dropdown' },
     { label: 'data de início', editable: true, type: 'text' },
     { label: 'mandato', editable: true, type: 'text' },
