@@ -1,9 +1,9 @@
-import { ITableHeader } from '../components/Table/TableHeader/type'
+import { ITableHeader } from '../components/Table/Header/type'
 
 export const MemberTableHeader: ITableHeader = {
   headers: [
-    { label: 'funcionário', editable: false, type: 'text' },
-    { label: 'participações', editable: false, type: 'text' },
+    { label: 'funcionário', editable: false, type: '' },
+    { label: 'participações', editable: false, type: '' },
   ],
   sizes: [5, 2],
   type: 'primary',
