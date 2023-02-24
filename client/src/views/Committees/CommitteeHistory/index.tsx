@@ -4,6 +4,7 @@ import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { CommitteeTableHeader } from '../../../data/committeeHeader'
 import { NoContentMessage } from '../../../styles/commonStyles'
 import { committeeType } from '../../../types/contentTypes'
 import { createPDF } from '../../../utils/CreatePDF'
@@ -51,6 +52,7 @@ const CommitteeHistory = () => {
           />
           {committeeContent.length > 0 ? (
             <Table
+              tableInfo={CommitteeTableHeader}
               type={'committee'}
               content={committeeContent}
               showOptions={false}

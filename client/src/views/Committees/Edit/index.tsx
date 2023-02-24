@@ -3,6 +3,7 @@ import HeaderSecondary from '../../../components/Header/HeaderSecondary'
 import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { CommitteeDetailsHeader } from '../../../data/committeeDetailsHeader'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { committeeType } from '../../../types/contentTypes'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
@@ -57,10 +58,11 @@ const Edit = () => {
         />
         {committeeContent.length > 0 && (
           <Table
+            tableInfo={CommitteeDetailsHeader}
             type={'committee-details'}
             editMode={true}
             content={committeeContent}
-            updateTable={(content) => setCommitteeContent(content)}
+            onUpdateTable={(content) => setCommitteeContent(content)}
           />
         )}
       </MainContainer>

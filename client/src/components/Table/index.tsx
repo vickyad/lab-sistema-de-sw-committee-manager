@@ -1,57 +1,27 @@
-import { CommitteeDetailsHeader } from '../../data/committeeDetailsHeader'
-import { CommitteeTableHeader } from '../../data/committeeHeader'
-import { MemberDetailsHeader } from '../../data/membersDetailsHeader'
-import { MemberTableHeader } from '../../data/membersHeader'
-import DetailsTable from './DetailsTable'
-import MainTable from './MainTable'
-import TableHeader from './TableHeader'
+import Header from './Header'
 import { ITable } from './types'
+import Body from './Body'
 
 const Table = ({
   type,
+  tableInfo,
   content,
   editMode = false,
   showOptions = true,
-  updateTable,
+  onUpdateTable,
 }: ITable) => {
-  const getTableHeader = () => {
-    switch (type) {
-      case 'committee-details':
-        return CommitteeDetailsHeader
-      case 'members-details':
-        return MemberDetailsHeader
-      case 'members':
-        return MemberTableHeader
-      case 'committee':
-      default:
-        return CommitteeTableHeader
-    }
-  }
-
-  const getTableSizes = () => {
-    return getTableHeader().sizes
-  }
-
   return (
     <div>
       <>
-        <TableHeader {...getTableHeader()} />
-        {type === 'committee-details' || type === 'members-details' ? (
-          <DetailsTable
-            tableInfo={getTableHeader()}
-            content={content}
-            editMode={editMode}
-            updateTable={updateTable}
-            type={type}
-          />
-        ) : (
-          <MainTable
-            type={type}
-            sizes={getTableSizes()}
-            content={content}
-            showOptions={showOptions}
-          />
-        )}
+        <Header {...tableInfo} />
+        <Body
+          type={type}
+          content={content}
+          showOptions={showOptions}
+          tableInfo={tableInfo}
+          editMode={editMode}
+          onUpdateTable={onUpdateTable}
+        />
       </>
     </div>
   )

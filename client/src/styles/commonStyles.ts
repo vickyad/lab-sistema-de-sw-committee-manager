@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const NoContentMessage = styled.p`
   text-align: center;
-  margin-top: 2rem;
+  margin: 1.5rem 0;
 `
 
 export const MainContainer = styled.div<{ displayingPopup: boolean }>`
