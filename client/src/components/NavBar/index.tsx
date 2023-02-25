@@ -1,6 +1,6 @@
 import Icon from '../Icon'
 import { INavBar, TabType } from './types'
-import { Container, Link, LinkContainer } from './styles'
+import { Container, Label, Link, LinkContainer } from './styles'
 import { useState, useEffect, useContext } from 'react'
 import { EntityContext } from '../../context/CommitteeContext'
 import { getEmptyEntity } from '../../utils/EmptyEntity'
@@ -23,15 +23,18 @@ const NavBar = ({ data }: INavBar) => {
   return (
     <Container>
       <LinkContainer>
-        {data.map((item) => (
-          <Link
-            href={item.href}
-            selected={tabSelected === item.icon}
-            key={`${item.icon}-link`}
-            onClick={handleClick}
-          >
-            <Icon type={item.icon} />
-          </Link>
+        {data.map((page) => (
+          <>
+            <Link
+              href={page.href}
+              selected={tabSelected === page.id}
+              key={`${page.icon}-link`}
+              onClick={handleClick}
+            >
+              <Icon type={page.icon} />
+              <Label>{page.label}</Label>
+            </Link>
+          </>
         ))}
       </LinkContainer>
     </Container>

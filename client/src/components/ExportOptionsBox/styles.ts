@@ -13,17 +13,3 @@ export const Container = styled.div`
   z-index: 5;
   width: max-content;
 `
-
-export const TransparentButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem 0.7rem;
-  text-align: left;
-  font-weight: 500;
-  display: flex;
-
-  & svg {
-    margin-right: 0.5rem;
-  }
-`

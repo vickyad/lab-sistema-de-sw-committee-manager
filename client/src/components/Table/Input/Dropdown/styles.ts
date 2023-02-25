@@ -43,13 +43,3 @@ export const OptionsContainer = styled.div`
   border: 1px solid #00000033;
   z-index: 5;
 `
-
-export const TransparentButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  text-align: left;
-  font-weight: 500;
-  display: flex;
-`

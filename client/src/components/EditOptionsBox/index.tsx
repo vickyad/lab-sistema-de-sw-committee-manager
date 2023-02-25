@@ -1,5 +1,6 @@
+import Button from '../Button'
 import Icon from '../Icon'
-import { Container, ImportantButton, TransparentButton } from './styles'
+import { Container } from './styles'
 import { IOptionsBox } from './types'
 
 const EditOptionsBox = ({
@@ -8,20 +9,39 @@ const EditOptionsBox = ({
   handleDisable,
   handleSeeHistory,
 }: IOptionsBox) => {
+  const handleSeeHistoryFunction = () => {
+    handleSeeHistory && handleSeeHistory()
+  }
+
   return (
     <Container>
       {type === 'committee' && (
-        <TransparentButton onClick={handleSeeHistory}>
+        <Button
+          title="ver histórico de uma comissão"
+          type="transparent"
+          color="black"
+          handleClick={handleSeeHistoryFunction}
+        >
           <Icon type="history" /> Ver histórico
-        </TransparentButton>
+        </Button>
       )}
-      <TransparentButton onClick={handleEdit}>
+      <Button
+        title={`editar um ${type === 'committee' ? 'órgão' : 'membro'}`}
+        type="transparent"
+        color="black"
+        handleClick={handleEdit}
+      >
         <Icon type="edit" /> Editar {type === 'committee' ? 'Órgão' : 'Membro'}
-      </TransparentButton>
-      <ImportantButton onClick={handleDisable}>
+      </Button>
+      <Button
+        title={`desativar um ${type === 'committee' ? 'órgão' : 'membro'}`}
+        type="attention"
+        noBorder
+        handleClick={handleDisable}
+      >
         <Icon type="disable" /> Desativar{' '}
         {type === 'committee' ? 'Órgão' : 'Membro'}
-      </ImportantButton>
+      </Button>
     </Container>
   )
 }
