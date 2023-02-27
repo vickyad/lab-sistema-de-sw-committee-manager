@@ -21,6 +21,7 @@ import {
 } from '../../../types/contentTypes'
 import { committeeGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
 import { CommitteeTableHeader } from '../../../data/committeeHeader'
+import { committeeContentType } from '../../../types/contentTypes'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -68,12 +69,12 @@ const Visualization = () => {
 
   useEffect(() => {
     const request_answer = async () => {
+      let committee_content: committeeType[] = []
       let committee_content_raw: committeeGetAllAnswerEntry[] =
         await RequestManager.getAllCommittees()
-      let all_committee_details: committeeParticipation[][] = []
-      let committee_content: committeeType[] = []
 
-      if (committee_content_raw !== undefined) {
+      if (committee_content_raw) {
+        let all_committee_details: committeeParticipation[][] = []
         all_committee_details = await getAndFormatAllCommitteeParticipations(
           committee_content_raw
         )
@@ -97,9 +98,24 @@ const Visualization = () => {
     if (searchtext.length > 0) {
       let searchTextLowerCase = searchtext.toLowerCase()
       let newComittee = [...committeeContent]
-      newComittee = newComittee.filter((item) => {
-        let committeeNameLowerCase = item.content[0].toLowerCase()
-        return committeeNameLowerCase.includes(searchTextLowerCase)
+      newComittee = newComittee.filter((row) => {
+        let hasContentRelated = false
+        for (let i = 0; i < 4; i++) {
+          let itemLowerCase = row.content[i].toLowerCase()
+          if (itemLowerCase.includes(searchTextLowerCase)) {
+            hasContentRelated = true
+          }
+        }
+
+        row.participation_details.forEach((item) => {
+          item.content.forEach((value) => {
+            let itemLowerCase = value.toLowerCase()
+            if (itemLowerCase.includes(searchTextLowerCase)) {
+              hasContentRelated = true
+            }
+          })
+        })
+        return hasContentRelated
       })
       setDisplayedContent(newComittee)
     } else {

@@ -7,15 +7,10 @@ import MembersView from './Members'
 import ConfigurationsView from './Configurations'
 import NavBar from '../components/NavBar'
 import { Content } from './styles'
-import { NavItem } from '../components/NavBar/types'
 import { EntityProvider } from '../context/CommitteeContext'
+import { navIcon } from '../data/navInfo'
 
 const Main: React.FC = () => {
-  const navIcon: NavItem[] = [
-    { icon: 'committee', href: Paths.COMMITTEE },
-    { icon: 'members', href: Paths.MEMBERS },
-    { icon: 'configurations', href: Paths.CONFIGURATIONS },
-  ]
   return (
     <div>
       <NavBar data={navIcon} />
