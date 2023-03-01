@@ -1,8 +1,10 @@
+import { ITableHeader } from './Header/type'
 import { TableTypesExtended } from './../../types/tableTypes'
 export interface ITable {
   type: TableTypesExtended
+  tableInfo: ITableHeader
   editMode?: boolean
   content: any
   showOptions?: boolean
-  updateTable?: (content: any) => void
+  onUpdateTable?: (content: any) => void
 }

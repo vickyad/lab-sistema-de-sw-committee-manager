@@ -1,7 +1,7 @@
 import { ColumnHeader, Container } from './styles'
 import { ITableHeader } from './type'
 
-const TableHeader = ({ headers, sizes, type }: ITableHeader) => {
+const Header = ({ headers, sizes, type }: ITableHeader) => {
   return (
     <Container type={type}>
       {headers.map((item, index) => (
@@ -12,4 +12,4 @@ const TableHeader = ({ headers, sizes, type }: ITableHeader) => {
     </Container>
   )
 }
-export default TableHeader
+export default Header

@@ -12,6 +12,7 @@ import RequestManager from '../../../utils/RequestManager'
 import { formatMember } from '../../../utils/FormatUtils'
 import { memberType } from '../../../types/contentTypes'
 import { memberGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
+import { MemberTableHeader } from '../../../data/membersHeader'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -59,11 +60,12 @@ const Visualization = () => {
   }, [action])
 
   useEffect(() => {
-    const request_answer =  async() =>  {
-      let member_content_raw : memberGetAllAnswerEntry[] = await RequestManager.getAllMembers()
-      let member_content : memberType[] = []
-      
-      if(member_content_raw !== undefined){
+    const request_answer = async () => {
+      let member_content_raw: memberGetAllAnswerEntry[] =
+        await RequestManager.getAllMembers()
+      let member_content: memberType[] = []
+
+      if (member_content_raw) {
         member_content = formatMember(member_content_raw)
       }
 
@@ -80,12 +82,36 @@ const Visualization = () => {
   useEffect(() => {
     if (searchtext.length > 0) {
       let searchTextLowerCase = searchtext.toLowerCase()
-      let newComittee = [...memberContent]
-      newComittee = newComittee.filter((item) => {
-        let committeeNameLowerCase = item.content[0].toLowerCase()
-        return committeeNameLowerCase.includes(searchTextLowerCase)
+      let newMembers = [...memberContent]
+      console.log(memberContent)
+      newMembers = newMembers.filter((item) => {
+        let memberNameLowerCase = item.content[0].toLowerCase()
+        if (memberNameLowerCase.includes(searchTextLowerCase)) {
+          return true
+        }
+
+        let hasContentRelated = false
+        item.committees.active_participations.forEach((participation) => {
+          participation.content.forEach((value) => {
+            console.log(`checando: ${value}`)
+            let itemLowerCase = value.toLowerCase()
+            if (itemLowerCase.includes(searchTextLowerCase)) {
+              hasContentRelated = true
+            }
+          })
+        })
+
+        item.committees.history.forEach((participation) => {
+          participation.content.forEach((value) => {
+            let itemLowerCase = value.toLowerCase()
+            if (itemLowerCase.includes(searchTextLowerCase)) {
+              hasContentRelated = true
+            }
+          })
+        })
+        return hasContentRelated
       })
-      setDisplayedContent(newComittee)
+      setDisplayedContent(newMembers)
     } else {
       setDisplayedContent(memberContent)
     }
@@ -123,7 +149,11 @@ const Visualization = () => {
                 type && setExportPDF(true)
               }}
             />
-            <Table type={'members'} content={displayedContent} />
+            <Table
+              tableInfo={MemberTableHeader}
+              type={'members'}
+              content={displayedContent}
+            />
           </MainContainer>
         </>
       )}
