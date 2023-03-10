@@ -1,7 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 // https://docs.nestjs.com/recipes/prisma
 //Note that during installation, Prisma automatically invokes the prisma generate command for you. In the future, you need to run this command after every change to your Prisma models to update your generated Prisma Client.
 
@@ -17,36 +16,50 @@ datasource db {
 }
 
 model Member {
-  id    Int     @default(autoincrement()) @id
-  name  String
-  is_active Boolean @default(true)
+  id         Int                 @id @default(autoincrement())
+  name       String
+  is_active  Boolean             @default(true)
   committees MemberOnCommittee[]
 }
 
 model Committee {
-  id    Int     @default(autoincrement()) @id
+  id           Int                 @id @default(autoincrement())
+  bond         String //Vínculo 
+  name         String //Órgão
+  begin_date   DateTime?
+  end_date     DateTime?
+  term         Int?                @default(1) //Ordem do mandato
+  ordinance    String? //Portaria 
+  observations String?
+  is_active    Boolean             @default(true)
+  members      MemberOnCommittee[]
+}
+
+model RoleTemplate {
+  id                  Int                @id @default(autoincrement())
+  role                String
+  CommitteeTemplate   CommitteeTemplate @relation(fields: [committeeTemplateId], references: [id])
+  committeeTemplateId Int
+}
+
+model CommitteeTemplate {
+  id    Int            @id @default(autoincrement())
   bond  String //Vínculo 
   name  String //Órgão
-  begin_date DateTime?
-  end_date DateTime?
-  term Int? @default(1)//Ordem do mandato
-  ordinance String? //Portaria 
-  observations String?
-  is_active Boolean @default(true)
-  members MemberOnCommittee[]
+  roles RoleTemplate[]
 }
 
 model MemberOnCommittee {
-  member Member @relation(fields: [member_id], references: [id])
-  member_id Int // relation scalar field (used in the `@relation` attribute above)
-  committee Committee @relation(fields: [committee_id], references: [id])
+  member       Member    @relation(fields: [member_id], references: [id])
+  member_id    Int // relation scalar field (used in the `@relation` attribute above)
+  committee    Committee @relation(fields: [committee_id], references: [id])
   committee_id Int // relation scalar field (used in the `@relation` attribute above)
-  role  String? @default("Membro") //Cargo
-  begin_date DateTime? @default(now())
-  term Int? @default(1) //Ordem do mandato
+  role         String?   @default("Membro") //Cargo
+  begin_date   DateTime? @default(now())
+  term         Int?      @default(1) //Ordem do mandato
   observations String?
-  is_active Boolean @default(true)
+  is_active    Boolean   @default(true)
 
   @@id([member_id, committee_id])
-	@@map("MembersOnCommittees")
+  @@map("MembersOnCommittees")
 }
