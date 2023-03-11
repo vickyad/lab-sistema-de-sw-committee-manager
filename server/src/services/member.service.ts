@@ -1,19 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Member, Prisma } from '@prisma/client';
-import { MemberOnCommitteeService } from './member_on_committee.service'
+import { MemberOnCommitteeService } from './member_on_committee.service';
 
 @Injectable()
 export class MemberService {
-
-   constructor(private prisma: PrismaService,
-      private memberOnCommitteeService: MemberOnCommitteeService) {}
+   constructor(
+      private prisma: PrismaService,
+      private memberOnCommitteeService: MemberOnCommitteeService,
+   ) {}
 
    async getOne(id: number): Promise<Member | null> {
       return this.member({
          where: { id },
-         include: { 
-            committees: { include: { committee: true } }
+         include: {
+            committees: { include: { committee: true } },
          },
       });
    }
@@ -21,20 +22,22 @@ export class MemberService {
    async getAll() {
       return this.prisma.member.findMany({
          where: { is_active: true },
-         orderBy: { name: "asc" },
-         include: { committees: {
-            include: { committee: true },
-         }},
+         orderBy: { name: 'asc' },
+         include: {
+            committees: {
+               include: { committee: true },
+            },
+         },
       });
    }
 
    async getOptions() {
       return this.prisma.member.findMany({
          where: { is_active: true },
-         orderBy: { name: "asc" },
+         orderBy: { name: 'asc' },
          select: {
             id: true,
-            name: true
+            name: true,
          },
       });
    }
@@ -65,7 +68,7 @@ export class MemberService {
    }
 
    async getActiveMemberCommitteeHistory(): Promise<any[]> {
-      const results = await this.prisma.member.findMany({
+      const results: any[] = await this.prisma.member.findMany({
          select: {
             id: true,
             name: true,
@@ -79,28 +82,31 @@ export class MemberService {
                      select: {
                         id: true,
                         name: true,
-                     }
-                  }
+                     },
+                  },
                },
-            }
+            },
          },
          where: {
-            is_active: true
+            is_active: true,
          },
          orderBy: {
-            name: "asc"
-         }
+            name: 'asc',
+         },
       });
 
-      if(!results) return
+      if (!results) return;
 
-      results.forEach(m => {
-         return (m as any).committees =  m.committees.reduce((obj, curr) => {
-            obj[curr.is_active ? 'active' : 'inactive'].push(curr)
-            return obj
-         }, { active: new Array(), inactive: new Array() })
-      })
+      results.forEach((m) => {
+         return (m.committees = m.committees.reduce(
+            (obj, curr) => {
+               obj[curr.is_active ? 'active' : 'inactive'].push(curr);
+               return obj;
+            },
+            { active: new Array(), inactive: new Array() },
+         ));
+      });
 
-      return results
+      return results;
    }
 }
