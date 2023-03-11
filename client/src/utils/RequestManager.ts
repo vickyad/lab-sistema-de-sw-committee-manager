@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import BackendPaths from '../constants/BackendPaths';
-import { committeeGetAllAnswerEntry, memberGetAllAnswerEntry, memberGetOneMemberDetailsType, memberGetOptionsEntry, memberPostDTO } from '../types/requestAnswerTypes';
+import { committeeGetAllAnswerEntry, memberGetAllAnswerEntry, memberGetOneMemberDetailsType, memberGetOptionsEntry, memberOnCommittee_PatchDTO, memberPostDTO } from '../types/requestAnswerTypes';
 
 class requestManager {
 
@@ -75,7 +75,7 @@ class requestManager {
         return await this.makePostRequest(BackendPaths.MEMBER, data=data)
     }
 
-    async updateMemberOnCommittee(member_id: number, committee_id: number, data_memberoncommittee: any) { //TODO: Add a specific type to data
+    async updateMemberOnCommittee(member_id: number, committee_id: number, data_memberoncommittee: memberOnCommittee_PatchDTO) { 
         let params= {member_id: member_id, committee_id: committee_id}
         let data={data: data_memberoncommittee}
         return await this.makePatchRequest(BackendPaths.MEMBER_ON_COMMITTEES, params=params, data=data)
