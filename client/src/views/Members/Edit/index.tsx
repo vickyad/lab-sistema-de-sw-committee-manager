@@ -5,19 +5,27 @@ import Table from '../../../components/Table'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { MemberDetailsHeader } from '../../../data/membersDetailsHeader'
 import { FontBold, MainContainer } from '../../../styles/commonStyles'
+import { memberParticipation } from '../../../types/contentTypes'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
+import { formatMemberOnCommittee_PatchDTO } from '../../../utils/FormatUtils'
+import RequestManager from '../../../utils/RequestManager'
 
 const Edit = () => {
   const { currentEntity, setCurrentEntity, setAction } =
     useContext(EntityContext)
   const [displayPopup, setDisplayPopup] = useState(false)
-  const [memberContent, setMemberContent] = useState<any[]>([
+  const [memberContent, setMemberContent] = useState<memberParticipation[]>([
     ...currentEntity.content,
   ])
 
   const handleSaveChanges = () => {
     // TODO: save changes
     setAction(null)
+
+    for(let i =0; i < memberContent.length; i++) {
+      let formated_member_content = formatMemberOnCommittee_PatchDTO(memberContent[i], "member_edit")
+      RequestManager.updateMemberOnCommittee(currentEntity.id, memberContent[i].id, formated_member_content)
+    }
     setCurrentEntity({ ...getEmptyEntity(), content: undefined })
   }
 

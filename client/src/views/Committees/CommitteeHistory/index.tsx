@@ -6,14 +6,14 @@ import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { CommitteeTableHeader } from '../../../data/committeeHeader'
 import { NoContentMessage } from '../../../styles/commonStyles'
+import { committeeType } from '../../../types/contentTypes'
 import { createPDF } from '../../../utils/CreatePDF'
+import RequestManager from '../../../utils/RequestManager'
 import { committee_mock } from '../../../_mock/committee'
 
 const CommitteeHistory = () => {
   const { currentEntity: currentCommittee } = useContext(EntityContext)
-  const [committeeContent, setCommitteeContent] = useState<any[]>([
-    ...committee_mock,
-  ])
+  const [committeeContent, setCommitteeContent] = useState<committeeType[]>([])
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
 
@@ -30,9 +30,16 @@ const CommitteeHistory = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    let content = [...committee_mock]
+    let content = committeeContent;
+    (async() => {
+      let answer = await RequestManager.getOneCommittee(currentCommittee.id)
+      setCommitteeContent(answer)
+    })()
     setCommitteeContent(content)
-  }, [])
+  }, []);
+
+  
+  console.log(committeeContent)
 
   return (
     <>

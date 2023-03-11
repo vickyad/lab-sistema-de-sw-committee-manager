@@ -7,8 +7,10 @@ import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { MainContainer } from '../../../styles/commonStyles'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
+import RequestManager from '../../../utils/RequestManager'
 import { member_list_mock } from '../../../_mock/memberList'
 import { ButtonContainer } from './styles'
+import { memberGetOptionsEntry } from '../../../types/requestAnswerTypes'
 
 const OptionsMenu = () => {
   const { setAction } = useContext(EntityContext)
@@ -16,17 +18,28 @@ const OptionsMenu = () => {
     null
   )
   const [activeMemberSelected, setActiveMemberSelected] = useState(
-    getEmptyEntity()
+    getEmptyEntity() as memberGetOptionsEntry
   )
   const [memberName, setMemberName] = useState('')
+  const [optionsList, setOptionsList] = useState([] as memberGetOptionsEntry[])
+
+  const update_options = async() => {
+    let options_answer = await RequestManager.getMemberList()
+    if(JSON.stringify(options_answer) !== JSON.stringify(optionsList)) {
+      setOptionsList(options_answer)
+    }
+  }
+
+  update_options()
+  
 
   const handleAddMember = () => {
-    // TODO: adicionar membro
+    RequestManager.createMember(memberName)
     setDisplayPopup(null)
   }
 
   const handleDeactivateMember = () => {
-    // TODO: desativar membro
+    RequestManager.deactivateMember(activeMemberSelected)
     setDisplayPopup(null)
   }
 
@@ -59,7 +72,7 @@ const OptionsMenu = () => {
           >
             <Dropdown
               placeholder={'Selecione um funcionário'}
-              options={member_list_mock}
+              options={optionsList}
               optionSelected={activeMemberSelected}
               setOptionSelected={setActiveMemberSelected}
             />

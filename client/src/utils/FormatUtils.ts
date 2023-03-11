@@ -1,6 +1,8 @@
 import {
+  committeeContentType,
   committeeParticipation,
   committeeType,
+  memberContentType,
   memberParticipation,
   memberType,
 } from '../types/contentTypes'
@@ -10,6 +12,7 @@ import {
   memberGetOneMemberDetailsType,
   memberGetAllAnswerEntry_memberDetails,
   memberGetAllAnswerEntry,
+  memberOnCommittee_PatchDTO,
 } from '../types/requestAnswerTypes'
 
 function formatDate(date: string) {
@@ -138,4 +141,50 @@ export function formatCommittee(
   })
 
   return formated_committee_info
+}
+
+export function formatDate_memberOnCommittee_PatchDTO (
+  unformated_date: string
+) {
+
+  if(unformated_date.length != 10) {
+    return null
+  }
+
+  const formated_date_string = 
+    unformated_date.substring(6, 10) +
+    '-' +
+    unformated_date.substring(3, 5) +
+    '-' +
+    unformated_date.substring(0, 2);
+  const formated_date = new Date(formated_date_string);
+  return formated_date
+}
+
+export function formatMemberOnCommittee_PatchDTO(
+  memberOnCommitteeContent: committeeContentType | memberParticipation,
+  opType: "committee_edit" | "member_edit"
+) {
+  let formated_info = [] as any;
+  
+  if(opType == "committee_edit") {
+    memberOnCommitteeContent = memberOnCommitteeContent as committeeContentType
+    formated_info = {
+      role: memberOnCommitteeContent[0],
+      begin_date: formatDate_memberOnCommittee_PatchDTO(memberOnCommitteeContent[2]),
+      term: parseInt(memberOnCommitteeContent[3][0]),
+      observations: (memberOnCommitteeContent[4] !== "")? memberOnCommitteeContent[4] : null,
+      is_active: true
+    } as memberOnCommittee_PatchDTO
+  }
+  else {
+    memberOnCommitteeContent = memberOnCommitteeContent as memberParticipation
+    formated_info = {
+      role: memberOnCommitteeContent.content[1],
+      observations: (memberOnCommitteeContent.content[3] !== "")? memberOnCommitteeContent.content[3] : null,
+      is_active: true
+    } as memberOnCommittee_PatchDTO
+  }
+
+  return formated_info
 }

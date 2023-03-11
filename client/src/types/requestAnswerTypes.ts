@@ -23,6 +23,18 @@ export interface committeeGetAllAnswerEntry_member {
     } 
 }
 
+export interface memberPostDTO {
+    data: {
+        name: string;
+        is_active: boolean;
+    }
+}
+
+export interface memberGetOptionsEntry {
+    id: number,
+    name: string
+}
+
 export interface committeeGetAllAnswerEntry {
     id: number,
     bond: string,
@@ -52,4 +64,12 @@ export interface memberGetAllAnswerEntry {
         active: memberGetAllAnswerEntry_memberDetails[],
         inactive: memberGetAllAnswerEntry_memberDetails[]
     }
+}
+
+export interface memberOnCommittee_PatchDTO{
+    role: string;
+    begin_date?: Date;
+    term: number;
+    observations?: string;
+    is_active: boolean;
 }
