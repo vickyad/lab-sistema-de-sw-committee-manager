@@ -35,20 +35,6 @@ model Committee {
   members      MemberOnCommittee[]
 }
 
-model RoleTemplate {
-  id                  Int                @id @default(autoincrement())
-  role                String
-  CommitteeTemplate   CommitteeTemplate @relation(fields: [committeeTemplateId], references: [id])
-  committeeTemplateId Int
-}
-
-model CommitteeTemplate {
-  id    Int            @id @default(autoincrement())
-  bond  String //Vínculo 
-  name  String //Órgão
-  roles RoleTemplate[]
-}
-
 model MemberOnCommittee {
   member       Member    @relation(fields: [member_id], references: [id])
   member_id    Int // relation scalar field (used in the `@relation` attribute above)
@@ -63,3 +49,18 @@ model MemberOnCommittee {
   @@id([member_id, committee_id])
   @@map("MembersOnCommittees")
 }
+
+model RoleTemplate {
+  id                  Int                @id @default(autoincrement())
+  role                String
+  CommitteeTemplate   CommitteeTemplate @relation(fields: [committeeTemplateId], references: [id])
+  committeeTemplateId Int
+}
+
+model CommitteeTemplate {
+  id    Int            @id @default(autoincrement())
+  bond  String //Vínculo 
+  name  String //Órgão
+  roles RoleTemplate[]
+}
+
