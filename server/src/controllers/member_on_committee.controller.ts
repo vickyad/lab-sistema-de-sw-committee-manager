@@ -27,13 +27,32 @@ export class MemberOnCommitteeController {
    //    });
    // }
    
-   // // /member_on_committee/all
-   // @Get('/all')
-   // async getAll(
-   // ): Promise<MemberOnCommitteeModel[]> {
-   //    return this.memberOnCommitteeService.memberOnCommittees({
-   //    });
-   // }
+   @Get('/role_history')
+   async getHistory(
+      @Query('committee_id', ParseIntPipe) committee_id: number,
+      @Query('role') role: string,
+   ): Promise<MemberOnCommitteeModel[]> {
+      return this.memberOnCommitteeService.memberOnCommittees({
+         where: {
+            committee_id,
+            role//: { equals: role } 
+         },
+         select: {
+            role: true,
+            begin_date: true,
+            term: true,
+            observations: true,
+            member: { select: { 
+               id: true,
+               name: true } }
+         },
+         orderBy: {
+            member: {
+               name: "asc"
+            }
+         }
+      });
+   }
 
 
    @Post()

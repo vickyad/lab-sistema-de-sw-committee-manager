@@ -12,7 +12,7 @@ export class MemberOnCommitteeService {
       return this.prisma.memberOnCommittee.findUnique(params);
    }
 
-   private async memberOnCommittees(
+   async memberOnCommittees(
       params: Prisma.MemberOnCommitteeFindManyArgs,
    ): Promise<MemberOnCommittee[]> {
       return this.prisma.memberOnCommittee.findMany(params);

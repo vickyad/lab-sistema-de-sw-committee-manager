@@ -53,6 +53,8 @@ export class CommiteeController {
       });
    }
 
+   
+
    @Post()
    async create(@Body('data') data: CommitteeCreateDTO): Promise<Committee> {
       return this.committeeService.create(data);
