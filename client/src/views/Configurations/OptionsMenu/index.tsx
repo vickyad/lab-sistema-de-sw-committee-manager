@@ -25,7 +25,9 @@ const OptionsMenu = () => {
 
   const update_options = async() => {
     let options_answer = await RequestManager.getMemberList()
-    setOptionsList(options_answer)
+    if(JSON.stringify(options_answer) !== JSON.stringify(optionsList)) {
+      setOptionsList(options_answer)
+    }
   }
 
   update_options()

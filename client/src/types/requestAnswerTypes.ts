@@ -65,3 +65,11 @@ export interface memberGetAllAnswerEntry {
         inactive: memberGetAllAnswerEntry_memberDetails[]
     }
 }
+
+export interface memberOnCommittee_PatchDTO{
+    role: string;
+    begin_date?: Date;
+    term: number;
+    observations?: string;
+    is_active: boolean;
+}

@@ -52,6 +52,11 @@ class requestManager {
         return await this.makeGetRequest(BackendPaths.MEMBER_OPTIONS) as memberGetOptionsEntry[]
     }
 
+    async getOneMember(member_id: number) {
+        let params={id: member_id}
+        return await this.makeGetRequest(BackendPaths.MEMBER, params=params) as memberGetOneMemberDetailsType
+    }
+
     async getAllCommittees() {
         return await this.makeGetRequest(BackendPaths.COMMITTEE_ALL) as committeeGetAllAnswerEntry[]
     }
@@ -65,14 +70,15 @@ class requestManager {
         return await this.makeGetRequest(BackendPaths.COMMITTEE, params=params) //TODO: Add a type to this answer when it starts being used
     }
 
-    async getOneMember(member_id: number) {
-        let params={id: member_id}
-        return await this.makeGetRequest(BackendPaths.MEMBER, params=params) as memberGetOneMemberDetailsType
-    }
-
     async createMember(member_name: string) { //TODO: What type should POST, PATCH, and DELETE functions return?
         let data={data: {name: member_name, is_active: true}} as memberPostDTO
         return await this.makePostRequest(BackendPaths.MEMBER, data=data)
+    }
+
+    async updateMemberOnCommittee(member_id: number, committee_id: number, data_memberoncommittee: any) { //TODO: Add a specific type to data
+        let params= {member_id: member_id, committee_id: committee_id}
+        let data={data: data_memberoncommittee}
+        return await this.makePatchRequest(BackendPaths.MEMBER_ON_COMMITTEES, params=params, data=data)
     }
 
     async deleteMember(member_id: number) {
@@ -92,8 +98,8 @@ class requestManager {
         return await this.makePatchRequest(BackendPaths.MEMBER, params=params, data=data)
     }
 
-    async postCommitttee() {
+    // async postCommitttee() {
 
-    }
+    // }
 }
 export default new requestManager()

@@ -8,6 +8,8 @@ import { FontBold, MainContainer } from '../../../styles/commonStyles'
 import { committeeType } from '../../../types/contentTypes'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import RequestManager from '../../../utils/RequestManager'
+import { memberOnCommittee_PatchDTO } from '../../../types/requestAnswerTypes'
+import { formatDate_memberOnCommittee_PatchDTO, formatMemberOnCommittee_PatchDTO } from '../../../utils/FormatUtils'
 
 const Edit = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -23,9 +25,13 @@ const Edit = () => {
   const handleSaveChanges = () => {
     // TODO: save changes
     setAction(null)
-    console.log("CHANGE DETECTED")
-    console.log(committeeContent)
+
+    for(let i =0; i < committeeContent.length; i++) {
+      let formated_member_content = formatMemberOnCommittee_PatchDTO(committeeContent[i].content, "committee_edit")
+      RequestManager.updateMemberOnCommittee(currentCommittee.content[i].id, currentCommittee.id, formated_member_content)
+    }
     setCurrentEntity({ ...getEmptyEntity(), content: undefined })
+    // memberOnCommittee_PatchDTO
   }
 
   const handleCancelChanges = () => {

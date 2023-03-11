@@ -5,7 +5,7 @@ import Popup from '../../../components/Popup'
 import Table from '../../../components/Table'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
-import { FontBold, MainContainer } from '../../../styles/commonStyles'
+import { FontBold, MainContainer, NoContentMessage } from '../../../styles/commonStyles'
 import { createPDF } from '../../../utils/CreatePDF'
 import { getEmptyEntity } from '../../../utils/EmptyEntity'
 import RequestManager from '../../../utils/RequestManager'
@@ -13,6 +13,7 @@ import { formatMember } from '../../../utils/FormatUtils'
 import { memberType } from '../../../types/contentTypes'
 import { memberGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
 import { MemberTableHeader } from '../../../data/membersHeader'
+import { delay } from '../../../utils/TimeUtils'
 
 const Visualization = () => {
   const [displayPopup, setDisplayPopup] = useState(false)
@@ -61,6 +62,7 @@ const Visualization = () => {
 
   useEffect(() => {
     const request_answer = async () => {
+      await delay(150)
       let member_content_raw: memberGetAllAnswerEntry[] =
         await RequestManager.getAllMembers()
       let member_content: memberType[] = []
@@ -83,14 +85,13 @@ const Visualization = () => {
     if (searchtext.length > 0) {
       let searchTextLowerCase = searchtext.toLowerCase()
       let newMembers = [...memberContent]
-      console.log(memberContent)
       newMembers = newMembers.filter((item) => {
+        let hasContentRelated = false
         let memberNameLowerCase = item.content[0].toLowerCase()
         if (memberNameLowerCase.includes(searchTextLowerCase)) {
           return true
         }
 
-        let hasContentRelated = false
         item.committees.active_participations.forEach((participation) => {
           participation.content.forEach((value) => {
             console.log(`checando: ${value}`)
@@ -149,11 +150,17 @@ const Visualization = () => {
                 type && setExportPDF(true)
               }}
             />
-            <Table
-              tableInfo={MemberTableHeader}
-              type={'members'}
-              content={displayedContent}
-            />
+            {displayedContent.length > 0 ? (
+              <Table
+                tableInfo={MemberTableHeader}
+                type={'members'}
+                content={displayedContent}
+              />
+            ) : (
+              <NoContentMessage>
+                Não há membros ativos no momento
+              </NoContentMessage>
+            )}
           </MainContainer>
         </>
       )}

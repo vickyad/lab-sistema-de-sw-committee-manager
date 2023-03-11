@@ -8,6 +8,7 @@ import { CommitteeTableHeader } from '../../../data/committeeHeader'
 import { NoContentMessage } from '../../../styles/commonStyles'
 import { committeeType } from '../../../types/contentTypes'
 import { createPDF } from '../../../utils/CreatePDF'
+import RequestManager from '../../../utils/RequestManager'
 import { committee_mock } from '../../../_mock/committee'
 
 const CommitteeHistory = () => {
@@ -29,9 +30,16 @@ const CommitteeHistory = () => {
   }, [exportPDF])
 
   useEffect(() => {
-    let content = committeeContent
+    let content = committeeContent;
+    (async() => {
+      let answer = await RequestManager.getOneCommittee(currentCommittee.id)
+      setCommitteeContent(answer)
+    })()
     setCommitteeContent(content)
-  }, [])
+  }, []);
+
+  
+  console.log(committeeContent)
 
   return (
     <>
