@@ -18,8 +18,6 @@ export type memberParticipation = {
     content: [string, string, string, string]
 }
 
-
-
 export interface memberType extends genericInstanceType {
 
     content: memberContentType

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import BackendPaths from '../constants/BackendPaths';
-import { committeeGetAllAnswerEntry, memberGetAllAnswerEntry, memberGetOneMemberDetailsType, memberGetOptionsEntry, memberOnCommittee_PatchDTO, memberPostDTO } from '../types/requestAnswerTypes';
+import { committeeGetAllAnswerEntry, committeePatchDTO, committeePostDTO, memberGetAllAnswerEntry, memberGetOneMemberDetailsType, memberGetOptionsEntry, memberOnCommittee_PatchDTO, memberPostDTO } from '../types/requestAnswerTypes';
 
 class requestManager {
 
@@ -98,8 +98,23 @@ class requestManager {
         return await this.makePatchRequest(BackendPaths.MEMBER, params=params, data=data)
     }
 
-    // async postCommitttee() {
+    async createCommittee(committee_data: committeePostDTO) {
+        let data={data: committee_data}
+        return await this.makePostRequest(BackendPaths.COMMITTEE, data=data)
+    }
 
-    // }
+    async deactivateCommittee(committee_id: number, committee_bond: string){
+        let params={id: committee_id}
+        console.log(committee_id)
+        let data={data: {id: committee_id, bond: committee_bond, is_active: false}}
+        return await this.makePatchRequest(BackendPaths.COMMITTEE, params=params, data=data)
+    }
+
+    async debug_reactivateCommittee(committee_id: number, committee_bond: string) {
+        let params={id: committee_id}
+        let data={data: {id: committee_id, bond: committee_bond, is_active: true}}
+        return await this.makePatchRequest(BackendPaths.COMMITTEE, params=params, data=data)
+    }
+
 }
 export default new requestManager()
