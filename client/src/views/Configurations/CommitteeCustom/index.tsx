@@ -6,6 +6,8 @@ import Checkbox from '../../../components/Input/Checkbox'
 import TextInput from '../../../components/Input/TextInput'
 import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
+import { committeePostDTO } from '../../../types/requestAnswerTypes'
+import RequestManager from '../../../utils/RequestManager'
 import { FlexContainer, FieldsContainer, InfoContainer } from './styles'
 
 const CommitteeCustom = () => {
@@ -16,10 +18,25 @@ const CommitteeCustom = () => {
     bond: '',
     ordinance: '',
     term: '',
-    beginDate: '',
-    endDate: '',
-    notes: '',
+    begin_date: '',
+    end_date: '',
+    observations: ''
   })
+
+  const updateBackend = (committeeInfo_string: any) => {
+    let committeeInfo_dto = {
+      name: committeeInfo_string.name,
+      bond: committeeInfo_string.bond,
+      term: parseInt(committeeInfo_string.term),
+      begin_date: new Date(committeeInfo_string.begin_date),
+      end_date: new Date(committeeInfo_string.end_date),
+      ordinance: committeeInfo_string.ordinance,
+      is_active: true
+    } as committeePostDTO
+
+    RequestManager.createCommittee(committeeInfo_dto)
+  }
+
 
   return (
     <div>
@@ -67,24 +84,24 @@ const CommitteeCustom = () => {
           <TextInput
             type="date"
             label="Data de início"
-            value={committeeInfo.beginDate}
+            value={committeeInfo.begin_date}
             handleChange={(newValue: string) =>
-              setCommitteeInfo({ ...committeeInfo, beginDate: newValue })
+              setCommitteeInfo({ ...committeeInfo, begin_date: newValue })
             }
           />
           <TextInput
             type="date"
             label="Data de fim"
-            value={committeeInfo.endDate}
+            value={committeeInfo.end_date}
             handleChange={(newValue: string) =>
-              setCommitteeInfo({ ...committeeInfo, endDate: newValue })
+              setCommitteeInfo({ ...committeeInfo, end_date: newValue })
             }
           />
           <TextInput
             label="Notas"
-            value={committeeInfo.notes}
+            value={committeeInfo.observations}
             handleChange={(newValue: string) =>
-              setCommitteeInfo({ ...committeeInfo, notes: newValue })
+              setCommitteeInfo({ ...committeeInfo, observations: newValue })
             }
           />
         </FieldsContainer>
@@ -107,7 +124,8 @@ const CommitteeCustom = () => {
         <Button
           title="salvar alterações"
           handleClick={() => {
-            /* TODO: handle save committee */
+            updateBackend(committeeInfo)
+            setAction(null)
           }}
           type="save"
         >

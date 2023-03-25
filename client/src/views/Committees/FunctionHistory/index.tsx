@@ -18,8 +18,9 @@ const FunctionHistory = () => {
 
     let content = [] as any[]
     setCommitteeContent(content)
+   
   }, [])
-
+ 
   useEffect(() => {
     if (exportPDF) {
       try {

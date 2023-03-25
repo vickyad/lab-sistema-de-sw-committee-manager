@@ -61,12 +61,6 @@ const Row = ({
     setCurrentEntity({ id: data.id, name: item })
   }
 
-  const handleSeeCommittee = (item: any) => {
-    setAction('search')
-    setCurrentEntity({ id: data.id, name: item })
-    navigate(Paths.COMMITTEE)
-  }
-
   const handleClick = (type: TableTypesExtended, item: any, index: number) => {
     if (index === 1) {
       return handleSeeMember(item)
@@ -75,8 +69,15 @@ const Row = ({
       return handleSeeFunctionHistory(item)
     }
     return handleSeeCommittee(item)
+  } 
+
+  const handleSeeCommittee = (item: any) => {
+    setAction('search')
+    setCurrentEntity({ id: data.id, name: item })
+    navigate(Paths.COMMITTEE)
   }
 
+  
   const handleSeeMember = (item: any) => {
     setAction('search')
     setCurrentEntity({ id: data.id, name: item })

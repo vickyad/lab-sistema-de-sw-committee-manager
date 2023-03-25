@@ -91,6 +91,7 @@ export function formatMemberOnCommitteeDetails(
   if (memberOnCommittee_details === undefined) {
     return undefined
   }
+  let memberOnCommittee_details_c = memberOnCommittee_details as memberGetOneMemberDetailsType_committeeDetails
   return {
     id: member_details.id,
     content: [
@@ -132,7 +133,7 @@ export function formatCommittee(
         committee.bond,
         committee.ordinance,
         formated_date_duration,
-        committee.term + '°',
+        committee.term != null ? committee.term + '°' : "",
       ],
       participation_details: committee_details_list[i],
     })
