@@ -125,6 +125,15 @@ export function formatCommittee(
         ' a ' +
         formatDate(committee.end_date)
     }
+    else if (committee.begin_date != null) {
+      formated_date_duration = 
+        formatDate(committee.begin_date) +
+        ` a ` +
+        `-`
+    }
+    else if (committee.end_date != null) {
+      formated_date_duration = `- a ${formatDate(committee.end_date)}`
+    }
 
     formated_committee_info.push({
       id: committee.id,

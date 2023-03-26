@@ -37,6 +37,7 @@ const Edit = () => {
   const handleCancelChanges = () => {
     setCommitteeContent(currentCommittee.content)
     setDisplayPopup(false)
+    setAction(null)
   }
 
   return (

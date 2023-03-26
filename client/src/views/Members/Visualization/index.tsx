@@ -49,9 +49,18 @@ const Visualization = () => {
     setCurrentMember({ ...getEmptyEntity(), content: undefined })
   }
 
-  const handleDeactivateCommittee = () => {
-    // TODO: desativar membro
+  const handleDeactivateMember = () => {
+    RequestManager.deactivateMember(currentMember)
     closePopUp()
+
+    let deactivated_member_index = memberContent.findIndex((obj:any ) => {
+      return obj.id == currentMember.id
+    })
+
+    memberContent.splice(deactivated_member_index, 1)
+
+    setMemberContent(memberContent)
+    setDisplayedContent(memberContent)
   }
 
   useEffect(() => {
@@ -129,10 +138,10 @@ const Visualization = () => {
         <>
           {displayPopup && (
             <Popup
-              title={'Desativar Membro'}
-              action={'Desativar Membro'}
+              title={'Desativar Funcionário'}
+              action={'Desativar Funcionário'}
               actionType={'important'}
-              handleActionClick={handleDeactivateCommittee}
+              handleActionClick={handleDeactivateMember}
               handleCancelClick={closePopUp}
             >
               Você tem certeza que deseja desativar{' '}
