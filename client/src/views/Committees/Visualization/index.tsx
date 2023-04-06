@@ -19,7 +19,7 @@ import {
   committeeParticipation,
   committeeType,
 } from '../../../types/contentTypes'
-import { committeeGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
+import { committeeGetAllAnswerEntry, committeeGetOneAnswer } from '../../../types/requestAnswerTypes'
 import { CommitteeTableHeader } from '../../../data/committeeHeader'
 import { committeeContentType } from '../../../types/contentTypes'
 
@@ -45,7 +45,36 @@ const Visualization = () => {
   }
 
   const handleDeactivateCommittee = () => {
-    // TODO: desativar membro
+    const request_committee_info = async () => {
+      let committee_content: committeeGetOneAnswer =
+        await RequestManager.getOneCommittee(currentCommittee.id)
+
+      if (committee_content) {
+        await RequestManager.deactivateCommittee(committee_content.id, committee_content.bond)
+
+        const request_updated_commission_list = async () => {
+          let committee_content: committeeType[] = []
+          let committee_content_raw: committeeGetAllAnswerEntry[] =
+            await RequestManager.getAllCommittees()
+    
+          if (committee_content_raw) {
+            let all_committee_details: committeeParticipation[][] = []
+            all_committee_details = await getAndFormatAllCommitteeParticipations(
+              committee_content_raw
+            )
+            committee_content = formatCommittee(
+              committee_content_raw,
+              all_committee_details
+            )
+          }
+    
+          setCommitteeContent(committee_content)
+          setDisplayedContent(committee_content)
+        }
+        request_updated_commission_list()
+      }
+    }
+    request_committee_info()
     closePopUp()
   }
 

@@ -6,16 +6,20 @@ import Title from '../../../components/Title'
 import { EntityContext } from '../../../context/CommitteeContext'
 import { CommitteeTableHeader } from '../../../data/committeeHeader'
 import { NoContentMessage } from '../../../styles/commonStyles'
+import { committeeParticipation, committeeType } from '../../../types/contentTypes'
+import { committeeGetAllAnswerEntry } from '../../../types/requestAnswerTypes'
+import { getAndFormatAllCommitteeParticipations, getAndFormatOneCommitteeParticipations_withInactive } from '../../../utils/CommitteeUtils'
 import { createPDF } from '../../../utils/CreatePDF'
+import { formatCommittee } from '../../../utils/FormatUtils'
+import RequestManager from '../../../utils/RequestManager'
 import { committee_mock } from '../../../_mock/committee'
 
 const CommitteeHistory = () => {
   const { currentEntity: currentCommittee } = useContext(EntityContext)
-  const [committeeContent, setCommitteeContent] = useState<any[]>([
-    ...committee_mock,
-  ])
+  const [committeeContent, setCommitteeContent] = useState(committee_mock)
   const [exportPDF, setExportPDF] = useState(false)
   const table = useRef<HTMLInputElement>(null)
+  const [contentDisplayed, setContentDisplayed] = useState(false)
 
   useEffect(() => {
     if (exportPDF) {
@@ -29,10 +33,36 @@ const CommitteeHistory = () => {
     }
   }, [exportPDF])
 
-  useEffect(() => {
-    let content = [...committee_mock]
-    setCommitteeContent(content)
-  }, [])
+  
+
+  const updateContent = () => {
+    if(contentDisplayed == false){
+
+    
+
+      const request_answer = async () => {
+      let committee_content: committeeType[] = []
+        let committee_content_raw: committeeGetAllAnswerEntry =
+          await RequestManager.getOneCommittee(currentCommittee.id)
+
+        if (committee_content_raw) {
+          let all_committee_details: committeeParticipation[][] = []
+          all_committee_details = await getAndFormatOneCommitteeParticipations_withInactive(
+            committee_content_raw
+          )
+          committee_content = formatCommittee(
+            [committee_content_raw],
+            all_committee_details
+          )
+        }
+        setCommitteeContent(committee_content)
+      }
+      request_answer()
+
+      setContentDisplayed(true)
+    }
+  }
+  updateContent()
 
   return (
     <>

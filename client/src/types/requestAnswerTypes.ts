@@ -23,6 +23,18 @@ export interface committeeGetAllAnswerEntry_member {
     } 
 }
 
+export interface memberPostDTO {
+    data: {
+        name: string;
+        is_active: boolean;
+    }
+}
+
+export interface memberGetOptionsEntry {
+    id: number,
+    name: string
+}
+
 export interface committeeGetAllAnswerEntry {
     id: number,
     bond: string,
@@ -33,6 +45,18 @@ export interface committeeGetAllAnswerEntry {
     ordinance: string,
     observations?: string,
     members: committeeGetAllAnswerEntry_member[]
+}
+
+export interface committeeGetOneAnswer {
+    id: number
+    bond: string
+    name: string
+    begin_date?: Date
+    end_date?: Date 
+    term?: number 
+    ordinance?: string 
+    observations?: string
+    is_active: boolean
 }
 
 export type memberGetAllAnswerEntry_memberDetails = {
@@ -53,3 +77,24 @@ export interface memberGetAllAnswerEntry {
         inactive: memberGetAllAnswerEntry_memberDetails[]
     }
 }
+
+export interface memberOnCommittee_PatchDTO{
+    role: string;
+    begin_date?: Date;
+    term: number;
+    observations?: string;
+    is_active: boolean;
+}
+
+export interface committeePostDTO{
+    bond: string,
+    name: string,
+    is_active?: boolean,
+    begin_date?: Date,
+    end_date?: Date,
+    term?: number,          // TODO: Limit possible term values right in the interface
+    ordinance?: string,
+    observations?: string;
+}
+
+export interface committeePatchDTO extends committeePostDTO{}
